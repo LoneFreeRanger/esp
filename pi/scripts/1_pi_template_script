@@ -1,0 +1,257 @@
+#####################
+## Template script ##
+#####################
+# This base-lines a raspberry pi to a ESP CUPs cloud box setup (including security, cups, no ip client and general setup)
+
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
+mkdir -p /u/pi/
+touch /var/spool/cron/crontabs/root
+
+# Update repos, patch up pi and install the packages required for ipps cups printing and support
+apt update -y
+apt full-upgrade -y
+apt-get install cups* -y
+apt-get install dnsutils -y
+apt-get install vim -y
+apt-get install arpwatch -y
+
+# Make a sites user
+useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
+mkdir -p /u/sites
+mkdir -p /u/sites/esp-graphics
+
+# Grant sites sudo privi
+adduser sites sudo
+
+# Disable IPv6
+echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
+
+# Set a default password for sites and root. These will be updated per site basis later in prep stage
+echo "sites:C7Hv!Z9Fsfx!kozs" | chpasswd
+echo "root:gn3JA9K7G@7C8e.*" | chpasswd
+
+# Download wallpaper and user icon graphics
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
+
+# Set the wallpaper and user log on icon for nicety
+sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
+sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
+
+# Disable the bluetooth service
+systemctl disable bluetooth.service
+
+# Disable wi-fi
+echo "# Disable wireless services" >> /boot/config.txt
+echo "dtoverlay=pi3-disable-wifi" >> /boot/config.txt
+echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
+
+# THE FOLLOWING BITS ARE NOW DISABLED AS CAUSED BOOT ISSUES WHEN PI WAS PATCHED UP LATER ON
+# Minimise the boot process (remove graphics etc.) - a recent update seems to break this and prevent the pi from booting hence now disabled.
+#awk '{print $0" quiet"}' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
+# Removes Raspberry Pi logo in top left corner on boot - a recent update seems to break this and prevent the pi from booting hence now disabled.
+#awk '{print $0" logo.nologo"}' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
+# Remove Raspberry Pi splash screen - a recent update seems to break this and prevent the pi from booting hence now disabled.
+#sed 's/splash//g' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
+
+# Disable USB drives from being auto-mounted
+sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+
+# Disable the pi user being auto logged in (gui) - user will be removed later
+sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm/lightdm.conf
+
+# Disable the pi user being auto logged in under tty1 (cli) - user will be removed later
+systemctl disable getty@tty1.service
+
+# Change default Pi user password
+echo "pi:ne0sKmSVDw4OlR4mX9RO0yM2ZFtWv" | chpasswd
+
+# Lock the pi user account from being able to login.
+passwd -l pi
+
+# Prevent the gui screen from showing the list of available users
+sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
+
+# Disable avahi-daemon to prevent pi from being auto-discovered on the network
+systemctl stop avahi-daemon
+systemctl disable avahi-daemon
+apt-get remove avahi-daemon -y
+
+# Install the no-ip client to /u/noip
+mkdir -p /u/noip
+cd /u/noip
+wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+tar vzxf noip-duc-linux.tar.gz
+rm -rf noip-duc-linux.tar.gz
+cd noip*
+mv * ../
+cd ../
+make
+rm -rf /u/noip/noip-*
+clear
+
+# Change the Pi's default hostname to esp (this will be updated later to be applicable to site)
+sed -i 's/raspberrypi/esp/g' /etc/hosts
+hostnamectl set-hostname esp
+
+# Change default ssh port 22 to port 60022
+sed -i 's/.*#Port 22.*/Port 60022/g' /etc/ssh/sshd_config
+
+# Drop idle ssh sessions after 6 minutes of inactivity
+sed -i 's/.*ClientAliveInterval.*/ClientAliveInterval 360/g' /etc/ssh/sshd_config
+sed -i 's/.*ClientAliveCountMax.*/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
+
+# Don't permit root ssh access
+sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
+
+# Don't permit empty ssh passwords
+sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
+
+# Only permit the sites user ssh access
+echo "AllowUsers sites" >> /etc/ssh/sshd_config
+
+# Deny soon to be non-existent pi user ssh access - user will be removed later in prep
+echo "DenyUsers pi" >> /etc/ssh/sshd_config
+
+# Only permit stronger ssh protocol version 2
+echo "Protocol 2" >> /etc/ssh/sshd_config
+
+# Drop failed ssh connection after 3 attempts
+sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
+
+# Disable X11 over ssh
+sed -i 's/.*X11Forwarding yes.*/X11Forwarding no/g' /etc/ssh/sshd_config
+
+# Set-up firewall
+echo "###############" > /etc/iptables.firewall.rules
+
+echo "*filter" >> /etc/iptables.firewall.rules
+echo "# For all packets destined for the host computer, drop the packet" >> /etc/iptables.firewall.rules
+echo ":INPUT DROP [23:2584]" >> /etc/iptables.firewall.rules
+
+echo "# For all packets passing through (or being routed by) the host computer, accept the packet" >> /etc/iptables.firewall.rules
+echo ":FORWARD ACCEPT [0:0]" >> /etc/iptables.firewall.rules
+
+echo "# For all packets originating from the host computer, accept the packet" >> /etc/iptables.firewall.rules
+echo ":OUTPUT ACCEPT [1161:105847]" >> /etc/iptables.firewall.rules
+
+echo "# Accept all incoming packets that are destined for the localhost (lo, 127.0.0.1) interface" >> /etc/iptables.firewall.rules
+echo "-A INPUT -d 127.0.0.0/8 -j REJECT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -i lo -j ACCEPT" >> /etc/iptables.firewall.rules
+
+echo "###############" >> /etc/iptables.firewall.rules
+
+echo "##########" >> /etc/iptables.firewall.rules
+echo "## CUPS ##" >> /etc/iptables.firewall.rules
+echo "##########" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 631 -s server.server.server.server -j ACCEPT" >> /etc/iptables.firewall.rules
+
+echo "#########" >> /etc/iptables.firewall.rules
+echo "## SSH ## " >> /etc/iptables.firewall.rules
+echo "#########" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s server.server.server.server -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.242 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.243 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.73 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.74 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.75 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.76 -j ACCEPT" >> /etc/iptables.firewall.rules
+# HASH OUT THE FOLLOWING LINE IF YOU WANT TO BRICK THE DEVICE (I.E: ONLY ACCEPT ESP OFFICE AND ELITE SERVER SSH ACCESS)
+echo "#-A INPUT -p tcp -m tcp --dport 60022 -j ACCEPT" >> /etc/iptables.firewall.rules
+
+echo "#########" >> /etc/iptables.firewall.rules
+echo "## VNC ##" >> /etc/iptables.firewall.rules
+echo "#########" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p tcp -m tcp --dport 5901 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p tcp -m tcp --dport 5902 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p tcp -m tcp --dport 5903 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p tcp -m tcp --dport 5904 -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p tcp -m tcp --dport 5905 -j ACCEPT" >> /etc/iptables.firewall.rules
+
+echo "##########" >> /etc/iptables.firewall.rules
+echo "## PING ##" >> /etc/iptables.firewall.rules
+echo "##########" >> /etc/iptables.firewall.rules
+echo "# Ping to pi - Disabled by default" >> /etc/iptables.firewall.rules
+echo "#-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT" >> /etc/iptables.firewall.rules
+
+echo "###############" >> /etc/iptables.firewall.rules
+
+echo "# If packet is ESTABLISHED or RELATED (i.e. not a NEW connection/ existing connection), the packet will be accepted." >> /etc/iptables.firewall.rules
+echo "# Prevents you from being locked out when making firewall changes where the config is wrong" >> /etc/iptables.firewall.rules
+echo "-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/iptables.firewall.rules
+echo "COMMIT" >> /etc/iptables.firewall.rules
+
+# Configure rc.local to load firewall rules  and noip client on boot
+sed -i '19 i /u/noip/noip2' /etc/rc.local
+sed -i '20 i /sbin/iptables-restore < /etc/iptables.firewall.rules' /etc/rc.local
+
+# Download and install pre-configured ESP CUPS config file
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/cups/cupsd.conf' -O /etc/cups/cupsd.conf
+
+# Remove contents of issue.net in order to hide OS login prompt detail (CLI)
+>/etc/issue.net
+>/etc/issue
+>/etc/motd
+
+# Add scary message at login - required by some security compliances
+echo "###############################################################" >>/etc/motd
+echo "#                 Authorized access only                      #" >>/etc/motd
+echo "#  Disconnect IMMEDIATELY if you are not an authorised user.  #" >>/etc/motd
+echo "#         All actions are monitored and logged.               #" >>/etc/motd
+echo "###############################################################" >>/etc/motd
+
+# Install monit
+apt install -y monit
+touch /etc/monit.credentials
+touch /etc/monit.raspberrypi
+echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.uk:62814/collector" > /etc/monit.credentials
+echo "include /etc/monit.credentials" >> /etc/monit/monitrc
+echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
+sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
+service monit restart
+systemctl enable monit
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
+/usr/bin/chmod 777 /u/espbin/espmonitoring-pi
+echo "*/5 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/monit.raspberrypi' -O /etc/monit.raspberrypi
+
+# Install ClamAV
+mkdir -p /u/logs/av
+mkdir -p /u/espbin
+touch /u/logs/av/avscanresult
+touch /var/spool/cron/crontabs/root
+apt install -y clamav
+systemctl disable clamav-freshclam.service
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
+/usr/bin/chmod 777 /u/espbin/espav-pi
+echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
+
+# Increase the default swap memory size of the raspberry Pi to be 2Gb
+dphys-swapfile swapoff
+sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
+dphys-swapfile setup
+dphys-swapfile swapon
+
+# Ensure fsck is done on next boot when the file system checker deems necessary
+# Auto select 'yes' to prompts (fsck.repair=yes) is already enabled out of the box
+sed -i s/$/s\ fsck.mode=auto/ /boot/cmdline.txt
+
+# Reboot
+clear
+echo ""
+read -p "Please press enter to reboot the pi...."
+reboot
