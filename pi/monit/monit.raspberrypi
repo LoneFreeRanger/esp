@@ -1,0 +1,123 @@
+
+
+
+
+############
+# Hardware #
+############
+
+check file [Temperature] path /tmp/monit-tempcheck
+if does not exist then alert
+group Hardware
+
+check file [Throttle_or_Voltage] path /tmp/monit-vcgencmd
+if does not exist then alert
+group Hardware
+
+check file [SD_Card_Badblocks] path /tmp/monit-badblocks
+if does not exist then alert
+group Hardware
+
+check file [Uptime] path /tmp/monit-uptime
+if does not exist then alert
+group Hardware
+
+
+###########
+# Network #
+###########
+
+check network [Network_Interface_eth0] with interface eth0
+      if failed link then alert
+      if changed link then alert
+      if changed link capacity then alert
+      if saturation > 40% then alert
+group Network
+
+check host [Network_Default_Gateway] with address gateway
+if failed icmp type echo count 5 with timeout 2 seconds then alert
+group Network
+
+
+#######################
+# Server File Systems #
+#######################
+
+check device [Filesystem_/_Status] with path /
+if inode usage > 80% then alert
+if changed fsflags then alert
+if SPACE usage > 80% then alert
+if service time > 1000 milliseconds for 10 times within 60 cycles then alert
+group File_System
+
+check file [Defunct_Processes] path /tmp/monit-defunct
+if does not exist then alert
+group OS_Service
+
+
+############
+# Security #
+############
+
+check file [Open_Sockets] path /tmp/monit-sockets
+if does not exist then alert
+group Security
+
+check file [Server_Logins] path /tmp/monit-secure
+if does not exist then alert
+group Security
+
+check file [Firewall_Amendments] path /tmp/monit-iptables
+if does not exist then alert
+group Security
+
+check file [Linux_Passwords] path /tmp/monit-passwordchange
+if does not exist then alert
+group Security
+
+check file [Linux_Users] path /tmp/monit-newuser
+if does not exist then alert
+group Security
+
+check file [Linux_User_Changes] path /tmp/monit-userchange
+if does not exist then alert
+group Security
+
+
+######
+# AV #
+######
+
+Check file [AV_Detection] with path /tmp/monit-avinfetion
+if does not exist then alert
+group ESP_AV
+
+Check file [AV_Run] with path /tmp/monit-avrun
+if does not exist then alert
+group ESP_AV
+
+Check file [AV_Update] with path  /tmp/monit-avup2date
+if does not exist then alert
+group ESP_AV
+
+
+###############
+# OS Services #
+###############
+
+check file [Firewall_Status] path /tmp/monit-iptablesrun
+if does not exist then alert
+group OS_Service
+
+check file [Print_queue] path /tmp/monit-printqueue
+if does not exist then alert
+group OS_Service
+
+check file [Service_CUPS] path /tmp/monit-cups
+if does not exist then alert
+group OS_Service
+
+check file [Service_SSH] path /tmp/monit-ssh
+if does not exist then alert
+group OS_Service
+
