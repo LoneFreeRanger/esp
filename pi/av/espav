@@ -1,0 +1,26 @@
+# Get list of updates available, update clamav, freshclam and get latest virus definitions
+apt-get update
+apt-get -y install clamav
+apt-get -y install freshclam
+
+# Make av logs directory if not present
+/bin/mkdir -p /u/logs/av
+
+# Create new log file
+/bin/echo "" > /u/logs/av/avscanresult
+echo "AV definition update" >> /u/logs/av/avscanresult
+echo "====================" >> /u/logs/av/avscanresult
+freshclam >> /u/logs/av/avscanresult
+
+# Run a full scan recursively of '/', use bytecode sigs and output list of infected files to log (if any)
+/bin/echo "" >> /u/logs/av/avscanresult
+echo "AV Scan" >> /u/logs/av/avscanresult
+echo "=======" >> /u/logs/av/avscanresult
+echo "Scan start: $(date)" >> /u/logs/av/avscanresult
+
+/usr/bin/clamscan -r -i --bytecode=yes / >> /u/logs/av/avscanresult
+
+/bin/sed -i '/Total errors/d' /u/logs/av/avscanresult
+/bin/echo "" >> /u/logs/av/avscanresult
+echo "Scan end: $(date)" >> /u/logs/av/avscanresult
+/bin/echo "" >> /u/logs/av/avscanresult
