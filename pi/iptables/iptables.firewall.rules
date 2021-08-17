@@ -1,0 +1,57 @@
+###############
+
+*filter
+# For all packets destined for the host computer, drop the packet
+:INPUT DROP [23:2584]
+
+# For all packets passing through (or being routed by) the host computer, accept the packet
+:FORWARD ACCEPT [0:0]
+
+# For all packets originating from the host computer, accept the packet
+:OUTPUT ACCEPT [1161:105847]
+
+# Accept all incoming packets that are destined for the localhost (lo, 127.0.0.1) interface
+-A INPUT -d 127.0.0.0/8 -j REJECT
+-A INPUT -i lo -j ACCEPT
+
+###############
+
+##########
+## CUPS ##
+##########
+-A INPUT -p tcp -m tcp --dport 631 -s server.server.server.server -j ACCEPT
+
+#########
+## SSH ## 
+#########
+-A INPUT -p tcp -m tcp --dport 60022 -s server.server.server.server -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.242 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.243 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.73 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.74 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.75 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.76 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 60022 -j ACCEPT
+
+#########
+## VNC ##
+#########
+#-A INPUT -p tcp -m tcp --dport 5901 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 5902 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 5903 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 5904 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 5905 -j ACCEPT
+
+##########
+## PING ##
+##########
+# Ping to pi - Disabled by default
+#-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+###############
+
+# If packet is ESTABLISHED or RELATED (i.e. not a NEW connection/ existing connection), the packet will be accepted.
+# Prevents you from being locked out when making firewall changes where the config is wrong
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+#COMMIT
+COMMIT
