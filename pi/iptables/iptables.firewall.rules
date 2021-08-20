@@ -40,8 +40,7 @@
 # Ping to pi - Disabled by default
 #-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
 ###############
-# If packet is ESTABLISHED or RELATED (i.e. not a NEW connection/ existing connection), the packet will be ac
-cepted.
+# If packet is ESTABLISHED or RELATED (i.e. not a NEW connection/ existing connection), the packet will be accepted.
 # Prevents you from being locked out when making firewall changes where the config is wrong
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 COMMIT
