@@ -1,57 +1,63 @@
 
+## Ray Reilly 17.08.21-1 - Pi Check Script
 
-## RR 17.08.21-1 - Pi Check Script
+# Setup how long pi has been running in seconds
+/usr/bin/echo $(/usr/bin/awk '{print $1}' /proc/uptime) | /usr/bin/bc > /u/tmp/unituptime-seconds
+sed -i 's/...$//' /u/u/tmp/unituptime-seconds
+UNITUPTIMESECONDS=$(/usr/bin/cat /u/u/tmp/unituptime-seconds)
+
 ###################
 # Hardware Checks #
 ###################
 ###############################################################################
 # Temperature Check
-/usr/bin/touch /tmp/temperature.log
-# Clear down large temperature log
-TEMPLOGSIZE=$(/usr/bin/cat /tmp/temperature.log | wc -l)
+/usr/bin/touch /u/u/tmp/temperature.log
+# Clear down any previous large temperature log
+TEMPLOGSIZE=$(/usr/bin/cat /u/u/tmp/temperature.log | wc -l)
 if [ $TEMPLOGSIZE -ge 1000 ]
 then
-> /tmp/temperature.log
+> /u/u/tmp/temperature.log
 else
-sleep 1
+sleep 0.1
 fi
 
 # Log current GPU temperature
-/usr/bin/echo "$(date) GPU $(/opt/vc/bin/vcgencmd measure_temp)" >> /tmp/temperature.log
+/usr/bin/echo "$(date) GPU $(/opt/vc/bin/vcgencmd measure_temp)" >> /u/u/tmp/temperature.log
 
 # Log current CPU temperature
 cpuTemp0=$(/usr/bin/cat /sys/devices/virtual/thermal/thermal_zone0/temp)
 cpuTemp1=$(($cpuTemp0/1000))
 cpuTemp2=$(($cpuTemp0/100))
 cpuTempM=$(($cpuTemp2 % $cpuTemp1))
-/usr/bin/echo $(date) CPU temp"="$cpuTemp1"."$cpuTempM"'C" >> /tmp/temperature.log
+/usr/bin/echo $(date) CPU temp"="$cpuTemp1"."$cpuTempM"'C" >> /u/u/tmp/temperature.log
 
-# Fo/usr/bin/format the latest 3 x temperature readings from log file for analysis
-/usr/bin/tail -12 /tmp/temperature.log > /tmp/temperature-analyse
-/usr/bin/echo "$(/usr/bin/cat /tmp/temperature-analyse |awk '{print $8}')" > /tmp/temperature-analyse
-/usr/bin/sed -i 's/.....//' /tmp/temperature-analyse > /tmp/temperature-analyse
-/usr/bin/sed -i -r 's/.{4}$//' /tmp/temperature-analyse
+# Format the latest 3 x temperature readings from log file for analysis
+/usr/bin/tail -6 /u/u/tmp/temperature.log > /u/tmp/temperature-analyse
+/usr/bin/echo "$(/usr/bin/cat /u/tmp/temperature-analyse |awk '{print $8}')" > /u/tmp/temperature-analyse
+/usr/bin/sed -i 's/.....//' /u/tmp/temperature-analyse > /u/tmp/temperature-analyse
+/usr/bin/sed -i -r 's/.{4}$//' /u/tmp/temperature-analyse
 
 # From analysis file check for temperature readings of greater than 85C
 # If instance found remove check-file to make monit alert. If not /usr/bin/touch alert file
 
-TEMPCHECK=$(awk '$1>85{c++} END{print c+0}' /tmp/temperature-analyse)
+TEMPCHECK=$(awk '$1>85{c++} END{print c+0}' /u/tmp/temperature-analyse)
 if [ $TEMPCHECK -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-tempcheck
+/usr/bin/rm -rf /u/tmp/monit-tempcheck
 else
-/usr/bin/touch /tmp/monit-tempcheck
+/usr/bin/touch /u/tmp/monit-tempcheck
 fi
 
 ###############################################################################
 
+# Check for voltage or throttling issues
 VCGENCMDHEALTH=$(vcgencmd get_throttled | /usr/bin/grep "throttled=0x0" | wc -l)
 
 if [ $VCGENCMDHEALTH -le 0 ]
 then
-/usr/bin/rm -rf /tmp/monit-vcgencmd
+/usr/bin/rm -rf /u/tmp/monit-vcgencmd
 else
-/usr/bin/touch /tmp/monit-vcgencmd
+/usr/bin/touch /u/tmp/monit-vcgencmd
 fi
 
 # 0x0 All healthy
@@ -70,9 +76,9 @@ fi
 DEFUNCTS=$(/bin/ps -ef | /usr/bin/grep defunct | /usr/bin/wc -l)
 if [ "$DEFUNCTS" -ge 51 ]
 then
-/usr/bin/rm -rf /tmp/monit-defunct
+/usr/bin/rm -rf /u/tmp/monit-defunct
 else
-/usr/bin/touch /tmp/monit-defunct
+/usr/bin/touch /u/tmp/monit-defunct
 fi
 
 ###############################################################################
@@ -81,9 +87,9 @@ fi
 IPTABLESCHECK=$(/usr/sbin/iptables -L -nv | /usr/bin/wc -l)
 if [ "$IPTABLESCHECK" -le 10 ]
 then
-/usr/bin/rm -rf /tmp/monit-iptablesrun
+/usr/bin/rm -rf /u/tmp/monit-iptablesrun
 else
-/usr/bin/touch /tmp/monit-iptablesrun
+/usr/bin/touch /u/tmp/monit-iptablesrun
 fi
 
 ###############################################################################
@@ -92,9 +98,9 @@ fi
 SECURELOGIN=$(/usr/bin/tail -n 50 /var/log/auth.log | /usr/bin/grep "Failed" | /usr/bin/wc -l)
 if [ "$SECURELOGIN" -ge 10 ]
 then
-/usr/bin/rm -rf /tmp/monit-secure
+/usr/bin/rm -rf /u/tmp/monit-secure
 else
-/usr/bin/touch /tmp/monit-secure
+/usr/bin/touch /u/tmp/monit-secure
 fi
 
 ###############################################################################
@@ -103,9 +109,9 @@ fi
 SOCKETS=$(/bin/netstat -a | /usr/bin/wc -l)
 if [ "$SOCKETS" -ge 5000 ]
 then
-/usr/bin/rm -rf /tmp/monit-sockets
+/usr/bin/rm -rf /u/tmp/monit-sockets
 else
-/usr/bin/touch /tmp/monit-sockets
+/usr/bin/touch /u/tmp/monit-sockets
 fi
 
 ###############################################################################
@@ -114,50 +120,53 @@ fi
 IPTABLES=$(/bin/find /etc/iptables.firewall.rules -type f -mmin -60 | /usr/bin/wc -l)
 if [ "$IPTABLES" -eq 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-iptables
+/usr/bin/rm -rf /u/tmp/monit-iptables
 else
-/usr/bin/touch /tmp/monit-iptables
+/usr/bin/touch /u/tmp/monit-iptables
 fi
 
 ###############################################################################
 
+# Check for any new users created
 NEWUSER=$(/usr/bin/tail -n 50 /var/log/auth.log | /usr/bin/grep "new user" | /usr/bin/wc -l)
 if [ "$NEWUSER" -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-newuser
+/usr/bin/rm -rf /u/tmp/monit-newuser
 else
-/usr/bin/touch /tmp/monit-newuser
+/usr/bin/touch /u/tmp/monit-newuser
 fi
 
 ###############################################################################
 
+# Check for any user changes
 USERCHANGE=$(/usr/bin/tail -n 50 /var/log/auth.log | /usr/bin/grep "changed user" | /usr/bin/wc -l)
 if [ "$USERCHANGE" -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-userchange
+/usr/bin/rm -rf /u/tmp/monit-userchange
 else
-/usr/bin/touch /tmp/monit-userchange
+/usr/bin/touch /u/tmp/monit-userchange
 fi
 
 ###############################################################################
 
+# Check for any password changes
 PASSWORDCHANGE=$(/usr/bin/tail -n 50 /var/log/auth.log | /usr/bin/grep "password changed" | /usr/bin/wc -l)
 if [ "$PASSWORDCHANGE" -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-passwordchange
+/usr/bin/rm -rf /u/tmp/monit-passwordchange
 else
-/usr/bin/touch /tmp/monit-passwordchange
+/usr/bin/touch /u/tmp/monit-passwordchange
 fi
 
 ###############################################################################
 
-# Check server print queue for more than 300 jobs
+# Check server print queue for less than 300 jobs
 PJOBS=$(/usr/bin/lpstat -o | /usr/bin/wc -l)
 if [ "$PJOBS" -ge 300 ]
 then
-/usr/bin/rm -rf /tmp/monit-printqueue
+/usr/bin/rm -rf /u/tmp/monit-printqueue
 else
-/usr/bin/touch /tmp/monit-printqueue
+/usr/bin/touch /u/tmp/monit-printqueue
 fi
 
 ###############################################################################
@@ -166,9 +175,9 @@ fi
 CUPS=$(systemctl status cups | /usr/bin/grep running | /usr/bin/wc -l)
 if [ "$CUPS" -le 0 ]
 then
-/usr/bin/rm -rf /tmp/monit-cups
+/usr/bin/rm -rf /u/tmp/monit-cups
 else
-/usr/bin/touch /tmp/monit-cups
+/usr/bin/touch /u/tmp/monit-cups
 fi
 
 ###############################################################################
@@ -177,9 +186,9 @@ fi
 SSH=$(systemctl status ssh | /usr/bin/grep running | /usr/bin/wc -l)
 if [ "$SSH" -le 0 ]
 then
-/usr/bin/rm -rf /tmp/monit-ssh
+/usr/bin/rm -rf /u/tmp/monit-ssh
 else
-/usr/bin/touch /tmp/monit-ssh
+/usr/bin/touch /u/tmp/monit-ssh
 fi
 
 ###############################################################################
@@ -191,19 +200,19 @@ AVLOGPRESENT2=$(/usr/bin/find /u/logs/av -name "avscanresult" -type f | wc -l)
 
 if [ $AVLOGPRESENT2 -le 0 ]
 then
-/usr/bin/touch  /tmp/monit-avinfetion
+/usr/bin/touch  /u/tmp/monit-avinfetion
 #/usr/bin/echo "There is an issue"
 
 elif [ $AVINFECTIONS -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-avinfetion
+/usr/bin/rm -rf /u/tmp/monit-avinfetion
 else
-/usr/bin/touch /tmp/monit-avinfetion
+/usr/bin/touch /u/tmp/monit-avinfetion
 fi
 
 ###############################################################################
 
-# AV scan run check
+# AV scan has run check
 
 AVHASRUN=$(/usr/bin/find /u/logs/av -name "avscanresult" -type f -mmin -1440 | /usr/bin/wc -l)
 AVLOGPRESENT1=$(/usr/bin/find /u/logs/av -name "avscanresult" -type f | wc -l)
@@ -213,23 +222,23 @@ NOFILESSCANNED=$(/bin/cat /u/logs/av/avscanresult | /usr/bin/grep "Scanned files
 
 if [ $AVLOGPRESENT1 -le 0 ]
 then
-/usr/bin/rm -rf /tmp/monit-avrun
+/usr/bin/rm -rf /u/tmp/monit-avrun
 #/usr/bin/echo "There is an issue"
 
 elif [ $CLAMPROC -ge 2 ] && [ $CLAM3HOUR -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-avrun
+/usr/bin/rm -rf /u/tmp/monit-avrun
 /usr/bin/echo "ESP_WARNING: AV scan has been running too long! (3 hours - 3600 seconds)"
 
 elif [ $CLAMPROC -ge 2 ] && [ $CLAM3HOUR -le 0 ]
 then
 #/usr/bin/echo "AV scan is still running"
-/usr/bin/touch /tmp/monit-avrun
+/usr/bin/touch /u/tmp/monit-avrun
 
 elif [ $CLAMPROC -le 1 ] && [ $AVHASRUN -ge 1 ] && [ $NOFILESSCANNED -ge 1 ]
 then
 #/usr/bin/echo "AV Has run within 24 hours"
-/usr/bin/touch /tmp/monit-avrun
+/usr/bin/touch /u/tmp/monit-avrun
 
 fi
 
@@ -244,43 +253,41 @@ UPDATED3=$(/usr/bin/cat /u/logs/av/avscanresult | /usr/bin/grep "is up-to-date" 
 
 if [ $FRESHCLAMFAIL1 -ge 1 ]
 then
-/usr/bin/rm -rf /tmp/monit-avup2date
+/usr/bin/rm -rf /u/tmp/monit-avup2date
 elif [ $UPDATED1 -ge 1 ] || [ $UPDATED2 -ge 1 ] || [ $UPDATED3 -ge 1 ]
 then
-/usr/bin/touch /tmp/monit-avup2date
+/usr/bin/touch /u/tmp/monit-avup2date
 fi
 
 ###############################################################################
 
-BADBLOCKSCHECKRUN=$(/usr/bin/find /tmp -name "badblockshasrun" -type f -mmin -57600 | /usr/bin/wc -l)
-UNITUPTIME=$(/usr/bin/echo $(/usr/bin/awk '{print $1}' /proc/uptime) / 60 |  /usr/bin/bc)
-# If log file is greater than 30 days old and unit has been up for more than 5 minutes then run check
-if [ $BADBLOCKSCHECKRUN -le 0 ] && [ $UNITUPTIME -ge 5 ]
-then
-/usr/bin/touch /tmp/badblockshasrun
-/usr/sbin/badblocks -sv /dev/mmcblk0p2 -o /tmp/mmcblk0p2.log &
-else [ $BADBLOCKSCHECKRUN -ge 1 ] || [ $UNITUPTIME -le 5 ]
-/usr/bin/touch /tmp/mmcblk0p2.log
-fi
+# SD card badblocks check
+BADBLOCKSCHECKRUN=$(/usr/bin/find /u/tmp -name "badblockshasrun" -type f -mmin -57600 | /usr/bin/wc -l)
 
-# Check for badblocks present
-BADBLOCKS=$(/usr/bin/cat /tmp/mmcblk0p2.log | /usr/bin/wc -l)
-if [ $UNITUPTIME -le 30 ]
+# If log file is greater than 30 days old and pi has been up for more than 30 days (2592000 seconds) then run check
+if [ $BADBLOCKSCHECKRUN -le 0 ] && [ $UNITUPTIMESECONDS -ge 2592000 ]
 then
-/usr/bin/touch /tmp/monit-badblocks
-sleep 0.1
-elif [ $BADBLOCKS -ge 1 ]
-then
-/usr/bin/rm -rf /tmp/monit-badblocks
-fi
-
-###############################################################################
-
-UPTIMEMINUTES=$(/usr/bin/echo $(/usr/bin/awk '{print $1}' /proc/uptime) / 60 |  /usr/bin/bc)
-
-if [ $UPTIMEMINUTES -le 60 ]
-then
-/usr/bin/rm -rf /tmp/monit-uptime
+/usr/bin/touch /u/tmp/badblockshasrun
+/usr/sbin/badblocks -sv /dev/mmcblk0p2 -o /u/tmp/mmcblk0p2.log &
 else
-/usr/bin/touch /tmp/monit-uptime
+/usr/bin/touch /u/tmp/mmcblk0p2.log
+fi
+
+# Check for any badblocks found
+BADBLOCKS=$(/usr/bin/cat /u/tmp/mmcblk0p2.log | /usr/bin/wc -l)
+if [ $BADBLOCKS -ge 1 ]
+then
+/usr/bin/rm -rf /u/tmp/monit-badblocks
+else
+/usr/bin/touch /u/tmp/monit-badblocks
+fi
+
+###############################################################################
+
+# Pi uptime check - power cycled within last hour
+if [ $UNITUPTIMESECONDS -le 3600 ]
+then
+/usr/bin/rm -rf /u/tmp/monit-uptime
+else
+/usr/bin/touch /u/tmp/monit-uptime
 fi
