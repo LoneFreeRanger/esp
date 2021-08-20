@@ -13,12 +13,14 @@ echo "Please re-run this script as the root user. Bye!"
 exit
 fi
 
-mkdir -p /u/pi/
-touch /var/spool/cron/crontabs/root
+/usr/bin/mkdir -p /u/pi/
+/usr/bin/mkdir -p /u/tmp
+/usr/bin/mkdir -p /u/espbin
+/usr/bin/touch /var/spool/cron/crontabs/root
+/usr/bin/chmod 600 /var/spool/cron/crontabs/root
 
-# Update repos, patch up pi and install the packages required for ipps cups printing and support
+# Update repos and install the packages required for ipps cups printing and support
 apt update -y
-apt full-upgrade -y
 apt-get install cups* -y
 apt-get install dnsutils -y
 apt-get install vim -y
@@ -137,63 +139,7 @@ sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
 sed -i 's/.*X11Forwarding yes.*/X11Forwarding no/g' /etc/ssh/sshd_config
 
 # Set-up firewall
-echo "###############" > /etc/iptables.firewall.rules
-
-echo "*filter" >> /etc/iptables.firewall.rules
-echo "# For all packets destined for the host computer, drop the packet" >> /etc/iptables.firewall.rules
-echo ":INPUT DROP [23:2584]" >> /etc/iptables.firewall.rules
-
-echo "# For all packets passing through (or being routed by) the host computer, accept the packet" >> /etc/iptables.firewall.rules
-echo ":FORWARD ACCEPT [0:0]" >> /etc/iptables.firewall.rules
-
-echo "# For all packets originating from the host computer, accept the packet" >> /etc/iptables.firewall.rules
-echo ":OUTPUT ACCEPT [1161:105847]" >> /etc/iptables.firewall.rules
-
-echo "# Accept all incoming packets that are destined for the localhost (lo, 127.0.0.1) interface" >> /etc/iptables.firewall.rules
-echo "-A INPUT -d 127.0.0.0/8 -j REJECT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -i lo -j ACCEPT" >> /etc/iptables.firewall.rules
-
-echo "###############" >> /etc/iptables.firewall.rules
-
-echo "##########" >> /etc/iptables.firewall.rules
-echo "## CUPS ##" >> /etc/iptables.firewall.rules
-echo "##########" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 631 -s server.server.server.server -j ACCEPT" >> /etc/iptables.firewall.rules
-
-echo "#########" >> /etc/iptables.firewall.rules
-echo "## SSH ## " >> /etc/iptables.firewall.rules
-echo "#########" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s server.server.server.server -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.242 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 195.171.180.243 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.73 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.74 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.75 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "-A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.76 -j ACCEPT" >> /etc/iptables.firewall.rules
-# HASH OUT THE FOLLOWING LINE IF YOU WANT TO BRICK THE DEVICE (I.E: ONLY ACCEPT ESP OFFICE AND ELITE SERVER SSH ACCESS)
-echo "#-A INPUT -p tcp -m tcp --dport 60022 -j ACCEPT" >> /etc/iptables.firewall.rules
-
-echo "#########" >> /etc/iptables.firewall.rules
-echo "## VNC ##" >> /etc/iptables.firewall.rules
-echo "#########" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p tcp -m tcp --dport 5901 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p tcp -m tcp --dport 5902 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p tcp -m tcp --dport 5903 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p tcp -m tcp --dport 5904 -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p tcp -m tcp --dport 5905 -j ACCEPT" >> /etc/iptables.firewall.rules
-
-echo "##########" >> /etc/iptables.firewall.rules
-echo "## PING ##" >> /etc/iptables.firewall.rules
-echo "##########" >> /etc/iptables.firewall.rules
-echo "# Ping to pi - Disabled by default" >> /etc/iptables.firewall.rules
-echo "#-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT" >> /etc/iptables.firewall.rules
-
-echo "###############" >> /etc/iptables.firewall.rules
-
-echo "# If packet is ESTABLISHED or RELATED (i.e. not a NEW connection/ existing connection), the packet will be accepted." >> /etc/iptables.firewall.rules
-echo "# Prevents you from being locked out when making firewall changes where the config is wrong" >> /etc/iptables.firewall.rules
-echo "-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/iptables.firewall.rules
-echo "COMMIT" >> /etc/iptables.firewall.rules
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/iptables/iptables.firewall.rules' -O /etc/iptables.firewall.rules
 
 # Configure rc.local to load firewall rules  and noip client on boot
 sed -i '19 i /u/noip/noip2' /etc/rc.local
@@ -207,7 +153,7 @@ wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/es
 >/etc/issue
 >/etc/motd
 
-# Add scary message at login - required by some security compliances
+# Add scary message at login
 echo "###############################################################" >>/etc/motd
 echo "#                 Authorized access only                      #" >>/etc/motd
 echo "#  Disconnect IMMEDIATELY if you are not an authorised user.  #" >>/etc/motd
@@ -226,14 +172,13 @@ service monit restart
 systemctl enable monit
 wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
 /usr/bin/chmod 777 /u/espbin/espmonitoring-pi
-echo "*/5 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
+echo "*/1 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
 wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/monit.raspberrypi' -O /etc/monit.raspberrypi
 
 # Install ClamAV
 mkdir -p /u/logs/av
 mkdir -p /u/espbin
 touch /u/logs/av/avscanresult
-touch /var/spool/cron/crontabs/root
 apt install -y clamav
 systemctl disable clamav-freshclam.service
 wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
@@ -248,7 +193,7 @@ dphys-swapfile swapon
 
 # Ensure fsck is done on next boot when the file system checker deems necessary
 # Auto select 'yes' to prompts (fsck.repair=yes) is already enabled out of the box
-sed -i s/$/s\ fsck.mode=auto/ /boot/cmdline.txt
+sed -i s/$/\ fsck.mode=auto/ /boot/cmdline.txt
 
 # Reboot
 clear
