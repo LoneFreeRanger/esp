@@ -1,24 +1,22 @@
 
 
-
-
 ############
 # Hardware #
 ############
 
-check file [Temperature] path /tmp/monit-tempcheck
+check file [Temperature] path /u/tmp/monit-tempcheck
 if does not exist then alert
 group Hardware
 
-check file [Throttle_or_Voltage] path /tmp/monit-vcgencmd
+check file [Throttle_or_Voltage] path /u/tmp/monit-vcgencmd
 if does not exist then alert
 group Hardware
 
-check file [SD_Card_Badblocks] path /tmp/monit-badblocks
+check file [SD_Card_Badblocks] path /u/tmp/monit-badblocks
 if does not exist then alert
 group Hardware
 
-check file [Uptime] path /tmp/monit-uptime
+check file [Uptime] path /u/tmp/monit-uptime
 if does not exist then alert
 group Hardware
 
@@ -50,7 +48,7 @@ if SPACE usage > 80% then alert
 if service time > 1000 milliseconds for 10 times within 60 cycles then alert
 group File_System
 
-check file [Defunct_Processes] path /tmp/monit-defunct
+check file [Defunct_Processes] path /u/tmp/monit-defunct
 if does not exist then alert
 group OS_Service
 
@@ -59,27 +57,27 @@ group OS_Service
 # Security #
 ############
 
-check file [Open_Sockets] path /tmp/monit-sockets
+check file [Open_Sockets] path /u/tmp/monit-sockets
 if does not exist then alert
 group Security
 
-check file [Server_Logins] path /tmp/monit-secure
+check file [Server_Logins] path /u/tmp/monit-secure
 if does not exist then alert
 group Security
 
-check file [Firewall_Amendments] path /tmp/monit-iptables
+check file [Firewall_Amendments] path /u/tmp/monit-iptables
 if does not exist then alert
 group Security
 
-check file [Linux_Passwords] path /tmp/monit-passwordchange
+check file [Linux_Passwords] path /u/tmp/monit-passwordchange
 if does not exist then alert
 group Security
 
-check file [Linux_Users] path /tmp/monit-newuser
+check file [Linux_Users] path /u/tmp/monit-newuser
 if does not exist then alert
 group Security
 
-check file [Linux_User_Changes] path /tmp/monit-userchange
+check file [Linux_User_Changes] path /u/tmp/monit-userchange
 if does not exist then alert
 group Security
 
@@ -88,15 +86,15 @@ group Security
 # AV #
 ######
 
-Check file [AV_Detection] with path /tmp/monit-avinfetion
+Check file [AV_Detection] with path /u/tmp/monit-avinfetion
 if does not exist then alert
 group ESP_AV
 
-Check file [AV_Run] with path /tmp/monit-avrun
+Check file [AV_Run] with path /u/tmp/monit-avrun
 if does not exist then alert
 group ESP_AV
 
-Check file [AV_Update] with path  /tmp/monit-avup2date
+Check file [AV_Update] with path  /u/tmp/monit-avup2date
 if does not exist then alert
 group ESP_AV
 
@@ -105,19 +103,18 @@ group ESP_AV
 # OS Services #
 ###############
 
-check file [Firewall_Status] path /tmp/monit-iptablesrun
+check file [Firewall_Status] path /u/tmp/monit-iptablesrun
 if does not exist then alert
 group OS_Service
 
-check file [Print_queue] path /tmp/monit-printqueue
+check file [Print_queue] path /u/tmp/monit-printqueue
 if does not exist then alert
 group OS_Service
 
-check file [Service_CUPS] path /tmp/monit-cups
+check file [Service_CUPS] path /u/tmp/monit-cups
 if does not exist then alert
 group OS_Service
 
-check file [Service_SSH] path /tmp/monit-ssh
+check file [Service_SSH] path /u/tmp/monit-ssh
 if does not exist then alert
 group OS_Service
-
