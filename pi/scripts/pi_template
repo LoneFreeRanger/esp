@@ -1,7 +1,6 @@
 #####################
 ## Template script ##
 #####################
-# This base-lines a raspberry pi to a ESP CUPs cloud box setup (including security, cups, no ip client and general setup)
 
 # Check if script is being run as the root user
 WHO=$(whoami)
