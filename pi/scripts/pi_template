@@ -195,6 +195,10 @@ dphys-swapfile swapon
 # Auto select 'yes' to prompts (fsck.repair=yes) is already enabled out of the box
 sed -i s/$/\ fsck.mode=auto/ /boot/cmdline.txt
 
+# Put in place site setup script
+wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/pi_site_setup' -O /u/espbin/pi_site_setup
+/usr/bin/chmod 777 /u/espbin/pi_site_setup
+
 # Reboot
 clear
 echo ""
