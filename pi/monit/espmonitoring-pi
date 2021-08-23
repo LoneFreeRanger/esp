@@ -1,38 +1,38 @@
 
-## Ray Reilly 17.08.21-1 - Pi Check Script
+## RR 23.08.21-1 - Pi Check Script
 
 # Setup how long pi has been running in seconds
 /usr/bin/echo $(/usr/bin/awk '{print $1}' /proc/uptime) | /usr/bin/bc > /u/tmp/unituptime-seconds
-sed -i 's/...$//' /u/u/tmp/unituptime-seconds
-UNITUPTIMESECONDS=$(/usr/bin/cat /u/u/tmp/unituptime-seconds)
+sed -i 's/...$//' /u/tmp/unituptime-seconds
+UNITUPTIMESECONDS=$(/usr/bin/cat /u/tmp/unituptime-seconds)
 
 ###################
 # Hardware Checks #
 ###################
 ###############################################################################
 # Temperature Check
-/usr/bin/touch /u/u/tmp/temperature.log
+/usr/bin/touch /u/tmp/temperature.log
 # Clear down any previous large temperature log
-TEMPLOGSIZE=$(/usr/bin/cat /u/u/tmp/temperature.log | wc -l)
+TEMPLOGSIZE=$(/usr/bin/cat /u/tmp/temperature.log | wc -l)
 if [ $TEMPLOGSIZE -ge 1000 ]
 then
-> /u/u/tmp/temperature.log
+> /u/tmp/temperature.log
 else
 sleep 0.1
 fi
 
 # Log current GPU temperature
-/usr/bin/echo "$(date) GPU $(/opt/vc/bin/vcgencmd measure_temp)" >> /u/u/tmp/temperature.log
+/usr/bin/echo "$(date) GPU $(/opt/vc/bin/vcgencmd measure_temp)" >> /u/tmp/temperature.log
 
 # Log current CPU temperature
 cpuTemp0=$(/usr/bin/cat /sys/devices/virtual/thermal/thermal_zone0/temp)
 cpuTemp1=$(($cpuTemp0/1000))
 cpuTemp2=$(($cpuTemp0/100))
 cpuTempM=$(($cpuTemp2 % $cpuTemp1))
-/usr/bin/echo $(date) CPU temp"="$cpuTemp1"."$cpuTempM"'C" >> /u/u/tmp/temperature.log
+/usr/bin/echo $(date) CPU temp"="$cpuTemp1"."$cpuTempM"'C" >> /u/tmp/temperature.log
 
 # Format the latest 3 x temperature readings from log file for analysis
-/usr/bin/tail -6 /u/u/tmp/temperature.log > /u/tmp/temperature-analyse
+/usr/bin/tail -6 /u/tmp/temperature.log > /u/tmp/temperature-analyse
 /usr/bin/echo "$(/usr/bin/cat /u/tmp/temperature-analyse |awk '{print $8}')" > /u/tmp/temperature-analyse
 /usr/bin/sed -i 's/.....//' /u/tmp/temperature-analyse > /u/tmp/temperature-analyse
 /usr/bin/sed -i -r 's/.{4}$//' /u/tmp/temperature-analyse
