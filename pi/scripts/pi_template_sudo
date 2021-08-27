@@ -19,11 +19,11 @@ sudo /usr/bin/touch /var/spool/cron/crontabs/root
 sudo /usr/bin/chmod 600 /var/spool/cron/crontabs/root
 
 # Update repos and install the packages required for ipps cups printing and support
-sudo apt update -y
-sudo apt-get install cups* -y
-sudo apt-get install dnsutils -y
-sudo apt-get install vim -y
-sudo apt-get install arpwatch -y
+sudo /usr/bin/apt update -y
+sudo /usr/bin/apt-get install cups* -y
+sudo /usr/bin/apt-get install dnsutils -y
+sudo /usr/bin/apt-get install vim -y
+sudo /usr/bin/apt-get install arpwatch -y
 
 # Make a sites user
 sudo /usr/sbin/useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
@@ -90,7 +90,7 @@ sudo /usr/bin/sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc
 # Disable avahi-daemon to prevent pi from being auto-discovered on the network
 sudo systemctl stop avahi-daemon
 sudo systemctl disable avahi-daemon
-sudo apt-get remove avahi-daemon -y
+sudo /usr/bin/apt-get remove avahi-daemon -y
 
 # Install the no-ip client to /u/noip
 sudo /usr/bin/mkdir -p /u/noip
@@ -160,9 +160,9 @@ sudo /usr/bin/echo "#         All actions are monitored and logged.      �
 sudo /usr/bin/echo "###############################################################" >>/etc/motd
 
 # Install monit
-sudo apt install -y monit
-sudo touch /etc/monit.credentials
-sudo touch /etc/monit.raspberrypi
+sudo /usr/bin/apt install -y monit
+sudo /usr/bin/touch /etc/monit.credentials
+sudo /usr/bin/touch /etc/monit.raspberrypi
 sudo /usr/bin/echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.uk:62814/collector" > /etc/monit.credentials
 sudo /usr/bin/echo "include /etc/monit.credentials" >> /etc/monit/monitrc
 sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
@@ -177,7 +177,7 @@ sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/Lon
 # Install ClamAV
 sudo /usr/bin/mkdir -p /u/logs/av
 sudo /usr/bin/mkdir -p /u/espbin
-sudo touch /u/logs/av/avscanresult
+sudo /usr/bin/touch /u/logs/av/avscanresult
 sudo apt install -y clamav
 sudo systemctl disable clamav-freshclam.service
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
