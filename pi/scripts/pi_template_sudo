@@ -41,8 +41,8 @@ sudo /usr/bin/echo "sites:C7Hv!Z9Fsfx!kozs" | chpasswd
 sudo /usr/bin/echo "root:gn3JA9K7G@7C8e.*" | chpasswd
 
 # Download wallpaper and user icon graphics
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
 
 # Set the wallpaper and user log on icon for nicety
 sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
@@ -93,9 +93,9 @@ sudo systemctl disable avahi-daemon
 sudo apt-get remove avahi-daemon -y
 
 # Install the no-ip client to /u/noip
-sudo mkdir -p /u/noip
+sudo /usr/bin/mkdir -p /u/noip
 sudo cd /u/noip
-sudo wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+sudo /usr/bin/wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
 sudo tar vzxf noip-duc-linux.tar.gz
 sudo rm -rf noip-duc-linux.tar.gz
 sudo cd noip*
@@ -138,14 +138,14 @@ sudo /usr/bin/sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
 sudo /usr/bin/sed -i 's/.*X11Forwarding yes.*/X11Forwarding no/g' /etc/ssh/sshd_config
 
 # Set-up firewall
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/iptables/iptables.firewall.rules' -O /etc/iptables.firewall.rules
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/iptables/iptables.firewall.rules' -O /etc/iptables.firewall.rules
 
 # Configure rc.local to load firewall rules  and noip client on boot
 sudo /usr/bin/sed -i '19 i /u/noip/noip2' /etc/rc.local
 sudo /usr/bin/sed -i '20 i /sbin/iptables-restore < /etc/iptables.firewall.rules' /etc/rc.local
 
 # Download and install pre-configured ESP CUPS config file
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/cups/cupsd.conf' -O /etc/cups/cupsd.conf
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/cups/cupsd.conf' -O /etc/cups/cupsd.conf
 
 # Remove contents of issue.net in order to hide OS login prompt detail (CLI)
 sudo >/etc/issue.net
@@ -169,33 +169,33 @@ sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
 sudo /usr/bin/sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
 sudo service monit restart
 sudo systemctl enable monit
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
 sudo /usr/bin/chmod 777 /u/espbin/espmonitoring-pi
 sudo /usr/bin/echo "*/1 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/monit.raspberrypi' -O /etc/monit.raspberrypi
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/monit.raspberrypi' -O /etc/monit.raspberrypi
 
 # Install ClamAV
-sudo mkdir -p /u/logs/av
-sudo mkdir -p /u/espbin
+sudo /usr/bin/mkdir -p /u/logs/av
+sudo /usr/bin/mkdir -p /u/espbin
 sudo touch /u/logs/av/avscanresult
 sudo apt install -y clamav
 sudo systemctl disable clamav-freshclam.service
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
 sudo /usr/bin/chmod 777 /u/espbin/espav-pi
 sudo /usr/bin/echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
 
 # Increase the default swap memory size of the raspberry Pi to be 2Gb
 sudo dphys-swapfile swapoff
-sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
+sudo /usr/bin/sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
 sudo dphys-swapfile setup
 sudo dphys-swapfile swapon
 
 # Ensure fsck is done on next boot when the file system checker deems necessary
 # Auto select 'yes' to prompts (fsck.repair=yes) is already enabled out of the box
-sudo sed -i s/$/\ fsck.mode=auto/ /boot/cmdline.txt
+sudo /usr/bin/sed -i s/$/\ fsck.mode=auto/ /boot/cmdline.txt
 
 # Put in place site setup script
-sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/pi_site_setup' -O /u/espbin/pi_site_setup
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/pi_site_setup' -O /u/espbin/pi_site_setup
 sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 
 # Reboot
