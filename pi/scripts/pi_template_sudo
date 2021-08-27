@@ -34,11 +34,11 @@ sudo mkdir -p /u/sites/esp-graphics
 sudo adduser sites sudo
 
 # Disable IPv6
-sudo echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
+sudo /usr/bin/echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
 
 # Set a default password for sites and root. These will be updated per site basis later in prep stage
-sudo echo "sites:C7Hv!Z9Fsfx!kozs" | chpasswd
-sudo echo "root:gn3JA9K7G@7C8e.*" | chpasswd
+sudo /usr/bin/echo "sites:C7Hv!Z9Fsfx!kozs" | chpasswd
+sudo /usr/bin/echo "root:gn3JA9K7G@7C8e.*" | chpasswd
 
 # Download wallpaper and user icon graphics
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
@@ -52,9 +52,9 @@ sudo sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' 
 sudo systemctl disable bluetooth.service
 
 # Disable wi-fi
-sudo echo "# Disable wireless services" >> /boot/config.txt
-sudo echo "dtoverlay=pi3-disable-wifi" >> /boot/config.txt
-sudo echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
+sudo /usr/bin/echo "# Disable wireless services" >> /boot/config.txt
+sudo /usr/bin/echo "dtoverlay=pi3-disable-wifi" >> /boot/config.txt
+sudo /usr/bin/echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
 
 # THE FOLLOWING BITS ARE NOW DISABLED AS CAUSED BOOT ISSUES WHEN PI WAS PATCHED UP LATER ON
 # Minimise the boot process (remove graphics etc.) - a recent update seems to break this and prevent the pi from booting hence now disabled.
@@ -123,13 +123,13 @@ sudo sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
 sudo sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
 
 # Only permit the sites and pi user ssh access
-sudo echo "AllowUsers sites pi" >> /etc/ssh/sshd_config
+sudo /usr/bin/echo "AllowUsers sites pi" >> /etc/ssh/sshd_config
 
 # Deny soon to be non-existent pi user ssh access - user will be removed later in prep
-sudo echo "DenyUsers pi" >> /etc/ssh/sshd_config
+sudo /usr/bin/echo "DenyUsers pi" >> /etc/ssh/sshd_config
 
 # Only permit stronger ssh protocol version 2
-sudo echo "Protocol 2" >> /etc/ssh/sshd_config
+sudo /usr/bin/echo "Protocol 2" >> /etc/ssh/sshd_config
 
 # Drop failed ssh connection after 3 attempts
 sudo sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
@@ -153,25 +153,25 @@ sudo >/etc/issue
 sudo >/etc/motd
 
 # Add scary message at login
-sudo echo "###############################################################" >>/etc/motd
-sudo echo "#                 Authorized access only                      #" >>/etc/motd
-sudo echo "#  Disconnect IMMEDIATELY if you are not an authorised user.  #" >>/etc/motd
-sudo echo "#         All actions are monitored and logged.               #" >>/etc/motd
-sudo echo "###############################################################" >>/etc/motd
+sudo /usr/bin/echo "###############################################################" >>/etc/motd
+sudo /usr/bin/echo "#                 Authorized access only                      #" >>/etc/motd
+sudo /usr/bin/echo "#  Disconnect IMMEDIATELY if you are not an authorised user.  #" >>/etc/motd
+sudo /usr/bin/echo "#         All actions are monitored and logged.               #" >>/etc/motd
+sudo /usr/bin/echo "###############################################################" >>/etc/motd
 
 # Install monit
 sudo apt install -y monit
 sudo touch /etc/monit.credentials
 sudo touch /etc/monit.raspberrypi
-sudo echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.uk:62814/collector" > /etc/monit.credentials
-sudo echo "include /etc/monit.credentials" >> /etc/monit/monitrc
-sudo echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
+sudo /usr/bin/echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.uk:62814/collector" > /etc/monit.credentials
+sudo /usr/bin/echo "include /etc/monit.credentials" >> /etc/monit/monitrc
+sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
 sudo sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
 sudo service monit restart
 sudo systemctl enable monit
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
 sudo /usr/bin/chmod 777 /u/espbin/espmonitoring-pi
-sudo echo "*/1 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
+sudo /usr/bin/echo "*/1 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/monit.raspberrypi' -O /etc/monit.raspberrypi
 
 # Install ClamAV
@@ -182,7 +182,7 @@ sudo apt install -y clamav
 sudo systemctl disable clamav-freshclam.service
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
 sudo /usr/bin/chmod 777 /u/espbin/espav-pi
-sudo echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
+sudo /usr/bin/echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
 
 # Increase the default swap memory size of the raspberry Pi to be 2Gb
 sudo dphys-swapfile swapoff
@@ -200,6 +200,6 @@ sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 
 # Reboot
 sudo clear
-sudo echo ""
+sudo /usr/bin/echo ""
 sudo read -p "Please press enter to reboot the pi...."
 sudo reboot
