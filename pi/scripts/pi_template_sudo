@@ -45,8 +45,8 @@ sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRang
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
 
 # Set the wallpaper and user log on icon for nicety
-sudo sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
-sudo sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
+sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
+sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
 
 # Disable the bluetooth service
 sudo systemctl disable bluetooth.service
@@ -65,15 +65,15 @@ sudo /usr/bin/echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
 #sed 's/splash//g' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
 
 # Disable USB drives from being auto-mounted
-sudo sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
-sudo sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
-sudo sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
-sudo sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
-sudo sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
-sudo sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
+sudo /usr/bin/sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcmanfm.conf
 
 # Disable the pi user being auto logged in (gui) - user will be removed later
-sudo sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm/lightdm.conf
+sudo /usr/bin/sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm/lightdm.conf
 
 # Disable the pi user being auto logged in under tty1 (cli) - user will be removed later
 sudo systemctl disable getty@tty1.service
@@ -85,7 +85,7 @@ sudo systemctl disable getty@tty1.service
 #passwd -l pi
 
 # Prevent the gui screen from showing the list of available users
-sudo sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
+sudo /usr/bin/sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
 
 # Disable avahi-daemon to prevent pi from being auto-discovered on the network
 sudo systemctl stop avahi-daemon
@@ -106,21 +106,21 @@ sudo rm -rf /u/noip/noip-*
 sudo clear
 
 # Change the Pi's default hostname to esp (this will be updated later to be applicable to site)
-sudo sed -i 's/raspberrypi/esp/g' /etc/hosts
+sudo /usr/bin/sed -i 's/raspberrypi/esp/g' /etc/hosts
 sudo hostnamectl set-hostname esp
 
 # Change default ssh port 22 to port 60022
-sudo sed -i 's/.*#Port 22.*/Port 60022/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*#Port 22.*/Port 60022/g' /etc/ssh/sshd_config
 
 # Drop idle ssh sessions after 6 minutes of inactivity
-sudo sed -i 's/.*ClientAliveInterval.*/ClientAliveInterval 360/g' /etc/ssh/sshd_config
-sudo sed -i 's/.*ClientAliveCountMax.*/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*ClientAliveInterval.*/ClientAliveInterval 360/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*ClientAliveCountMax.*/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
 
 # Don't permit root ssh access
-sudo sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Don't permit empty ssh passwords
-sudo sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
 
 # Only permit the sites and pi user ssh access
 sudo /usr/bin/echo "AllowUsers sites pi" >> /etc/ssh/sshd_config
@@ -132,17 +132,17 @@ sudo /usr/bin/echo "DenyUsers pi" >> /etc/ssh/sshd_config
 sudo /usr/bin/echo "Protocol 2" >> /etc/ssh/sshd_config
 
 # Drop failed ssh connection after 3 attempts
-sudo sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/g' /etc/ssh/sshd_config
 
 # Disable X11 over ssh
-sudo sed -i 's/.*X11Forwarding yes.*/X11Forwarding no/g' /etc/ssh/sshd_config
+sudo /usr/bin/sed -i 's/.*X11Forwarding yes.*/X11Forwarding no/g' /etc/ssh/sshd_config
 
 # Set-up firewall
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/iptables/iptables.firewall.rules' -O /etc/iptables.firewall.rules
 
 # Configure rc.local to load firewall rules  and noip client on boot
-sudo sed -i '19 i /u/noip/noip2' /etc/rc.local
-sudo sed -i '20 i /sbin/iptables-restore < /etc/iptables.firewall.rules' /etc/rc.local
+sudo /usr/bin/sed -i '19 i /u/noip/noip2' /etc/rc.local
+sudo /usr/bin/sed -i '20 i /sbin/iptables-restore < /etc/iptables.firewall.rules' /etc/rc.local
 
 # Download and install pre-configured ESP CUPS config file
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/cups/cupsd.conf' -O /etc/cups/cupsd.conf
@@ -166,7 +166,7 @@ sudo touch /etc/monit.raspberrypi
 sudo /usr/bin/echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.uk:62814/collector" > /etc/monit.credentials
 sudo /usr/bin/echo "include /etc/monit.credentials" >> /etc/monit/monitrc
 sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
-sudo sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
+sudo /usr/bin/sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
 sudo service monit restart
 sudo systemctl enable monit
 sudo wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
