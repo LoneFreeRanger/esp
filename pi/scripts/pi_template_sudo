@@ -27,11 +27,11 @@ sudo apt-get install arpwatch -y
 
 # Make a sites user
 sudo useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
-sudo mkdir -p /u/sites
-sudo mkdir -p /u/sites/esp-graphics
+sudo /usr/bin/mkdir -p /u/sites
+sudo /usr/bin/mkdir -p /u/sites/esp-graphics
 
 # Grant sites sudo privi
-sudo adduser sites sudo
+sudo /usr/sbin/adduser sites sudo
 
 # Disable IPv6
 sudo /usr/bin/echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
