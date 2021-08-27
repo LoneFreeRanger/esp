@@ -49,7 +49,7 @@ sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-gr
 sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
 
 # Disable the bluetooth service
-sudo systemctl disable bluetooth.service
+sudo /usr/bin/systemctl disable bluetooth.service
 
 # Disable wi-fi
 sudo /usr/bin/echo "# Disable wireless services" >> /boot/config.txt
@@ -76,7 +76,7 @@ sudo /usr/bin/sed -i 's/.*autorun=1.*/autorun=0/g' /etc/xdg/pcmanfm/LXDE-pi/pcma
 sudo /usr/bin/sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm/lightdm.conf
 
 # Disable the pi user being auto logged in under tty1 (cli) - user will be removed later
-sudo systemctl disable getty@tty1.service
+sudo /usr/bin/systemctl disable getty@tty1.service
 
 # Change default Pi user password
 #echo "pi:ne0sKmSVDw4OlR4mX9RO0yM2ZFtWv" | chpasswd
@@ -88,8 +88,8 @@ sudo systemctl disable getty@tty1.service
 sudo /usr/bin/sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
 
 # Disable avahi-daemon to prevent pi from being auto-discovered on the network
-sudo systemctl stop avahi-daemon
-sudo systemctl disable avahi-daemon
+sudo /usr/bin/systemctl stop avahi-daemon
+sudo /usr/bin/systemctl disable avahi-daemon
 sudo /usr/bin/apt-get remove avahi-daemon -y
 
 # Install the no-ip client to /u/noip
@@ -168,7 +168,7 @@ sudo /usr/bin/echo "include /etc/monit.credentials" >> /etc/monit/monitrc
 sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
 sudo /usr/bin/sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
 sudo service monit restart
-sudo systemctl enable monit
+sudo /usr/bin/systemctl enable monit
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
 sudo /usr/bin/chmod 777 /u/espbin/espmonitoring-pi
 sudo /usr/bin/echo "*/1 * * * * /u/espbin/espmonitoring-pi" >> /var/spool/cron/crontabs/root
@@ -179,7 +179,7 @@ sudo /usr/bin/mkdir -p /u/logs/av
 sudo /usr/bin/mkdir -p /u/espbin
 sudo /usr/bin/touch /u/logs/av/avscanresult
 sudo apt install -y clamav
-sudo systemctl disable clamav-freshclam.service
+sudo /usr/bin/systemctl disable clamav-freshclam.service
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
 sudo /usr/bin/chmod 777 /u/espbin/espav-pi
 sudo /usr/bin/echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
