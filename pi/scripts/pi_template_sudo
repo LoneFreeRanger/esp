@@ -26,7 +26,7 @@ sudo apt-get install vim -y
 sudo apt-get install arpwatch -y
 
 # Make a sites user
-sudo useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
+sudo /usr/sbin/useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
 sudo /usr/bin/mkdir -p /u/sites
 sudo /usr/bin/mkdir -p /u/sites/esp-graphics
 
