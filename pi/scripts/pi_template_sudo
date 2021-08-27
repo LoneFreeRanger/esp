@@ -2,16 +2,6 @@
 ## Template script ##
 #####################
 
-# Check if script is being run as the root user
-WHO=$(whoami)
-if [ $WHO == root ]
-then
-sleep 0.5
-else
-echo "Please re-run this script as the root user. Bye!"
-exit
-fi
-
 sudo /usr/bin/mkdir -p /u/pi/
 sudo /usr/bin/mkdir -p /u/tmp
 sudo /usr/bin/mkdir -p /u/espbin
@@ -56,14 +46,6 @@ sudo /usr/bin/echo "# Disable wireless services" >> /boot/config.txt
 sudo /usr/bin/echo "dtoverlay=pi3-disable-wifi" >> /boot/config.txt
 sudo /usr/bin/echo "dtoverlay=pi3-disable-bt" >> /boot/config.txt
 
-# THE FOLLOWING BITS ARE NOW DISABLED AS CAUSED BOOT ISSUES WHEN PI WAS PATCHED UP LATER ON
-# Minimise the boot process (remove graphics etc.) - a recent update seems to break this and prevent the pi from booting hence now disabled.
-#awk '{print $0" quiet"}' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
-# Removes Raspberry Pi logo in top left corner on boot - a recent update seems to break this and prevent the pi from booting hence now disabled.
-#awk '{print $0" logo.nologo"}' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
-# Remove Raspberry Pi splash screen - a recent update seems to break this and prevent the pi from booting hence now disabled.
-#sed 's/splash//g' /boot/cmdline.txt > /boot/cmdline.txtNEW && mv /boot/cmdline.txtNEW /boot/cmdline.txt
-
 # Disable USB drives from being auto-mounted
 sudo /usr/bin/sed -i 's/.*mount_on_startup=1.*/mount_on_startup=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
 sudo /usr/bin/sed -i 's/.*mount_removable=1.*/mount_removable=0/g' /etc/xdg/pcmanfm/default/pcmanfm.conf
@@ -78,12 +60,6 @@ sudo /usr/bin/sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm
 # Disable the pi user being auto logged in under tty1 (cli) - user will be removed later
 sudo /usr/bin/systemctl disable getty@tty1.service
 
-# Change default Pi user password
-#echo "pi:ne0sKmSVDw4OlR4mX9RO0yM2ZFtWv" | chpasswd
-
-# Lock the pi user account from being able to login.
-#passwd -l pi
-
 # Prevent the gui screen from showing the list of available users
 sudo /usr/bin/sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
 
@@ -96,18 +72,18 @@ sudo /usr/bin/apt-get remove avahi-daemon -y
 sudo /usr/bin/mkdir -p /u/noip
 sudo cd /u/noip
 sudo /usr/bin/wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
-sudo tar vzxf noip-duc-linux.tar.gz
-sudo rm -rf noip-duc-linux.tar.gz
+sudo /usr/bin/tar vzxf noip-duc-linux.tar.gz
+sudo /usr/bin/rm -rf noip-duc-linux.tar.gz
 sudo cd noip*
-sudo mv * ../
+sudo /usr/bin/mv * ../
 sudo cd ../
-sudo make
-sudo rm -rf /u/noip/noip-*
-sudo clear
+sudo /usr/bin/make
+sudo /usr/bin/rm -rf /u/noip/noip-*
+sudo /usr/bin/clear
 
 # Change the Pi's default hostname to esp (this will be updated later to be applicable to site)
 sudo /usr/bin/sed -i 's/raspberrypi/esp/g' /etc/hosts
-sudo hostnamectl set-hostname esp
+sudo /usr/bin/hostnamectl set-hostname esp
 
 # Change default ssh port 22 to port 60022
 sudo /usr/bin/sed -i 's/.*#Port 22.*/Port 60022/g' /etc/ssh/sshd_config
@@ -167,7 +143,7 @@ sudo /usr/bin/echo "set mmonit https://USERNAME:PASSWORD@mmonit.esp-support.co.u
 sudo /usr/bin/echo "include /etc/monit.credentials" >> /etc/monit/monitrc
 sudo /usr/bin/echo "include /etc/monit.raspberrypi" >> /etc/monit/monitrc
 sudo /usr/bin/sed -i 's/set daemon 120/set daemon 60/g' /etc/monit/monitrc
-sudo service monit restart
+sudo /usr/sbin/service monit restart
 sudo /usr/bin/systemctl enable monit
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/monit/espmonitoring-pi' -O /u/espbin/espmonitoring-pi
 sudo /usr/bin/chmod 777 /u/espbin/espmonitoring-pi
@@ -178,7 +154,7 @@ sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/Lon
 sudo /usr/bin/mkdir -p /u/logs/av
 sudo /usr/bin/mkdir -p /u/espbin
 sudo /usr/bin/touch /u/logs/av/avscanresult
-sudo apt install -y clamav
+sudo /usr/bin/apt install -y clamav
 sudo /usr/bin/systemctl disable clamav-freshclam.service
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/av/espav-pi' -O /u/espbin/espav-pi
 sudo /usr/bin/chmod 777 /u/espbin/espav-pi
@@ -202,4 +178,4 @@ sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 sudo /usr/bin/clear
 sudo /usr/bin/echo ""
 sudo read -p "Please press enter to reboot the pi...."
-sudo reboot
+sudo /usr/sbin/reboot
