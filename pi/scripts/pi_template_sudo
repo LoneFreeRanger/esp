@@ -161,10 +161,10 @@ sudo /usr/bin/chmod 777 /u/espbin/espav-pi
 sudo /usr/bin/echo "30 02 * * * /u/espbin/espav-pi" >> /var/spool/cron/crontabs/root
 
 # Increase the default swap memory size of the raspberry Pi to be 2Gb
-sudo dphys-swapfile swapoff
+sudo /usr/sbin/dphys-swapfile swapoff
 sudo /usr/bin/sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/g' /etc/dphys-swapfile
-sudo dphys-swapfile setup
-sudo dphys-swapfile swapon
+sudo /usr/sbin/dphys-swapfile setup
+sudo /usr/sbin/dphys-swapfile swapon
 
 # Ensure fsck is done on next boot when the file system checker deems necessary
 # Auto select 'yes' to prompts (fsck.repair=yes) is already enabled out of the box
