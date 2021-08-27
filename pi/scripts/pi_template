@@ -79,10 +79,10 @@ sed -i 's/.*autologin-user=pi.*/#autologin-user=pi/g' /etc/lightdm/lightdm.conf
 systemctl disable getty@tty1.service
 
 # Change default Pi user password
-echo "pi:ne0sKmSVDw4OlR4mX9RO0yM2ZFtWv" | chpasswd
+#echo "pi:ne0sKmSVDw4OlR4mX9RO0yM2ZFtWv" | chpasswd
 
 # Lock the pi user account from being able to login.
-passwd -l pi
+#passwd -l pi
 
 # Prevent the gui screen from showing the list of available users
 sed -i 's/greeter-hide-users=false/greeter-hide-users=true/g' /etc/lightdm/lightdm.conf
