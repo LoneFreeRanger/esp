@@ -122,7 +122,7 @@ sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
 # Don't permit empty ssh passwords
 sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
 
-# Only permit the sites user ssh access
+# Only permit the sites and pi user ssh access
 echo "AllowUsers sites pi" >> /etc/ssh/sshd_config
 
 # Deny soon to be non-existent pi user ssh access - user will be removed later in prep
