@@ -14,6 +14,7 @@ sudo /usr/bin/apt-get install cups* -y
 sudo /usr/bin/apt-get install dnsutils -y
 sudo /usr/bin/apt-get install vim -y
 sudo /usr/bin/apt-get install arpwatch -y
+sudo /usr/sbin/arpwatch -i eth0
 
 # Make a sites user
 sudo /usr/sbin/useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
