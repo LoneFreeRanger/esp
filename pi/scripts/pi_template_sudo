@@ -19,7 +19,7 @@ sudo /usr/sbin/arpwatch -i eth0
 # Make a sites user
 sudo /usr/sbin/useradd -g50 -M -o -u201 -s /bin/bash -d /u/sites sites
 sudo /usr/bin/mkdir -p /u/sites
-sudo /usr/bin/mkdir -p /u/sites/esp-graphics
+#sudo /usr/bin/mkdir -p /u/sites/esp-graphics
 
 # Grant sites sudo privi
 sudo /usr/sbin/adduser sites sudo
@@ -31,12 +31,12 @@ sudo /usr/bin/echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
 sudo /usr/bin/echo "sites:C7HvZ9Fsfxkozs" | /usr/sbin/chpasswd
 
 # Download wallpaper and user icon graphics
-sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
-sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
+#sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
+#sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
 
 # Set the wallpaper and user log on icon for nicety
-sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
-sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
+#sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
+#sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
 
 # Disable the bluetooth service
 sudo /usr/bin/systemctl disable bluetooth.service
