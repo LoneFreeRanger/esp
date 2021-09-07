@@ -1,6 +1,6 @@
-#####################
-## Template script ##
-#####################
+################################################
+## Cloud Printing & Raspbian OS config script ##
+################################################
 
 sudo /usr/bin/mkdir -p /u/pi/
 sudo /usr/bin/mkdir -p /u/tmp
