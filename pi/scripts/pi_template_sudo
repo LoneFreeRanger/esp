@@ -125,9 +125,9 @@ sudo /usr/bin/sed -i '20 i /sbin/iptables-restore < /etc/iptables.firewall.rules
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/cups/cupsd.conf' -O /etc/cups/cupsd.conf
 
 # Remove contents of issue.net in order to hide OS login prompt detail (CLI)
-sudo >/etc/issue.net
-sudo >/etc/issue
-sudo >/etc/motd
+>/etc/issue.net
+>/etc/issue
+>/etc/motd
 
 # Add scary message at login
 sudo /usr/bin/echo "###############################################################" >>/etc/motd
