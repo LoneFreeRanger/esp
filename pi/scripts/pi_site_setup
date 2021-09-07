@@ -28,7 +28,7 @@ sudo apt full-upgrade -y
 clear
 echo ""
 echo "Stage 1 of 2 - OS & EliteGo Config"
-echo "========================"
+echo "==================================="
 echo ""
 echo "What is the site address code from the office system? (i.e: BURHI02):"
 read addresscodeinput
@@ -36,7 +36,7 @@ echo $addresscodeinput > /tmp/addresscode
 echo ""
 echo "-------"
 echo ""
-echo "What number Pi number is this for site? (i.e: if this is sites first pi type 1. If this is sites second type 2):"
+echo "What number Pi number is this for site? (i.e: if this is sites first pi type 1. If this is sites second type 2 etc):"
 read pinumberinput
 echo $pinumberinput > /tmp/pinumber
 echo ""
@@ -52,7 +52,7 @@ echo "What IP does this Pi need to have?"
 read networkipinput
 echo $networkipinput > /tmp/networkip
 echo ""
-echo "How many bits of the network address are masked - Subnet (i.e: 24, 16, 8)"
+echo "How many bits of the network address are masked for the above IP - Subnet (i.e: 24, 16, 8)"
 read networksubnetinput
 echo $networksubnetinput > /tmp/networksubnet
 echo ""
@@ -62,7 +62,7 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
-echo "If this Pi will be using EliteGo, what port number will the Elite clients connect to the server on?"
+echo "If this Pi will be using EliteGo, what port number will the Elite clients connect to the above server on?"
 echo "If the pi will not be using EliteGo, or you are not sure, please just state 60000"
 echo ""
 read eliteclientportinput
@@ -79,9 +79,9 @@ echo "You have asked for the Pi to be setup using the below detail:"
 echo ""
 echo "- Pi number: $(cat /tmp/pinumber)"
 echo ""
-echo "- Server IP to accept: $(cat /tmp/serverip)"
-echo "- Site address code: $(cat /tmp/addresscode)"
+echo "- Elite application server IP for EliteGo clients and Pi firewall: $(cat /tmp/serverip)"
 echo "- Port number EliteGo clients will connect on: $(cat /tmp/eliteclientport)"
+echo "- Site address code: $(cat /tmp/addresscode)"
 echo ""
 echo "- IP for Pi: $(cat /tmp/networkip)"
 echo "- Network mask bits for Pi: $(cat /tmp/networksubnet)"
