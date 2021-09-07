@@ -175,7 +175,7 @@ sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/Lon
 sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 
 # Reboot
-sudo /usr/bin/clear
-sudo /usr/bin/echo ""
-sudo read -p "Please press enter to reboot the pi...."
-sudo /usr/sbin/reboot
+#sudo /usr/bin/clear
+#sudo /usr/bin/echo ""
+#sudo read -p "Please press enter to reboot the pi...."
+#sudo /usr/sbin/reboot
