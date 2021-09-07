@@ -27,7 +27,7 @@ sudo apt full-upgrade -y
 ##############################
 clear
 echo ""
-echo "Stage 1 of 2 - OS Config"
+echo "Stage 1 of 2 - OS & EliteGo Config"
 echo "========================"
 echo ""
 echo "What is the site address code from the office system? (i.e: BURHI02):"
@@ -62,6 +62,11 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
+echo "If this Pi will be using EliteGo, what port number will the Elite clients connect to the server on?"
+echo "If the pi will not be using EliteGo, or you are not sure, please just state 60000"
+echo ""
+read eliteclientportinput
+echo $eliteclientportinput > /tmp/eliteclientport
 
 
 ##################################
@@ -76,10 +81,11 @@ echo "- Pi number: $(cat /tmp/pinumber)"
 echo ""
 echo "- Elite server IP to accept: $(cat /tmp/serverip)"
 echo "- Site's address code: $(cat /tmp/addresscode)"
+echo "- Port number EliteGo clients will connect on: $(cat /tmp/eliteclientport)"
 echo ""
-echo "- IP: $(cat /tmp/networkip)"
-echo "- Network mask bits: $(cat /tmp/networksubnet)"
-echo "- Gateway: $(cat /tmp/networkgateway)"
+echo "- IP for Pi: $(cat /tmp/networkip)"
+echo "- Network mask bits for Pi: $(cat /tmp/networksubnet)"
+echo "- Gateway for Pi: $(cat /tmp/networkgateway)"
 echo ""
 echo ""
 echo "Are the above details correct? (n/y)"
