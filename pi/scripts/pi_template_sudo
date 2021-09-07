@@ -29,6 +29,7 @@ sudo /usr/bin/echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
 
 # Set a default password for sites user. This will be updated per site basis later in prep stage
 sudo /usr/bin/echo "sites:C7HvZ9Fsfxkozs" | /usr/sbin/chpasswd
+sudo /usr/bin/echo "pi:W7r0YeGZ8BJWSy0g" | /usr/sbin/chpasswd
 
 # Download wallpaper and user icon graphics
 #sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/ESP_Wallpaper.png' -O /u/sites/esp-graphics/ESP_Wallpaper.png
