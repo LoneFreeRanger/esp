@@ -92,8 +92,10 @@ echo "- IP for Pi: $(cat /tmp/networkip)"
 echo "- Network mask bits for Pi: $(cat /tmp/networksubnet)"
 echo "- Gateway for Pi: $(cat /tmp/networkgateway)"
 echo ""
+echo "- EliteGo to be used?: $(cat /tmp/elitegoused)"
 echo ""
-echo "Are the above details correct? (n/y)"
+echo ""
+echo "Are all the above details correct? (n/y)"
 read confirmdetails
 
 if [ $confirmdetails == n ] || [ $confirmdetails == N ]
