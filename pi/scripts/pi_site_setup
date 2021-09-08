@@ -69,7 +69,7 @@ echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
 echo "-------"
 echo ""
-echo "Have site purchased EliteGo to be used on this raspberry Pi? (y/n)"
+echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
 read elitegousedinput
 echo $elitegousedinput > /tmp/elitegoused
 echo ""
@@ -280,6 +280,14 @@ sed -i 's\<CHANGEME>\'$(cat /tmp/serverip)'\g' /home/client5/.espclient64
 sed -i 's\<CHANGEPORT>\'$(cat /tmp/eliteclientport)'\g' /home/client5/.espclient64
 
 
+# Enable or disable elitego given answer to question
+ELITEGOUSED=$(cat /tmp/elitegoused)
+if [ $ELITEGOUSED == y ] || [ $ELITEGOUSED == Y ]
+then
+systemctl enable espvnc
+else
+systemctl disable espvnc
+fi
 
 clear
 echo ""
