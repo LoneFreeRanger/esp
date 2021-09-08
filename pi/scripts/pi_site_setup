@@ -62,12 +62,17 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
-echo "If this Pi will be using EliteGo, what port number will the Elite clients connect to the above server on?"
-echo "If the pi will not be using EliteGo, or you are not sure, please just state 60000"
+echo "What port number do site's Elite clients connect to the above server on?"
 echo ""
 read eliteclientportinput
 echo $eliteclientportinput > /tmp/eliteclientport
-
+echo ""
+echo "-------"
+echo ""
+echo "Have site purchased EliteGo to be used on this raspberry Pi? (y/n)"
+read elitegousedinput
+echo $elitegousedinput > /tmp/elitegoused
+echo ""
 
 ##################################
 ## Confirm the details supplied ##
@@ -80,7 +85,7 @@ echo ""
 echo "- Pi number: $(cat /tmp/pinumber)"
 echo ""
 echo "- Elite application server IP: $(cat /tmp/serverip)"
-echo "- Port number EliteGo clients will connect on: $(cat /tmp/eliteclientport)"
+echo "- Elite port number: $(cat /tmp/eliteclientport)"
 echo "- Site address code: $(cat /tmp/addresscode)"
 echo ""
 echo "- IP for Pi: $(cat /tmp/networkip)"
