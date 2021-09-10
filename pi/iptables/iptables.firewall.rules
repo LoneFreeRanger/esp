@@ -34,6 +34,11 @@
 -A INPUT -p tcp -m tcp --dport 5903 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 5904 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 5905 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8081 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8082 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8083 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8084 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8085 -j ACCEPT
 ##########
 ## PING ##
 ##########
