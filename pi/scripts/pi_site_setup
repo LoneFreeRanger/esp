@@ -337,3 +337,6 @@ echo ""
 echo "Good Bye."
 exit
 fi
+
+clear
+echo "Please now reboot the pi".
