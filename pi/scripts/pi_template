@@ -185,6 +185,10 @@ sudo /usr/bin/sed -i s/$/\ fsck.mode=auto/ /boot/cmdline.txt
 sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/pi_site_setup' -O /u/espbin/pi_site_setup
 sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 
+# Remove the web browsers from the pi for security reasons
+apt purge chromium-browser --auto-remove -y
+apt-get purge dillo -y
+
 # Reboot
 #sudo /usr/bin/clear
 #sudo /usr/bin/echo ""
