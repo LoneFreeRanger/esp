@@ -83,7 +83,7 @@ sudo /usr/bin/rm -rf /u/noip/noip-*
 sudo /usr/bin/clear
 
 # Change the Pi's default hostname to esp (this will be updated later to be applicable to site)
-sudo /usr/bin/sed -i 's/raspberrypi/esp elitego/g' /etc/hosts
+sudo /usr/bin/sed -i 's/raspberrypi/esp raspberrypi elitego/g' /etc/hosts
 sudo /usr/bin/hostnamectl set-hostname esp
 echo "" >> /etc/hosts
 echo "==================" >> /etc/hosts
