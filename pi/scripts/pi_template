@@ -36,8 +36,8 @@ sudo /usr/bin/echo "pi:W7r0YeGZ8BJWSy0g" | /usr/sbin/chpasswd
 #sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/misc/esp_jigsaw_logo.png' -O /u/sites/esp-graphics/ESP_Jigsaw_Logo.png
 
 # Set the wallpaper and user log on icon for nicety
-#sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
-#sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
+sudo /usr/bin/sed -i 's@default-user-image=.*@default-user-image=/u/sites/esp-graphics/ESP_Jigsaw_Logo.png@' /etc/lightdm/pi-greeter.conf
+sudo /usr/bin/sed -i 's@wallpaper=.*@wallpaper=/u/sites/esp-graphics/ESP_Wallpaper.png@' /etc/lightdm/pi-greeter.conf
 
 # Disable the bluetooth service
 sudo /usr/bin/systemctl disable bluetooth.service
