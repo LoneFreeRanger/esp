@@ -16,10 +16,10 @@ fi
 
 
 # Patch up the OS to latest versions
-echo "Patching Pi OS. This could take some time...."
-sleep 3
-sudo apt update -y
-sudo apt full-upgrade -y
+#echo "Patching Pi OS. This could take some time...."
+#sleep 3
+#sudo apt update -y
+#sudo apt full-upgrade -y
 
 
 ##############################
