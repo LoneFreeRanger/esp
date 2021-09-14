@@ -71,7 +71,7 @@ sudo /usr/bin/apt-get remove avahi-daemon -y
 
 # Install the no-ip client to /u/noip
 sudo /usr/bin/mkdir -p /u/noip
-sudo cd /u/noip
+cd /u/noip
 sudo /usr/bin/wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
 sudo /usr/bin/tar vzxf noip-duc-linux.tar.gz
 sudo /usr/bin/rm -rf noip-duc-linux.tar.gz
