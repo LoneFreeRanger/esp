@@ -123,8 +123,6 @@ fi
 hostnamectl set-hostname $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)
 sed -i 's/esp/'$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)'/g' /etc/hosts
 echo ""  >> /etc/hosts
-echo "==================" >> /etc/hosts
-echo "" >> /etc/hosts
 echo "# How to stop/ start EliteGo:" >> /etc/hosts
 echo "" >> /etc/hosts
 echo "# service espvnc stop" >> /etc/hosts
