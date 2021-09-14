@@ -287,6 +287,8 @@ sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client4/.espclient64
 sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client4/.espclient64
 sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client5/.espclient64
 sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client5/.espclient64
+#sed -i 's@69:69:69:69:69:69@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':01:01:01@' /tmp/.espclient64
+
 
 
 # Enable or disable elitego given answer to question
