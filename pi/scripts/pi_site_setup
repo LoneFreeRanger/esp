@@ -117,7 +117,8 @@ fi
 ####################################
 ## Implement the details supplied ##
 ####################################
-
+echo ""
+echo "Please wait. Implementing the detail supplied..."
 # Set the Pi Hostname using the supplied detail
 hostnamectl set-hostname $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)
 sed -i 's/esp/'$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)'/g' /etc/hosts
