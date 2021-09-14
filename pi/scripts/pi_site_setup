@@ -63,7 +63,6 @@ echo ""
 echo "-------"
 echo ""
 echo "What port number do site's Elite clients connect to the above server on?"
-echo ""
 read eliteclientportinput
 echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
