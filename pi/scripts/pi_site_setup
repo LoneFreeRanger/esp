@@ -272,11 +272,11 @@ sed -i 's@-A INPUT -p tcp -m tcp --dport 60022 -s network.network.network.networ
 
 # Configure the EliteGo Clients from the detail supplied
 service espvnc stop
-cp -rf /root/files/.espclient64.org /home/client1/.espclient64
-cp -rf /root/files/.espclient64.org /home/client2/.espclient64
-cp -rf /root/files/.espclient64.org /home/client3/.espclient64
-cp -rf /root/files/.espclient64.org /home/client4/.espclient64
-cp -rf /root/files/.espclient64.org /home/client5/.espclient64
+cp -rf /root/files/.espclient64 /home/client1/.espclient64
+cp -rf /root/files/.espclient64 /home/client2/.espclient64
+cp -rf /root/files/.espclient64 /home/client3/.espclient64
+cp -rf /root/files/.espclient64 /home/client4/.espclient64
+cp -rf /root/files/.espclient64 /home/client5/.espclient64
 sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client1/.espclient64
 sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client1/.espclient64
 sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client2/.espclient64
