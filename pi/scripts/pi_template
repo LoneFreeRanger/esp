@@ -75,9 +75,9 @@ cd /u/noip
 sudo /usr/bin/wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
 sudo /usr/bin/tar vzxf noip-duc-linux.tar.gz
 sudo /usr/bin/rm -rf noip-duc-linux.tar.gz
-sudo cd noip*
+cd noip*
 sudo /usr/bin/mv * ../
-sudo cd ../
+cd ../
 sudo /usr/bin/make
 sudo /usr/bin/rm -rf /u/noip/noip-*
 sudo /usr/bin/clear
