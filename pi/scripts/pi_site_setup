@@ -240,7 +240,7 @@ echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag9" >> /etc/hosts
 
 
 # Set system default printer to be prn1
-lpoptions -d '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1'
+# lpoptions -d '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1'
 
 
 # Add IP config and re-configure with the detail supplied
