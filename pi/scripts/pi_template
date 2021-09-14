@@ -88,13 +88,6 @@ sudo /usr/bin/hostnamectl set-hostname esp
 echo "" >> /etc/hosts
 echo "==================" >> /etc/hosts
 echo "" >> /etc/hosts
-echo "# How to stop/ start EliteGo:" >> /etc/hosts
-echo "" >> /etc/hosts
-echo "# service espvnc stop" >> /etc/hosts
-echo "# service espvnc start" >> /etc/hosts
-echo "" >> /etc/hosts
-echo "==================" >> /etc/hosts
-echo "" >> /etc/hosts
 
 # Change default ssh port 22 to port 60022
 sudo /usr/bin/sed -i 's/.*#Port 22.*/Port 60022/g' /etc/ssh/sshd_config
