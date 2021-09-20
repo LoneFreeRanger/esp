@@ -1,0 +1,45 @@
+clear
+echo ""
+echo "What is site's address code from the office system?"
+read addresscodeinput
+echo $addresscodeinput > /tmp/addresscode
+echo ""
+echo "==================================="
+echo ""
+echo "What number Pi number is the remote e-lite server? (i.e: if this is sites first pi type 1)"
+read pinumberinput
+echo $pinumberinput > /tmp/pinumber
+echo ""
+echo "==================================="
+echo ""
+echo "What printer ID are you wishing to print to on the remote-lite server? (i.e: prn1, kit1)"
+read prineridinput
+echo $prineridinput > /tmp/prinerid
+echo ""
+clear
+
+echo "The following ipps printer has now been added:"
+echo ""
+echo "ipps://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber).remote-esp.uk/printers/$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-$(cat /tmp/prinerid)"
+lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-$(cat /tmp/prinerid) -E -v ipps://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber).remote-esp.uk/printers/$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-$(cat /tmp/prinerid)
+echo ""
+echo "========"
+echo ""
+echo "Would you like to test communications to the above remote ipps printer? (y/n)"
+echo ""
+read testprinter
+
+if [ $testprinter == n ] || [ $testprinter == N ]
+then
+clear
+echo "Bye!"
+exit
+else
+clear
+echo "Please wait. This can take up to 30 seconds if connection is unsuccessful..."
+echo ""
+ipptool -t -v ipps://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber).remote-esp.uk/ipp/$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-$(cat /tmp/prinerid) ipp-1.1.test
+fi
+
+
+
