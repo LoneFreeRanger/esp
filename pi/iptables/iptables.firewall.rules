@@ -29,7 +29,7 @@
 #########
 ## VNC ##
 #########
--A INPUT -p tcp -m udp --dport 5900 -j ACCEPT
+#-A INPUT -p tcp -m udp --dport 5900 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 5901 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 5902 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 5903 -j ACCEPT
