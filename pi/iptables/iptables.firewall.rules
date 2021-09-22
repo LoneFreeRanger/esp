@@ -26,6 +26,10 @@
 -A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.74 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.75 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 60022 -s 217.40.190.76 -j ACCEPT
+###########################
+## DESKTOP PANEL CONNECT ##
+###########################
+-A INPUT -p tcp -m tcp --dport 4242 -j ACCEPT
 #########
 ## VNC ##
 #########
