@@ -29,7 +29,7 @@
 ###########################
 ## DESKTOP PANEL CONNECT ##
 ###########################
--A INPUT -p tcp -m tcp --dport 4242 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 4242 -j ACCEPT
 #########
 ## VNC ##
 #########
