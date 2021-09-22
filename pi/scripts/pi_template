@@ -182,8 +182,10 @@ sudo /usr/bin/chmod 777 /u/espbin/pi_site_setup
 apt purge chromium-browser --auto-remove -y
 apt-get purge dillo -y
 
-# Remove pdf viewer from the pi for security reasons
+# Remove qpdfview viewer from the pi for security reasons
 apt-get remove qpdfview -y
+# Install more secure pdf viewer xpdf
+apt-get install xpdf  -y
 
 # Reboot
 #sudo /usr/bin/clear
