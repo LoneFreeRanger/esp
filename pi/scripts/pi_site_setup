@@ -62,7 +62,7 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
-echo "Does site's system run in a multi-site children.tab style setup? (y/n)"
+echo "Will this Raspberry Pi be for a site on a hosted/ children.tab multi-site style setup? (y/n)"
 read hostedsiteinput
 echo $hostedsiteinput > /tmp/hostedsite
 echo ""
@@ -296,6 +296,18 @@ sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat 
 sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':03:03:03@' /home/client3/.espclient64
 sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':04:04:04@' /home/client4/.espclient64
 sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':05:05:05@' /home/client5/.espclient64
+
+ELITESITEIDREQUIRED=$(cat /tmp/hostedsite | grep 'Y\|y' | wc -l)
+if [ $ELITESITEIDREQUIRED -ge 1 ]
+then
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client1/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client2/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client3/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client4/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client5/.espclient64
+else
+sleep 0.1
+fi
 
 # Enable or disable elitego given answer to question
 ELITEGOUSED=$(cat /tmp/elitegoused)
