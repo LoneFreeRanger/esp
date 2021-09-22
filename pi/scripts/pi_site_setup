@@ -350,4 +350,7 @@ exit
 fi
 
 clear
-echo "Please now reboot the pi".
+echo "You are now required to reboot the Pi for the above changes to take affect."
+echo ""
+echo "Once the Pi has rebooted back to login, please reboot the Raspbery Pi a second time"
+echo ""
