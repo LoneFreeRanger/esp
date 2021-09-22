@@ -9,7 +9,7 @@
 # For all packets originating from the host computer, accept the packet
 :OUTPUT ACCEPT [1161:105847]
 # Accept all incoming packets that are destined for the localhost (lo, 127.0.0.1) interface
--A INPUT -d 127.0.0.0/8 -j REJECT
+-A INPUT -d 127.0.0.0/8 -j ACCEPT
 -A INPUT -i lo -j ACCEPT
 ##########
 ## CUPS ##
