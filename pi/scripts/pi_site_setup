@@ -30,7 +30,7 @@ echo ""
 echo "Stage 1 of 2 - OS & EliteGo Config"
 echo "==================================="
 echo ""
-echo "What is the site address code from the office system? (i.e: BURHI02):"
+echo "What is site's address code from the office system? (i.e: BURHI02):"
 read addresscodeinput
 echo $addresscodeinput > /tmp/addresscode
 echo ""
@@ -42,7 +42,7 @@ echo $pinumberinput > /tmp/pinumber
 echo ""
 echo "-------"
 echo ""
-echo "What is site's Elite server public/ WAN static IP address? (i.e: 52.56.67.20)"
+echo "What is site's Elite application server public/ WAN static IP address? (i.e: 52.56.67.20)"
 read serveripinput
 echo $serveripinput > /tmp/serverip
 echo ""
@@ -62,6 +62,10 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
+echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
+read elitegousedinput
+echo $elitegousedinput > /tmp/elitegoused
+echo ""
 echo "Will this Raspberry Pi be for a site on a hosted/ children.tab multi-site style setup? (y/n)"
 read hostedsiteinput
 echo $hostedsiteinput > /tmp/hostedsite
@@ -72,10 +76,7 @@ echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
 echo "-------"
 echo ""
-echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
-read elitegousedinput
-echo $elitegousedinput > /tmp/elitegoused
-echo ""
+
 
 ##################################
 ## Confirm the details supplied ##
