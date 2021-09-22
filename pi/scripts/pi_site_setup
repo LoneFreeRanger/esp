@@ -62,7 +62,11 @@ echo $networkgatewayinput > /tmp/networkgateway
 echo ""
 echo "-------"
 echo ""
-echo "What port number do site's Elite clients connect to the above server on?"
+echo "Does site's system run in a multi-site children.tab style setup? (y/n)"
+read hostedsiteinput
+echo $hostedsiteinput > /tmp/hostedsite
+echo ""
+echo "What port number do site's Elite clients connect to the  server on?"
 read eliteclientportinput
 echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
