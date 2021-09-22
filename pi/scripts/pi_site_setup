@@ -48,6 +48,19 @@ echo $serveripinput > /tmp/serverip
 echo ""
 echo "-------"
 echo ""
+echo "Is site's Elite application in a children.tab multi-site style setup? (y/n)"
+read hostedsiteinput
+echo $hostedsiteinput > /tmp/hostedsite
+echo ""
+echo "-------"
+echo ""
+echo "What port number do site's Elite clients connect to the application server on?"
+echo "(type '60000' if you are not sure)"
+read eliteclientportinput
+echo $eliteclientportinput > /tmp/eliteclientport
+echo ""
+echo "-------"
+echo ""
 echo "What IP does this Pi need to have?"
 read networkipinput
 echo $networkipinput > /tmp/networkip
@@ -65,15 +78,6 @@ echo ""
 echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
 read elitegousedinput
 echo $elitegousedinput > /tmp/elitegoused
-echo ""
-echo "Is site on a hosted/ children.tab multi-site style setup? (y/n)"
-read hostedsiteinput
-echo $hostedsiteinput > /tmp/hostedsite
-echo ""
-echo "What port number do site's Elite clients connect to the application server on?"
-echo "(type '60000' if this is not applicable [i.e: elitego not used] or you are not sure)"
-read eliteclientportinput
-echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
 echo "-------"
 echo ""
