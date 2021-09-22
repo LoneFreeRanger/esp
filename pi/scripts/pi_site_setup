@@ -71,6 +71,7 @@ read hostedsiteinput
 echo $hostedsiteinput > /tmp/hostedsite
 echo ""
 echo "What port number do site's Elite clients connect to the application server on?"
+echo "(type '60000' if this is not applicable [i.e: elitego not used] or you are not sure)"
 read eliteclientportinput
 echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
