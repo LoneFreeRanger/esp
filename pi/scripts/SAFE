@@ -1,0 +1,373 @@
+
+
+#########################################
+## Set-up script - Run per customer Pi ##
+#########################################
+
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
+
+# Patch up the OS to latest versions
+#echo "Patching Pi OS. This could take some time...."
+#sleep 3
+#sudo apt update -y
+#sudo apt full-upgrade -y
+
+
+##############################
+## Gather the config detail ##
+##############################
+clear
+echo ""
+echo "Stage 1 of 2 - OS & EliteGo Config"
+echo "==================================="
+echo ""
+echo "What is the site address code from the office system? (i.e: BURHI02):"
+read addresscodeinput
+echo $addresscodeinput > /tmp/addresscode
+echo ""
+echo "-------"
+echo ""
+echo "What number Pi number is this for site? (i.e: if this is sites first pi type 1. If this is sites second type 2 etc):"
+read pinumberinput
+echo $pinumberinput > /tmp/pinumber
+echo ""
+echo "-------"
+echo ""
+echo "What is site's Elite server public/ WAN static IP address? (i.e: 52.56.67.20)"
+read serveripinput
+echo $serveripinput > /tmp/serverip
+echo ""
+echo "-------"
+echo ""
+echo "What IP does this Pi need to have?"
+read networkipinput
+echo $networkipinput > /tmp/networkip
+echo ""
+echo "How many bits of the network address are masked for the above IP - Subnet (i.e: 24, 16, 8)"
+read networksubnetinput
+echo $networksubnetinput > /tmp/networksubnet
+echo ""
+echo "What Gateway IP does this Pi need to have? (i.e: 192.168.1.254)"
+read networkgatewayinput
+echo $networkgatewayinput > /tmp/networkgateway
+echo ""
+echo "-------"
+echo ""
+echo "Will this Raspberry Pi be for a site on a hosted/ children.tab multi-site style setup? (y/n)"
+read hostedsiteinput
+echo $hostedsiteinput > /tmp/hostedsite
+echo ""
+echo "What port number do site's Elite clients connect to the  server on?"
+read eliteclientportinput
+echo $eliteclientportinput > /tmp/eliteclientport
+echo ""
+echo "-------"
+echo ""
+echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
+read elitegousedinput
+echo $elitegousedinput > /tmp/elitegoused
+echo ""
+
+##################################
+## Confirm the details supplied ##
+##################################
+
+clear
+echo ""
+echo "You have asked for the Pi to be setup using the below detail:"
+echo ""
+echo "- Pi number: $(cat /tmp/pinumber)"
+echo ""
+echo "- Elite application server IP: $(cat /tmp/serverip)"
+echo "- Elite port number: $(cat /tmp/eliteclientport)"
+echo "- Site address code: $(cat /tmp/addresscode)"
+echo ""
+echo "- IP for Pi: $(cat /tmp/networkip)"
+echo "- Network mask bits for Pi: $(cat /tmp/networksubnet)"
+echo "- Gateway for Pi: $(cat /tmp/networkgateway)"
+echo ""
+echo "- EliteGo to be used?: $(cat /tmp/elitegoused)"
+echo "- Multi-site children.tab Elite client: $(cat /tmp/hostedsite)"
+echo ""
+echo ""
+echo "Are all the above details correct? (n/y)"
+read confirmdetails
+
+if [ $confirmdetails == n ] || [ $confirmdetails == N ]
+then
+clear
+echo ""
+echo "Please run this script again and supply the correct details."
+echo ""
+echo "No changes have been made."
+echo ""
+echo "Good Bye."
+exit
+else
+ping -c1 127.0.0.1 > /dev/null
+fi
+
+
+
+
+####################################
+## Implement the details supplied ##
+####################################
+echo ""
+echo "Please wait. Implementing the detail supplied..."
+# Set the Pi Hostname using the supplied detail
+hostnamectl set-hostname $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)
+sed -i 's/esp/'$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)'/g' /etc/hosts
+echo ""  >> /etc/hosts
+echo "# How to stop/ start EliteGo:" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "# service espvnc stop" >> /etc/hosts
+echo "# service espvnc start" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "==================" >> /etc/hosts
+echo ""  >> /etc/hosts
+# Add templated printers to spooler using the above supplied detail
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn2 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn2:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn2'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn3 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn3:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn3'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn4 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn4:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn4'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn5 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn5:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn5'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn6 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn6:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn6'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn7 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn7:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn7'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn8 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn8:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn8'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn9 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn9:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn9'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit1 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit1:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit1'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit2 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit2:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit2'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit3 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit3:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit3'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit4 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit4:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit4'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit5 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit5:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit5'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit6 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit6:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit6'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit7 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit7:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit7'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit8 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit8:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit8'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit9 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit9:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit9'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis1 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis1:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis1'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis2 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis2:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis2'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis3 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis3:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis3'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis4 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis4:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis4'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis5 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis5:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis5'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis6 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis6:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis6'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis7 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis7:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis7'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis8 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis8:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis8'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis9 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis9:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis9'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic1 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic1:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic1'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic2 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic2:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic2'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic3 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic3:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic3'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic4 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic4:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic4'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic5 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic5:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic5'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic6 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic6:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic6'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic7 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic7:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic7'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic8 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic8:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic8'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic9 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic9:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic9'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag1 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag1:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag1'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag2 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag2:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag2'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag3 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag3:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag3'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag4 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag4:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag4'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag5 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag5:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag5'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag6 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag6:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag6'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag7 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag7:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag7'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag8 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag8:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag8'
+/usr/sbin/lpadmin -p $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag9 -E -v socket://$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag9:9100 -D '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag9'
+
+# Add templated printers to hosts file using the above supplied detail
+echo "" >> /etc/hosts
+echo "# Sites gateway IP" >> /etc/hosts
+echo "$(cat /tmp/networkgateway) gateway" >> /etc/hosts
+echo "" >> /etc/hosts
+
+echo "# Report Printers" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn2" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn3" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn4" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn5" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn6" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn7" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn8" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn9" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "# Kitchen Printers" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit1" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit2" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit3" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit4" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit5" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit6" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit7" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit8" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-kit9" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "# Dispense Printers" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis1" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis2" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis3" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis4" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis5" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis6" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis7" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis8" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-dis9" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "# Ticket Printers" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic1" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic2" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic3" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic4" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic5" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic6" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic7" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic8" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-tic9" >> /etc/hosts
+echo "" >> /etc/hosts
+echo "# Bag Tag Printers" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag1" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag2" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag3" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag4" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag5" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag6" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag7" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag8" >> /etc/hosts
+echo "0.0.0.0 $(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-bag9" >> /etc/hosts
+
+
+# Set system default printer to be prn1
+# lpoptions -d '$(cat /tmp/addresscode)-P$(cat /tmp/pinumber)-prn1'
+
+
+# Add IP config and re-configure with the detail supplied
+cp -rf /etc/dhcpcd.conf /etc/dhcpcd.confSAFE
+#>/etc/dhcpcd.conf
+echo "interface eth0" >> /etc/dhcpcd.conf
+echo "static ip_address=$(cat /tmp/networkip)/$(cat /tmp/networksubnet)" >> /etc/dhcpcd.conf
+echo "static routers=$(cat /tmp/networkgateway)" >> /etc/dhcpcd.conf
+echo "static domain_name_servers=1.1.1.1 8.8.8.8" >> /etc/dhcpcd.conf
+# Find and replace ip - not used
+#sed -i 's@.*static ip_address=.*@static ip_address='$(cat /tmp/networkip)'/'$(cat /tmp/networksubnet)'@' /etc/dhcpcd.conf
+#sed -i 's@.*static routers=.*@static routers='$(cat /tmp/networkgateway)'@' /etc/dhcpcd.conf
+
+# Configure cups to only accept print jobs from the server IP that was supplied
+sed -i 's@.*Allow server.server.server.server.*@Allow '$(cat /tmp/serverip)'@' /etc/cups/cupsd.conf
+
+# Configure the Pi firewall to accept ssh port 60022 connections from sites Elite server supplied IP
+sed -i 's@-A INPUT -p tcp -m tcp --dport 60022 -s server.server.server.server -j ACCEPT@-A INPUT -p tcp -m tcp --dport 60022 -s '$(cat /tmp/serverip)' -j ACCEPT@' /etc/iptables.firewall.rules
+
+# Configure the Pi firewall to only accept ipps port 631 connections from sites's elite server IP
+sed -i 's@-A INPUT -p tcp -m tcp --dport 631 -s server.server.server.server -j ACCEPT@-A INPUT -p tcp -m tcp --dport 631 -s '$(cat /tmp/serverip)' -j ACCEPT@' /etc/iptables.firewall.rules
+
+# Configure pi's firewall to accept the Pis network IP range on ssh port 60022 (class c only)
+cp /tmp/networkip /tmp/networkip-iptables
+# Remove last octet and replace with '.0/24
+sed -i 's/...$//' /tmp/networkip-iptables
+sed -i 's\$\0/24\' /tmp/networkip-iptables
+sed -i 's@-A INPUT -p tcp -m tcp --dport 60022 -s network.network.network.network -j ACCEPT@-A INPUT -p tcp -m tcp --dport 60022 -s '$(cat /tmp/networkip-iptables)' -j ACCEPT@' /etc/iptables.firewall.rules
+
+# Configure the EliteGo Clients from the detail supplied
+service espvnc stop
+cp -rf /root/files/.espclient64 /home/client1/.espclient64
+cp -rf /root/files/.espclient64 /home/client2/.espclient64
+cp -rf /root/files/.espclient64 /home/client3/.espclient64
+cp -rf /root/files/.espclient64 /home/client4/.espclient64
+cp -rf /root/files/.espclient64 /home/client5/.espclient64
+sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client1/.espclient64
+sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client1/.espclient64
+sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client2/.espclient64
+sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client2/.espclient64
+sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client3/.espclient64
+sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client3/.espclient64
+sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client4/.espclient64
+sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client4/.espclient64
+sed -i 's\<HOST_CHANGE_ME>\'$(cat /tmp/serverip)'\g' /home/client5/.espclient64
+sed -i 's\<PORT_CHANGE_ME>\'$(cat /tmp/eliteclientport)'\g' /home/client5/.espclient64
+sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':01:01:01@' /home/client1/.espclient64
+sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':02:02:02@' /home/client2/.espclient64
+sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':03:03:03@' /home/client3/.espclient64
+sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':04:04:04@' /home/client4/.espclient64
+sed -i 's@<MAC_ADDRESS>@P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':P'$(cat /tmp/pinumber)':05:05:05@' /home/client5/.espclient64
+
+ELITESITEIDREQUIRED=$(cat /tmp/hostedsite | grep 'Y\|y' | wc -l)
+if [ $ELITESITEIDREQUIRED -ge 1 ]
+then
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client1/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client2/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client3/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client4/.espclient64
+sed -i 's\SiteID=\SiteID='$(cat /tmp/addresscode)'\g' /home/client5/.espclient64
+else
+sleep 0.1
+fi
+
+# Enable or disable elitego given answer to question
+ELITEGOUSED=$(cat /tmp/elitegoused)
+if [ $ELITEGOUSED == y ] || [ $ELITEGOUSED == Y ]
+then
+systemctl enable espvnc
+else
+systemctl disable espvnc
+fi
+
+clear
+echo ""
+echo "Stage 2 of 2 - NoIP Client Config"
+echo "================================="
+echo ""
+echo "The stage will now take you through the steps of configuring the noip client."
+echo ""
+echo "When prompted you will need to input the following details (make sure these are correct before you input these):"
+echo ""
+echo "  - Login/ email: This should be in the format of [no-ip group name for the pi]:espleisure (i.e: BURHI01P1:espleisure):"
+echo "  - Password: This is the 'group' password for the above login"
+echo "  - Enter an update interval in minutes: Input an update interval of 5"
+echo "  - Press 'Enter' or 'n' to the prompt of run something at successful update"
+echo ""
+read -p  "Press enter to continue..."
+echo "-----"
+pkill -9 noip
+rm -rf /usr/local/etc/no-ip2.conf 2>/dev/null
+/u/noip/noip2 -C
+chmod 600 /usr/local/etc/no-ip2.conf 2>/dev/null
+chown root:root /usr/local/etc/no-ip2.conf 2>/dev/null
+echo ""
+echo ""
+
+
+echo "-----"
+
+echo "Did you encounter any issues/ error messages in the above? (n/y)"
+read noiperrors
+
+if [ $noiperrors == n ] || [ $noiperrors == N ]
+then
+/u/noip/noip2
+else
+clear
+echo "You've reported you had some issues in registering the no-ip client."
+pkill -9 noip
+rm -rf /usr/local/etc/no-ip2.conf 2>/dev/null
+echo ""
+echo "Noip configuration has now been removed."
+echo ""
+echo "Please try registering the noip client again by manually running the command /u/noip/noip2 -C "
+echo ""
+echo "Good Bye."
+exit
+fi
+
+clear
+echo "You are now required to reboot the Pi for the above changes to take affect."
+echo ""
+echo "Once the Pi has rebooted back to login, please reboot the Raspbery Pi for a second time."
+echo ""
