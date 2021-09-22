@@ -66,11 +66,11 @@ echo "Will site be using EliteGo on this raspberry Pi? (y/n)"
 read elitegousedinput
 echo $elitegousedinput > /tmp/elitegoused
 echo ""
-echo "Will this Raspberry Pi be for a site on a hosted/ children.tab multi-site style setup? (y/n)"
+echo "Is site on a hosted/ children.tab multi-site style setup? (y/n)"
 read hostedsiteinput
 echo $hostedsiteinput > /tmp/hostedsite
 echo ""
-echo "What port number do site's Elite clients connect to the  server on?"
+echo "What port number do site's Elite clients connect to the application server on?"
 read eliteclientportinput
 echo $eliteclientportinput > /tmp/eliteclientport
 echo ""
