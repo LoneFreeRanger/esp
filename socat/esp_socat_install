@@ -1,2 +1,7 @@
 mkdir -p /u/logs/socat
 yum -y install socat
+
+
+# RHEL 7 Section
+
+# RHEL 8 Section
