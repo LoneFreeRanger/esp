@@ -1,1 +1,2 @@
-.
+mkdir -p /u/logs/socat
+yum -y install socat
