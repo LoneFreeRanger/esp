@@ -1,0 +1,15 @@
+[Unit]
+Description='Socat Access Control Service 17'
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -C '/u/espbin/socat/startsocat17'
+RestartSec=10
+Restart=on-failure
+KillMode=process
+PIDFile=/var/run/socat17.pid
+
+[Install]
+WantedBy=multi-user.target
