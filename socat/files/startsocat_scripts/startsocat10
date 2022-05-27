@@ -1,0 +1,32 @@
+# Define your socat access control instance ID here (make sure to state a leading zero if in units i.e 01, 02, 03)
+SOCATNUMBER=10
+
+#########################################
+# Don't touch anything below this line! #
+#########################################
+
+# Check to make sure socat socket for the above is not already running/ open
+SOCKETCHCEK=$(netstat -a | grep 630$(echo $SOCATNUMBER) | wc -l)
+if [ $SOCKETCHCEK -ge 1 ]
+then
+echo ""
+echo "There is already a socket open/ running for socat port 630$(echo $SOCATNUMBER). Not starting another."
+echo ""
+exit
+else
+sleep 0.01
+fi
+
+# Remove previous logs so systemd service can start correctly
+rm -rf /u/logs/socat/socat$(echo $SOCATNUMBER).log
+# Start socat IP to virtual com port instance using above config
+socat -d -d -d -v PTY,link=/dev/vtyp$(echo $SOCATNUMBER),echo=0,raw,unlink-close=0 TCP-LISTEN:630$(echo $SOCATNUMBER),forever,fork,reuseaddr,keepalive 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
+# Log pid of socat instance
+echo $! > /var/run/socat$(echo $SOCATNUMBER).pid
+
+# Obtain the pts in which socat instance has dynamically invoked/ created
+WHICHPTS=$(cat /u/logs/socat/socat$(echo $SOCATNUMBER).log | grep "N PTY is /dev/pts/*" | awk '{print $7}')
+
+# Set permissions of said pts ID in order to permit Elite to use it
+chown sites:group $WHICHPTS
+chmod 777 $WHICHPTS
