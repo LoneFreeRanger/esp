@@ -1,1 +1,30 @@
-1
+#!/bin/bash
+clear
+PS3='What do you want to do?: '
+options=("Stop all socat processes" "Stop one particular socat process" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Stop all axel processes")
+            clear
+            echo "Stopping all axel processes"
+            pkill -9 axttyd
+            echo "Done."
+            exit
+            ;;
+        "Stop one particular axel process")
+            clear
+            echo "Which axel number to do you wish to stop?"
+            read varname
+            echo "Killing axel process $varname"
+            pkill -9 axttyd$varname
+            echo "Done."
+            exit
+            ;;
+        "Quit")
+            break
+            exit
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
