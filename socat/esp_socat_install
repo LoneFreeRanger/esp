@@ -2,6 +2,18 @@ mkdir -p /u/logs/socat
 yum -y install socat
 
 
+######
+
+RHEL8=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 8.")
+CENTOS8=$(cat /etc/redhat-release | grep "CentOS Linux release 8.")
+ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8.")
+
+
+
+
+
 # RHEL 7 Section
+
+
 
 # RHEL 8 Section
