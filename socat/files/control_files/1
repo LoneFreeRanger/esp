@@ -1,22 +1,22 @@
 #!/bin/bash
 clear
 PS3='What do you want to do?: '
-options=("Stop all socat processes" "Stop one particular socat process" "Quit")
+options=("Stop all socat services" "Stop one particular socat service" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "Stop all axel processes")
+        "Stop all socat processes")
             clear
-            echo "Stopping all axel processes"
+            echo "Stopping all socat services"
             pkill -9 axttyd
             echo "Done."
             exit
             ;;
         "Stop one particular axel process")
             clear
-            echo "Which axel number to do you wish to stop?"
+            echo "Which socat service number to do you wish to stop?"
             read varname
-            echo "Killing axel process $varname"
+            echo "Killing socat service $varname"
             pkill -9 axttyd$varname
             echo "Done."
             exit
