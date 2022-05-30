@@ -107,11 +107,27 @@ chmod 777 /u/espbin/startsocat_scripts/*
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat28.service' -O /etc/systemd/socat28.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat29.service' -O /etc/systemd/socat29.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat30.service' -O /etc/systemd/socat30.service
-
-
-
-
-# Make the new services 
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat31.service' -O /etc/systemd/socat31.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat32.service' -O /etc/systemd/socat32.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat33.service' -O /etc/systemd/socat33.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat34.service' -O /etc/systemd/socat34.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat35.service' -O /etc/systemd/socat35.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat36.service' -O /etc/systemd/socat36.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat37.service' -O /etc/systemd/socat37.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat38.service' -O /etc/systemd/socat38.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat39.service' -O /etc/systemd/socat39.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat40.service' -O /etc/systemd/socat40.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat41.service' -O /etc/systemd/socat41.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat42.service' -O /etc/systemd/socat42.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat43.service' -O /etc/systemd/socat43.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat44.service' -O /etc/systemd/socat44.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat45.service' -O /etc/systemd/socat45.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat46.service' -O /etc/systemd/socat46.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat47.service' -O /etc/systemd/socat47.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat48.service' -O /etc/systemd/socat48.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat49.service' -O /etc/systemd/socat49.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/socat50.service
+#Make the new services 
 
 cp -rf socat.service /etc/systemd/system
 chmod 777 /etc/systemd/system/socat.service
