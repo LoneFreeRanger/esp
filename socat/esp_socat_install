@@ -158,7 +158,7 @@ chmod 777 /u/espbin/startsocat_scripts/*
 chmod 777 /etc/systemd/socat*.service
 systemctl daemon-reload
 
-
+# Add firewall rules here
 
 # RHEL 7 Section
 elif [ "$RHEL7" -ge 1 ]
