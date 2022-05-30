@@ -8,11 +8,62 @@ do
         "Stop all socat processes")
             clear
             echo "Stopping all socat services"
-            pkill -9 axttyd
+            service socat01.service stop
+            service socat02.service stop
+            service socat03.service stop
+            service socat04.service stop
+            service socat05.service stop
+            service socat06.service stop
+            service socat07.service stop
+            service socat08.service stop
+            service socat09.service stop
+            service socat10.service stop
+            service socat11.service stop
+            service socat12.service stop
+            service socat13.service stop
+            service socat14.service stop
+            service socat15.service stop
+            service socat16.service stop
+            service socat17.service stop
+            service socat18.service stop
+            service socat19.service stop
+            service socat20.service stop
+            service socat21.service stop
+            service socat22.service stop
+            service socat23.service stop
+            service socat24.service stop
+            service socat25.service stop
+            service socat26.service stop
+            service socat27.service stop
+            service socat28.service stop
+            service socat29.service stop
+            service socat30.service stop
+            service socat31.service stop
+            service socat32.service stop
+            service socat33.service stop
+            service socat34.service stop
+            service socat35.service stop
+            service socat36.service stop
+            service socat37.service stop
+            service socat38.service stop
+            service socat39.service stop
+            service socat40.service stop
+            service socat41.service stop
+            service socat42.service stop
+            service socat43.service stop
+            service socat44.service stop
+            service socat45.service stop
+            service socat46.service stop
+            service socat47.service stop
+            service socat48.service stop
+            service socat49.service stop
+            service socat50.service stop
+            sleep 3
+            pkill -9 socat
             echo "Done."
             exit
             ;;
-        "Stop one particular axel process")
+        "Stop one particular socat process")
             clear
             echo "Which socat service number to do you wish to stop?"
             read varname
