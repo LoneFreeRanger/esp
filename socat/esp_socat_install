@@ -12,12 +12,41 @@ ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8.")
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
 then
 echo "Installing for RHEL/CENTOS/ALMA 8...."
+sleep 3
 mkdir -p /u/espbin/startsocat_scripts
-cd /u/espbin/startsocat_scripts
-/usr/bin/wget 
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat02' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat03' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat04' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat05' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat06' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat07' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat08' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat09' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat101' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat11' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat12' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat13' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat14' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat15' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat16' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat17' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
 
-sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
-
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
 
 
 
