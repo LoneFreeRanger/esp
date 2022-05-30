@@ -1,4 +1,14 @@
 #!/bin/bash
+# Make sure this is being run as root user
+WHO=$(whoami | grep root | wc -l)
+if [ "$WHO" -ge 1 ]
+then
+echo ""
+else
+echo "You need to run this script as the root user."
+exit
+fi
+
 clear
 PS3='What do you want to do?: '
 options=("Stop all socat services" "Stop one particular socat service" "Quit")
