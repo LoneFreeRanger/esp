@@ -1,19 +1,48 @@
+echo ""
+echo "Please wait...."
+
 # Make sure this is being run as root user
 
-# do check here
+WHO=$(whoami | grep root | wc -l)
+
+if [ "$WHO" -ge 1 ]
+then
+echo ""
+else
+echo "You need to run this script as the root user."
+exit
+fi
 
 ######
 
-
+# Setup directories and install required packages
 mkdir -p /u/logs/socat
+mkdir -p /u/espbin/startsocat_scripts
 yum -y install socat
 yum -y install wget
 
 ######
 
-RHEL8=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 8.")
-CENTOS8=$(cat /etc/redhat-release | grep "CentOS Linux release 8.")
-ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8.")
+# Check to make sure the packages are installed
+
+SOCATRPM=$(rpm -qa | grep socat | wc -l)
+WGETRPM=$(rpm -qa | grep wget | wc -l)
+
+if [ "$SOCATRPM" -ge 1 ] && [ "$WGETRPM" -ge 1 ]
+then
+echo ""
+else
+echo "Required packages socat and wget are not installed within the OS."
+echo "These are required to be installed before you can continue."
+exit
+fi
+
+######
+
+RHEL8=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 8." | wc -l)
+CENTOS8=$(cat /etc/redhat-release | grep "CentOS Linux release 8." | wc -l)
+ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
+RHEL7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 7." | wc -l)
 
 # RHEL/CENTOS/ALMA 8 Section
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
@@ -22,7 +51,6 @@ echo "Installing for RHEL/CENTOS/ALMA 8...."
 sleep 3
 
 # Get and put in place the start scripts
-mkdir -p /u/espbin/startsocat_scripts
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat02' -O /u/espbin/startsocat_scripts/startsocat02
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat03' -O /u/espbin/startsocat_scripts/startsocat03
@@ -132,12 +160,16 @@ systemctl daemon-reload
 
 
 
-else
+# RHEL 7 Section
+elif [ "$RHEL7" -ge 1 ]
+then
+echo "Installing for RHEL 7...."
+sleep 3
 
+else
+echo "Non-supported OS detected. Not doing anything."
 fi
 
-
-# RHEL 7 Section
 
 
 
