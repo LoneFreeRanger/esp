@@ -127,12 +127,9 @@ chmod 777 /u/espbin/startsocat_scripts/*
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat48.service' -O /etc/systemd/socat48.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat49.service' -O /etc/systemd/socat49.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/socat50.service
-#Make the new services 
-
-cp -rf socat.service /etc/systemd/system
-chmod 777 /etc/systemd/system/socat.service
+chmod 777 /etc/systemd/socat*.service
 systemctl daemon-reload
-systemctl enable socat
+
 
 
 else
