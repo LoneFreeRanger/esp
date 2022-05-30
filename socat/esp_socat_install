@@ -1,5 +1,6 @@
 mkdir -p /u/logs/socat
 yum -y install socat
+yum -y install wget
 
 ######
 
@@ -11,6 +12,15 @@ ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8.")
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
 then
 echo "Installing for RHEL/CENTOS/ALMA 8...."
+mkdir -p /u/espbin/startsocat_scripts
+cd /u/espbin/startsocat_scripts
+/usr/bin/wget 
+
+sudo /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat01' -O /u/espbin/startsocat_scripts/startsocat01
+
+
+
+
 
 
 
