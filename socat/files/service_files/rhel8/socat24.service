@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash -C '/u/espbin/socat/startsocat24'
+ExecStart=/bin/bash -C '/u/espbin/socat/startsocat_scripts/startsocat24'
 RestartSec=10
 Restart=on-failure
 KillMode=process
