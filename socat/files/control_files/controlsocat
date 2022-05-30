@@ -65,7 +65,7 @@ do
             ;;
         "Stop one particular socat process")
             clear
-            echo "Which socat service number to do you wish to stop?"
+            echo "Which socat service number do you wish to stop?"
             echo "(make sure to stating any leading zero if applicable i.e: 01, 02)"
             read varname
             echo "Killing socat service $varname"
