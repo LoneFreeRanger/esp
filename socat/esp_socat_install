@@ -43,6 +43,7 @@ RHEL8=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 8." | w
 CENTOS8=$(cat /etc/redhat-release | grep "CentOS Linux release 8." | wc -l)
 ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
 RHEL7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 7." | wc -l)
+CENTOS7=$(cat /etc/redhat-release | grep "CentOS Linux release 7." | wc -l)
 
 # RHEL/CENTOS/ALMA 8 Section
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
