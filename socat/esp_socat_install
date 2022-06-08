@@ -165,4 +165,6 @@ fi
 
 
 # Add firewall rules here
-
+echo ""
+echo "Now please add the firewall rules manually"
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="69.69.69.0/24" port protocol="tcp" port="22" log prefix="FIREWALLD-ACCEPTED " level="info" accept'
