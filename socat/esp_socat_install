@@ -45,7 +45,7 @@ ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
 RHEL7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 7." | wc -l)
 
 # RHEL/CENTOS/ALMA 8 Section
-if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
+if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ] || [ "$RHEL7" -ge 1 ]
 then
 echo "Installing for RHEL/CENTOS/ALMA 8...."
 sleep 3
@@ -157,14 +157,6 @@ chmod 777 /u/espbin/startsocat_scripts/*
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/socat50.service
 chmod 777 /etc/systemd/socat*.service
 systemctl daemon-reload
-
-
-
-# RHEL 7 Section
-elif [ "$RHEL7" -ge 1 ]
-then
-echo "Installing for RHEL 7...."
-sleep 3
 
 else
 echo "Non-supported OS detected. Not doing anything."
