@@ -163,10 +163,12 @@ echo "Non-supported OS detected. Not doing anything."
 fi
 
 
-
+clear
 # Add firewall rules here
 echo ""
-echo "Now please add the required firewall rules manually to the server OS."
+echo "Now please add the required firewall rules manually to the server OS (iptables or firewalld)."
 echo ""
 echo "These will be ports 63001 - 63050 dependant on the number of access points you have."
+echo ""
+echo "If this is a third party supplied you may want to check that a firewall is even applicable."
 echo ""
