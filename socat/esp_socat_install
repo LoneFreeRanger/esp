@@ -48,7 +48,7 @@ CENTOS7=$(cat /etc/redhat-release | grep "CentOS Linux release 7." | wc -l)
 # RHEL/CENTOS/ALMA 8 Section
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ] || [ "$CENTOS7" -ge 1 ] || [ "$RHEL7" -ge 1 ]
 then
-echo "Installing for RHEL/CENTOS/ALMA 8...."
+echo "Installing for RHEL/CENTOS 7 or RHEL/CENTOS/ALMA 8...."
 sleep 3
 
 # Get and put in place the start scripts
@@ -159,10 +159,6 @@ chmod 777 /u/espbin/startsocat_scripts/*
 chmod 777 /etc/systemd/system/socat*.service
 systemctl daemon-reload
 
-# centos/ redhat 7 here
-
-
-
 else
 echo "Non-supported OS detected. Not doing anything."
 fi
@@ -171,9 +167,11 @@ fi
 clear
 # Add firewall rules here
 echo ""
+echo "Complete!"
+echo ""
 echo "Now please add the required firewall rules manually to the server OS (iptables or firewalld)."
 echo ""
 echo "These will be ports 63001 - 63050 dependant on the number of access points you have."
 echo ""
-echo "If this is a third party supplied server you may want to check that a firewall is even applicable."
+echo "If this is a third party supplied server you may want to check that a firewall is applicable."
 echo ""
