@@ -45,7 +45,7 @@ ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
 RHEL7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 7." | wc -l)
 
 # RHEL/CENTOS/ALMA 8 Section
-if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ] || [ "$RHEL7" -ge 1 ]
+if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ]
 then
 echo "Installing for RHEL/CENTOS/ALMA 8...."
 sleep 3
@@ -105,58 +105,62 @@ chmod 777 /u/espbin/startsocat_scripts/*
 
 
 # Get and put in place the OS service files
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat01.service' -O /etc/systemd/socat01.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat02.service' -O /etc/systemd/socat02.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat03.service' -O /etc/systemd/socat03.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat04.service' -O /etc/systemd/socat04.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat05.service' -O /etc/systemd/socat05.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat06.service' -O /etc/systemd/socat06.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat07.service' -O /etc/systemd/socat07.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat08.service' -O /etc/systemd/socat08.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat09.service' -O /etc/systemd/socat09.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat10.service' -O /etc/systemd/socat10.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat11.service' -O /etc/systemd/socat11.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat12.service' -O /etc/systemd/socat12.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat13.service' -O /etc/systemd/socat13.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat14.service' -O /etc/systemd/socat14.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat15.service' -O /etc/systemd/socat15.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat16.service' -O /etc/systemd/socat16.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat17.service' -O /etc/systemd/socat17.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat18.service' -O /etc/systemd/socat18.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat19.service' -O /etc/systemd/socat19.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat20.service' -O /etc/systemd/socat20.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat21.service' -O /etc/systemd/socat21.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat22.service' -O /etc/systemd/socat22.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat23.service' -O /etc/systemd/socat23.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat24.service' -O /etc/systemd/socat24.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat25.service' -O /etc/systemd/socat25.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat26.service' -O /etc/systemd/socat26.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat27.service' -O /etc/systemd/socat27.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat28.service' -O /etc/systemd/socat28.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat29.service' -O /etc/systemd/socat29.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat30.service' -O /etc/systemd/socat30.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat31.service' -O /etc/systemd/socat31.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat32.service' -O /etc/systemd/socat32.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat33.service' -O /etc/systemd/socat33.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat34.service' -O /etc/systemd/socat34.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat35.service' -O /etc/systemd/socat35.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat36.service' -O /etc/systemd/socat36.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat37.service' -O /etc/systemd/socat37.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat38.service' -O /etc/systemd/socat38.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat39.service' -O /etc/systemd/socat39.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat40.service' -O /etc/systemd/socat40.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat41.service' -O /etc/systemd/socat41.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat42.service' -O /etc/systemd/socat42.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat43.service' -O /etc/systemd/socat43.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat44.service' -O /etc/systemd/socat44.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat45.service' -O /etc/systemd/socat45.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat46.service' -O /etc/systemd/socat46.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat47.service' -O /etc/systemd/socat47.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat48.service' -O /etc/systemd/socat48.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat49.service' -O /etc/systemd/socat49.service
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/socat50.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat01.service' -O /etc/systemd/system/socat01.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat02.service' -O /etc/systemd/system/socat02.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat03.service' -O /etc/systemd/system/socat03.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat04.service' -O /etc/systemd/system/socat04.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat05.service' -O /etc/systemd/system/socat05.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat06.service' -O /etc/systemd/system/socat06.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat07.service' -O /etc/systemd/system/socat07.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat08.service' -O /etc/systemd/system/socat08.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat09.service' -O /etc/systemd/system/socat09.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat10.service' -O /etc/systemd/system/socat10.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat11.service' -O /etc/systemd/system/socat11.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat12.service' -O /etc/systemd/system/socat12.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat13.service' -O /etc/systemd/system/socat13.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat14.service' -O /etc/systemd/system/socat14.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat15.service' -O /etc/systemd/system/socat15.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat16.service' -O /etc/systemd/system/socat16.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat17.service' -O /etc/systemd/system/socat17.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat18.service' -O /etc/systemd/system/socat18.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat19.service' -O /etc/systemd/system/socat19.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat20.service' -O /etc/systemd/system/socat20.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat21.service' -O /etc/systemd/system/socat21.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat22.service' -O /etc/systemd/system/socat22.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat23.service' -O /etc/systemd/system/socat23.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat24.service' -O /etc/systemd/system/socat24.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat25.service' -O /etc/systemd/system/socat25.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat26.service' -O /etc/systemd/system/socat26.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat27.service' -O /etc/systemd/system/socat27.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat28.service' -O /etc/systemd/system/socat28.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat29.service' -O /etc/systemd/system/socat29.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat30.service' -O /etc/systemd/system/socat30.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat31.service' -O /etc/systemd/system/socat31.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat32.service' -O /etc/systemd/system/socat32.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat33.service' -O /etc/systemd/system/socat33.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat34.service' -O /etc/systemd/system/socat34.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat35.service' -O /etc/systemd/system/socat35.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat36.service' -O /etc/systemd/system/socat36.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat37.service' -O /etc/systemd/system/socat37.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat38.service' -O /etc/systemd/system/socat38.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat39.service' -O /etc/systemd/system/socat39.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat40.service' -O /etc/systemd/system/socat40.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat41.service' -O /etc/systemd/system/socat41.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat42.service' -O /etc/systemd/system/socat42.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat43.service' -O /etc/systemd/system/socat43.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat44.service' -O /etc/systemd/system/socat44.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat45.service' -O /etc/systemd/system/socat45.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat46.service' -O /etc/systemd/system/socat46.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat47.service' -O /etc/systemd/system/socat47.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat48.service' -O /etc/systemd/system/socat48.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat49.service' -O /etc/systemd/system/socat49.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/system/socat50.service
 chmod 777 /etc/systemd/socat*.service
 systemctl daemon-reload
+
+# centos/ redhat 7 here
+
+
 
 else
 echo "Non-supported OS detected. Not doing anything."
@@ -170,5 +174,5 @@ echo "Now please add the required firewall rules manually to the server OS (ipta
 echo ""
 echo "These will be ports 63001 - 63050 dependant on the number of access points you have."
 echo ""
-echo "If this is a third party supplied you may want to check that a firewall is even applicable."
+echo "If this is a third party supplied server you may want to check that a firewall is even applicable."
 echo ""
