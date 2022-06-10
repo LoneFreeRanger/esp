@@ -45,7 +45,7 @@ ALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
 RHEL7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 7." | wc -l)
 CENTOS7=$(cat /etc/redhat-release | grep "CentOS Linux release 7." | wc -l)
 
-# RHEL/CENTOS/ALMA 8 Section
+# RHEL/CENTOS/ALMA 7/8 Section
 if [ "$RHEL8" -ge 1 ] || [ "$CENTOS8" -ge 1 ] || [ "$ALMA8" -ge 1 ] || [ "$CENTOS7" -ge 1 ] || [ "$RHEL7" -ge 1 ]
 then
 echo "Installing for RHEL/CENTOS 7 or RHEL/CENTOS/ALMA 8...."
