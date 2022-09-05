@@ -1,9 +1,11 @@
-# Define your socat access control instance ID here (make sure to state a leading zero if in units i.e 01, 02, 03)
-SOCATNUMBER=01
+# Define your the deltaquest IP or hostname here. This can be a qualified hostname or IP address
+DELTAQUEST_IP=[CHANGE_ME]
+
 
 #########################################
 # Don't touch anything below this line! #
 #########################################
+SOCATNUMBER=01
 
 # Check to make sure socat socket for the above is not already running/ open
 SOCKETCHCEK=$(netstat -a | grep 630$(echo $SOCATNUMBER) | wc -l)
@@ -20,7 +22,8 @@ fi
 # Remove previous logs so systemd service can start correctly
 rm -rf /u/logs/socat/socat$(echo $SOCATNUMBER).log
 # Start socat IP to virtual com port instance using above config
-socat -d -d -d -v PTY,link=/dev/vtyp$(echo $SOCATNUMBER),echo=0,raw,unlink-close=0 TCP-LISTEN:630$(echo $SOCATNUMBER),forever,fork,reuseaddr,keepalive 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
+socat -d -d -d -v pty,link=/dev/vtyp$(echo $SOCATNUMBER),raw tcp:$(echo $DELTAQUEST_IP):100$(echo $SOCATNUMBER),forever,keepalive,interval=10,fork 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
+
 # Log pid of socat instance
 echo $! > /var/run/socat$(echo $SOCATNUMBER).pid
 
