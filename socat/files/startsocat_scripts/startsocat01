@@ -1,4 +1,4 @@
-# Define  the deltaquest IP or hostname here. This can be a qualified hostname or IP address
+# Define the deltaquest IP or hostname here. This can be a qualified hostname or IP address
 DELTAQUEST_IP=[CHANGE_ME]
 
 
