@@ -156,6 +156,7 @@ chmod 777 /u/espbin/startsocat_scripts/*
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat48.service' -O /etc/systemd/system/socat48.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat49.service' -O /etc/systemd/system/socat49.service
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/service_files/rhel8/socat50.service' -O /etc/systemd/system/socat50.service
+chmod 777 /u/espbin/socat/startsocat_scripts/*
 chmod 777 /etc/systemd/system/socat*.service
 systemctl daemon-reload
 
