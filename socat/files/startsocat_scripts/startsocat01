@@ -26,10 +26,11 @@ socat -d -d -d -v pty,link=/dev/vtyp$(echo $SOCATNUMBER),raw tcp:$(echo $DELTAQU
 
 # Log pid of socat instance
 echo $! > /var/run/socat$(echo $SOCATNUMBER).pid
+sleep 3
 
 # Obtain the pts in which socat instance has dynamically invoked/ created
-WHICHPTS=$(cat /u/logs/socat/socat$(echo $SOCATNUMBER).log | grep "N PTY is /dev/pts/*" | awk '{print $7}')
+cat /u/logs/socat/socat$(echo $SOCATNUMBER).log | grep "N PTY is /dev/pts/*" | awk '{print $7}' > /tmp/socatpts-$(echo $SOCATNUMBER)
 
 # Set permissions of said pts ID in order to permit Elite to use it
-chown sites:group $WHICHPTS
-chmod 777 $WHICHPTS
+chown sites:group $(cat /tmp/socatpts-$(echo $SOCATNUMBER))
+chmod 777 $(cat /tmp/socatpts-$(echo $SOCATNUMBER))
