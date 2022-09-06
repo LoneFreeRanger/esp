@@ -12,7 +12,7 @@ SOCKETCHCEK=$(ps -ef | grep 100$(echo $SOCATNUMBER) | grep socat | wc -l)
 if [ $SOCKETCHCEK -ge 1 ]
 then
 echo ""
-echo "There is already a socket open/ running for socat port 100$(echo $SOCATNUMBER). Not starting another."
+echo "ERROR: There is already a socket open/ running for socat port 100$(echo $SOCATNUMBER). Not starting another."
 echo ""
 exit
 else
