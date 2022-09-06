@@ -8,7 +8,7 @@ DELTAQUEST_IP_HOSTNAME=[CHANGE_ME]
 SOCATNUMBER=01
 
 # Check to make sure socat socket for the above is not already running/ open
-SOCKETCHCEK=$(netstat -a | grep 100$(echo $SOCATNUMBER) | wc -l)
+SOCKETCHCEK=$(ps -ef | grep 100$(echo $SOCATNUMBER) | grep socat | wc -l)
 if [ $SOCKETCHCEK -ge 1 ]
 then
 echo ""
