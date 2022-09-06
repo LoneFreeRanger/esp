@@ -177,4 +177,5 @@ echo "     facing routing/ firewall hardware to the applicable DeltaQuest boxes.
 echo "     the cloud based ESP server's pubic IP access in on these ports."
 echo ""
 echo "3) - On the server, amend the /u/espbin/socat/startsocat_scripts to look to the applicable IP address or hostname to that of the DeltaQuest boxes"
-
+echo "     If site are using a cloud based server they will need an E-lite server on-site in order to be able to track/ locate site over the web via"
+echo "     the dynamic DNS service in which runs from the unit (ie: site.esp-elite.com)"
