@@ -1,5 +1,5 @@
 # Define the deltaquest IP or hostname here. This can be a qualified hostname or IP address
-DELTAQUEST_IP_HOSTNAME=192.168.1.5
+DELTAQUEST_IP_HOSTNAME=CHANGE_ME
 
 
 #########################################
