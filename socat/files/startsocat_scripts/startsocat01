@@ -1,5 +1,5 @@
 # Define the deltaquest IP or hostname here. This can be a qualified hostname or IP address
-DELTAQUEST_IP=[CHANGE_ME]
+DELTAQUEST_IP_HOSTNAME=[CHANGE_ME]
 
 
 #########################################
@@ -22,7 +22,7 @@ fi
 # Remove previous logs so systemd service can start correctly
 rm -rf /u/logs/socat/socat$(echo $SOCATNUMBER).log
 # Start socat IP to virtual com port instance using above config
-socat -d -d -d -v pty,link=/dev/vtyp$(echo $SOCATNUMBER),raw tcp:$(echo $DELTAQUEST_IP):100$(echo $SOCATNUMBER),forever,keepalive,interval=10,fork 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
+socat -d -d -d -v pty,link=/dev/vtyp$(echo $SOCATNUMBER),raw tcp:$(echo $DELTAQUEST_IP_HOSTNAME):100$(echo $SOCATNUMBER),forever,keepalive,interval=10,fork 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
 
 # Log pid of socat instance
 echo $! > /var/run/socat$(echo $SOCATNUMBER).pid
