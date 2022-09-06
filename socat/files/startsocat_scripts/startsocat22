@@ -4,7 +4,7 @@ DELTAQUEST_IP_HOSTNAME=CHANGE_ME
 #########################################
 # Don't touch anything below this line! #
 #########################################
-SOCATNUMBER=21
+SOCATNUMBER=22
 
 # Remove previous logs so systemd service can start correctly
 rm -rf /u/logs/socat/socat$(echo $SOCATNUMBER).log
