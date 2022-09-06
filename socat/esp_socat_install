@@ -166,16 +166,15 @@ fi
 
 
 clear
-# Add firewall rules here
 echo ""
-echo "Complete!"
+echo "Next steps required:"
 echo ""
-echo "Now please add the required outbound firewall port rules to the server OS (firewalld. iptables not applicable)."
+echo "1) - Please check, and if required, add the required outbound firewall port rules to the server  (firewalld only. iptables not applicable)."
+echo "     These will be ports 10001 - 10050 dependant on the number of DeltaQuest boxes the server looks to."
 echo ""
-echo "These will be ports 10001 - 10050 dependant on the number of DeltaQuest boxes the server looks to."
+echo "2) - If site are using a cloud based server, site will need to port forward the applicable incomong ports on their internet"
+echo "     facing routing/ firewall hardware to the applicable DeltaQuest boxes. Please note: IT IS IMPERATIVE that site only permits"
+echo "     the cloud based ESP server's pubic IP access in on these ports."
 echo ""
-echo "If site are using cloud based server, site will need to port forward the applicable incomong ports on their internet"
-echo "facing routing/ firewall hardware to the applicable DeltaQuest boxes. Please note: IT IS IMPERATIVE that site only permits"
-echo "the cloud based ESP server's pubic IP access in on these ports."
-echo ""
-echo ""
+echo "3) - On the server, amend the /u/espbin/socat/startsocat_scripts to look to the applicable IP address or hostname to that of the DeltaQuest boxes"
+
