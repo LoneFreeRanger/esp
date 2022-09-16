@@ -21,6 +21,9 @@ else
 sleep 0.01
 fi
 
+# Remove previous socat pid ID so socat can run correctly
+rm -rf /var/run/socat$(echo $SOCATNUMBER).pid
+
 # Start socat IP to virtual com port instance using above config
 socat -d -d -d -v pty,link=/dev/vtyp$(echo $SOCATNUMBER),raw tcp:$(echo $DELTAQUEST_IP_HOSTNAME):100$(echo $SOCATNUMBER),forever,keepalive,interval=10,fork 1> /u/logs/socat/socat$(echo $SOCATNUMBER).log 2>&1 &
 
