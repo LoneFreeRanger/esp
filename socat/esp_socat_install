@@ -102,7 +102,7 @@ sleep 3
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat48' -O /u/espbin/socat/startsocat_scripts/startsocat48
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat49' -O /u/espbin/socat/startsocat_scripts/startsocat49
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/socat/files/startsocat_scripts/startsocat50' -O /u/espbin/socat/startsocat_scripts/startsocat50
-chmod 777 /u/espbin/startsocat_scripts/*
+chmod 777 /u/espbin/socat/startsocat_scripts/*
 
 
 # Get and put in place the OS service files
