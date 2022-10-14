@@ -15,6 +15,18 @@ fi
 
 ######
 
+ALREADYINSTALLED=$(ls -l /u/espbin/socat/startsocat_scripts | wc -l)
+
+if [ $ALREADYINSTALLED -ge 1 ]
+then 
+echo "ESP socat already installed. Not doing anything."
+exit
+else
+echo ""
+fi
+
+######
+
 # Setup directories and install required packages
 mkdir -p /u/logs/socat
 mkdir -p /u/espbin/socat/startsocat_scripts
