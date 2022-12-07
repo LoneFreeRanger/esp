@@ -1,1 +1,583 @@
-Hello
+# Sysinfo script for ESP Linux servers - v06.12.22-1
+# Ray Reilly 
+
+#####################
+## MAKE SETUP DIRS ##
+#####################
+
+mkdir -p /tmp/espinfo
+rm -rf /tmp/espinfo/*
+
+######################
+## COLLECT THE INFO ##
+######################
+
+echo "script ver: v05.12.22-1" > /tmp/espinfo/scriptver
+
+# Multi-site check
+MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
+if [ $MULTISITECHECK -ge 1 ]
+then
+echo "multi-site gui: yes" > /tmp/espinfo/multisite
+else
+echo "multi-site gui: no" > /tmp/espinfo/multisite
+fi
+
+# Get Public IP
+curl https://icanhazip.com > /tmp/espinfo/publicipis
+echo "$(sed 's/^/public ip: /g' /tmp/espinfo/publicipis)" > /tmp/espinfo/publicip
+
+# Get Public IP info
+curl https://ipinfo.io/$(cat /tmp/espinfo/publicipis) > /tmp/espinfo/publicipinfo
+rm -rf /tmp/espinfo/publicipis
+
+# Public IP region
+cat /tmp/espinfo/publicipinfo | grep region > /tmp/espinfo/publicipregion
+echo "$(cat /tmp/espinfo/publicipregion|awk '{print $2}')" > /tmp/espinfo/publicipregion
+echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/"//g' /tmp/espinfo/publicipregion
+echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/,//g' /tmp/espinfo/publicipregion
+echo "$(sed 's/^/public ip region: /g' /tmp/espinfo/publicipregion)" > /tmp/espinfo/publicipregion
+
+# Public IP city
+cat /tmp/espinfo/publicipinfo | grep city > /tmp/espinfo/publicipcity
+echo "$(cat /tmp/espinfo/publicipcity|awk '{print $2}')" > /tmp/espinfo/publicipcity
+echo "$(cat /tmp/espinfo/publicipcity)" | sed -i 's/"//g' /tmp/espinfo/publicipcity
+echo "$(cat /tmp/espinfo/publicipcity)" | sed -i 's/,//g' /tmp/espinfo/publicipcity
+echo "$(sed 's/^/public ip city: /g' /tmp/espinfo/publicipcity)" > /tmp/espinfo/publicipcity
+
+# Public IP country
+cat /tmp/espinfo/publicipinfo | grep country > /tmp/espinfo/publicipcountry
+echo "$(cat /tmp/espinfo/publicipcountry|awk '{print $2}')" > /tmp/espinfo/publicipcountry
+echo "$(cat /tmp/espinfo/publicipcountry)" | sed -i 's/"//g' /tmp/espinfo/publicipcountry
+echo "$(cat /tmp/espinfo/publicipcountry)" | sed -i 's/,//g' /tmp/espinfo/publicipcountry
+echo "$(sed 's/^/public ip country: /g' /tmp/espinfo/publicipcountry)" > /tmp/espinfo/publicipcountry
+
+# Public IP organisation
+cat /tmp/espinfo/publicipinfo | grep org > /tmp/espinfo/publiciporganisation
+echo "$(cat /tmp/espinfo/publiciporganisation|awk '{print $2 $3 $4 $5}')" > /tmp/espinfo/publiciporganisation
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publiciporganisation
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/,//g' /tmp/espinfo/publiciporganisation
+echo "$(sed 's/^/public ip org: /g' /tmp/espinfo/publiciporganisation)" > /tmp/espinfo/publiciporganisation
+
+# Public IP longitude and latitude
+cat /tmp/espinfo/publicipinfo | grep loc > /tmp/espinfo/publicipgeoloc
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/loc//g' /tmp/espinfo/publicipgeoloc
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publicipgeoloc
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/://g' /tmp/espinfo/publicipgeoloc
+echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/ //g' /tmp/espinfo/publicipgeoloc
+echo "$(sed 's/^/public ip geolocation: /g' /tmp/espinfo/publicipgeoloc)" > /tmp/espinfo/publicipgeoloc
+
+rm -rf /tmp/espinfo/publicipinfo
+
+hostname > /tmp/espinfo/hostname
+echo "$(sed 's/^/hostname: /g' /tmp/espinfo/hostname)" > /tmp/espinfo/hostname
+
+ETH0=$(ifconfig -a | grep eth0 | wc -l)
+ENO1=$(ifconfig -a | grep eno1 | wc -l)
+if [ $ETH0 -ge 1 ]
+then
+/sbin/ip addr show eth0 | grep "inet" | grep "brd" > /tmp/espinfo/hostip
+echo "$(sed 's/^....//' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
+echo "$(sed 's/^/server ip: /g' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
+else
+/sbin/ip addr show eno1 | grep "inet" | grep "brd" > /tmp/espinfo/hostip
+echo "$(sed 's/^....//' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
+echo "$(sed 's/^/server ip: /g' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
+fi
+
+COMMS=$(find /u/esp -name systems.tab -exec grep "COMMS_SERVER" '{}' \; -print | wc -l)
+if [ $COMMS -ge 1 ]
+then
+echo "engage/ comms: yes" > /tmp/espinfo/comms
+else
+echo "engage/comms: no" > /tmp/espinfo/comms
+fi
+
+EFT_PATH=$(find /u/esp -name systems.tab -exec grep "EFT_PATH" '{}' \; -print | wc -l)
+if [ $EFT_PATH -ge 1 ]
+then
+what -s /u/esp/*/eft/eft >> /tmp/espinfo/eftver
+echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
+echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+else
+what -s /u/eft/eft >> /tmp/espinfo/eftver
+echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
+echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+fi
+
+ESPCLIENT_PRESENT=$(ls -l /u/ups/espclient.upg | wc -l)
+ESPCLIENT=(/u/ups/espclient.upg)
+ESPCLIENTMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+rm -rf /tmp/espinfo/espclientver
+if [ $ESPCLIENTMULTI -ge 1 ]
+then
+echo "espclient.upg version: [MULTISITE GUI]" > /tmp/espinfo/espclientver
+elif [ $ESPCLIENT_PRESENT -ge 1 ]
+then
+what -s $ESPCLIENT >> /tmp/espinfo/espclientver
+echo "$(tail -n 1 /tmp/espinfo/espclientver)" > /tmp/espinfo/espclientver
+echo "$(cat /tmp/espinfo/espclientver|awk '{print $2}')" > /tmp/espinfo/espclientver
+echo "$(sed 's/^/espclient.upg version: /g' /tmp/espinfo/espclientver)" > /tmp/espinfo/espclientver
+else
+echo "espclient.upg version: n/a" > /tmp/espinfo/espclientver
+fi
+
+ESPCLIENTDATE=$(ls -l /u/ups/espclient.upg | wc -l)
+ESPCLIENTMULTI2=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+ESPCLIENT_PRESENT2=$(ls -l /u/ups/espclient.upg | wc -l)
+if [ $ESPCLIENTMULTI2 -ge 1 ]
+then
+echo "espclient.upg date: [MULTISITE GUI]" > /tmp/espinfo/espclientdate
+elif [ $ESPCLIENTMULTI2 -le 0 ]
+then
+echo "espclient.upg date: n/a" > /tmp/espinfo/espclientdate
+elif [ $ESPCLIENTMULTI2 -le 0 ]
+then
+date -r /u/ups/espclient.upg -R > /tmp/espinfo/espclientdate
+echo "$(cat /tmp/espinfo/espclientdate|awk '{print $2" "$3" "$4}')" > /tmp/espinfo/espclientdate
+echo "$(sed 's/^/espclient.upg date: /g' /tmp/espinfo/espclientdate)" > /tmp/espinfo/espclientdate
+fi
+
+what -s /u/gui/espsite > /tmp/espinfo/espsite
+echo "$(tail -n 1 /tmp/espinfo/espsite)" > /tmp/espinfo/espsite
+echo "$(cat /tmp/espinfo/espsite|awk '{print $3}')" > /tmp/espinfo/espsite
+echo "$(sed 's/^/espsite ver: /g' /tmp/espinfo/espsite)" > /tmp/espinfo/espsite
+
+ls -l /u/gui/espsite > /tmp/espinfo/espsitesize
+echo "$(cat /tmp/espinfo/espsitesize|awk '{print $5}')" > /tmp/espinfo/espsitesize
+echo "$(sed 's/^/espsite size: /g' /tmp/espinfo/espsitesize)" > /tmp/espinfo/espsitesize
+
+cat /etc/redhat-release > /tmp/espinfo/osversion
+echo "$(sed 's/^/os version: /g' /tmp/espinfo/osversion)" > /tmp/espinfo/osversion
+
+/usr/sbin/dmidecode | grep -A3 '^System Information' | grep 'Product' > /tmp/espinfo/serverpro
+echo "$(sed 's/^...............//' /tmp/espinfo/serverpro)" > /tmp/espinfo/serverpro
+echo "$(sed 's/^/server model: /g' /tmp/espinfo/serverpro)" > /tmp/espinfo/serverpro
+
+/usr/sbin/dmidecode | grep -A3 '^System Information' | grep 'Manufacturer' > /tmp/espinfo/serverman
+echo "$(sed 's/^...............//' /tmp/espinfo/serverman)" > /tmp/espinfo/serverman
+echo "$(sed 's/^/server manufacturer: /g' /tmp/espinfo/serverman)" > /tmp/espinfo/serverman
+
+getconf LONG_BIT > /tmp/espinfo/osarch
+echo "$(sed 's/^/os bit-rate: /g' /tmp/espinfo/osarch)" > /tmp/espinfo/osarch
+
+ESPPROCS_USB=$(cat /u/espbin/espprocs | grep backupU2usb | wc -l)
+USB_LOG=$(head -n7 /u/logs/backup/ESPBackUpRpt.log | grep 'Backup Success. Please ensure next USB Stick is in Server' | wc -l) 
+BACKUP_LOG=$(find /u/logs/backup -type f -mtime -7 -exec ls -l {} \; | wc -l) 
+UVAULT=$(ps -ef | grep cbb | wc -l)
+UVAULT_CBB=$(ps -ef | grep cbb | wc -l)
+if [ $ESPPROCS_USB -ge "1" ] && [ $USB_LOG -ge "1" ]
+then
+echo "backup type: USB"  > /tmp/espinfo/backuptype
+elif [ $UVAULT -ge "1" ] && [ $UVAULT_CBB -ge "1" ]
+then 
+echo "backup type: uVault"  > /tmp/espinfo/backuptype
+else 
+echo "backup type: Unknown"  > /tmp/espinfo/backuptype
+fi
+
+POS5FILE=$(ls -l /u/ups/pos5file | wc -l)
+POS5FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS5FILEMULTI -ge 1 ]
+then
+echo "pos5 date:: [MULTISITE GUI]" > /tmp/espinfo/pos5date
+elif [ $POS5FILE -ge 1 ]
+then
+date -r /u/ups/pos5file -R > /tmp/espinfo/pos5date
+echo "$(cat /tmp/espinfo/pos5date|awk '{print $2" "$3" "$4}')" > /tmp/espinfo/pos5date
+echo "$(sed 's/^/pos5 date: /g' /tmp/espinfo/pos5date)" > /tmp/espinfo/pos5date
+else
+echo "pos5 date: n/a" > /tmp/espinfo/pos5date
+fi
+
+POS6FILE=$(ls -l /u/ups/pos6file | wc -l)
+POS6FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS6FILEMULTI -ge 1 ]
+then
+echo "pos6 date: [MULTISITE GUI]" > /tmp/espinfo/pos6date
+elif [ $POS6FILE -ge 1 ]
+then
+date -r /u/ups/pos6file -R > /tmp/espinfo/pos6date
+echo "$(cat /tmp/espinfo/pos6date|awk '{print $2" "$3" "$4}')" > /tmp/espinfo/pos6date
+echo "$(sed 's/^/pos6 date: /g' /tmp/espinfo/pos6date)" > /tmp/espinfo/pos6date
+else
+echo "pos6 date: n/a" > /tmp/espinfo/pos6date
+fi
+
+VNCPACKAGES=$(rpm -qa | grep vnc | wc -l)
+CLIENTDIRS=$(find /home -name client* | wc -l)
+if [ $VNCPACKAGES -ge 1 ] && [ $CLIENTDIRS -ge 1 ]
+then
+echo "elite go (server): yes" > /tmp/espinfo/elitego
+else
+echo "elite go (server): no" > /tmp/espinfo/elitego
+fi
+
+cat /proc/cpuinfo | grep "processor" | wc -l > /tmp/espinfo/cpucores
+echo "$(sed 's/^/server cpu cores: /g' /tmp/espinfo/cpucores)" > /tmp/espinfo/cpucores
+
+cat /proc/cpuinfo | grep "model name" > /tmp/espinfo/cpumodel
+echo "$(sed 's/^.............//' /tmp/espinfo/cpumodel)" > /tmp/espinfo/cpumodel
+echo "$(tail -n 1 /tmp/espinfo/cpumodel)" > /tmp/espinfo/cpumodel
+echo "$(sed 's/^/server cpu model: /g' /tmp/espinfo/cpumodel)" > /tmp/espinfo/cpumodel
+
+MONITPID=$(pidof monit | wc -l)
+MONITRC=$(find /etc/monitrc | wc -l)
+if [ $MONITPID -ge 1 ] && [ $MONITRC -ge 1 ]
+then
+echo "monit installed: yes" > /tmp/espinfo/monit
+else
+echo "monit installed: no" > /tmp/espinfo/monit
+fi
+
+USESEFT=$(find /u -name "efttrans.dat" -mtime -7 | wc -l)
+if [ $USESEFT -ge 1 ]
+then
+echo "uses eft: yes" > /tmp/espinfo/useseft
+else
+echo "uses eft: no" > /tmp/espinfo/useseft
+fi
+
+uptime > /tmp/espinfo/srvuptime
+echo "$(cat /tmp/espinfo/srvuptime|awk '{print $3" "$4}')" > /tmp/espinfo/srvuptime
+echo "$(sed 's/^/server uptime: /g' /tmp/espinfo/srvuptime)" > /tmp/espinfo/srvuptime
+sed -i 's/\,//g' /tmp/espinfo/srvuptime
+
+ACCESSCTL1=$(find /u -name systems.tab -exec grep "AACCESS_CONTROL" '{}' \; -print | wc -l)
+ACCESSCTL2=$(find /u -iname "aserverr.log" -atime -1 -type f | wc -l)
+if [ $ACCESSCTL1 -ge 1 ] && [ $ACCESSCTL2 -ge 1 ]
+then
+echo "access control: yes" > /tmp/espinfo/accessctl
+else
+echo "access control: no" > /tmp/espinfo/accessctl
+fi
+
+RANGE1=$(find /u -name systems.tab -exec grep "RANGE_SERVANT" '{}' \; -print | wc -l)
+RANGE2=$(find /u -iname "wserverr.log" -atime -1 -type f | wc -l)
+if [ $RANGE1 -ge 1 ] && [ $RANGE2 -ge 1 ]
+then
+echo "range: yes" > /tmp/espinfo/range
+else
+echo "range: no" > /tmp/espinfo/range
+fi
+
+EXPORT=$(netstat -a | grep 50001 | wc -l)
+if [ $EXPORT -ge 1 ]
+then
+echo "export: yes" > /tmp/espinfo/export
+else
+echo "export: no" > /tmp/espinfo/export
+fi
+
+PHONES1=$(find /u -name systems.tab -exec grep "PPHONES" '{}' \; -print | wc -l)
+if [ $PHONES1 -ge 1 ]
+then
+echo "phones: yes" > /tmp/espinfo/phones
+else
+echo "phones: no" > /tmp/espinfo/phones
+fi
+
+LISTERMSMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $LISTERMSMULTI -ge 1 ]
+then
+echo "number of esp licenses: [MULTISITE GUI]" > /tmp/espinfo/licencelist
+else
+whoui listterms > /tmp/espinfo/licencelist
+echo "$(sed '/*/d' /tmp/espinfo/licencelist)"  > /tmp/espinfo/licencelist
+echo "$(sed '/10.0.0.3/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
+echo "$(sed '/127.0.0.1/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
+echo "$(sed '/Dummy/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
+echo "$(sed '/Remote Support/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
+echo "$(sed '/Server/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
+cat /tmp/espinfo/licencelist | wc -l > /tmp/espinfo/nooflicences
+echo "$(sed 's/^/number of esp licenses: /g' /tmp/espinfo/nooflicences)" > /tmp/espinfo/nooflicences
+rm -rf /tmp/espinfo/licencelist
+fi
+
+SOFTWARERAIDED=$(df -h | grep md0 | wc -l)
+if [ $SOFTWARERAIDED -ge 1 ]
+then
+echo "software raid: yes" > /tmp/espinfo/softwareraid
+else
+echo "software raid: no" > /tmp/espinfo/softwareraid
+fi
+
+SOFTWARERAID=$(df -h | grep md0 | wc -l)
+if [ $SOFTWARERAID -ge 1 ]
+then
+df -h / > /tmp/espinfo/hddsize
+echo "$(tail -n 1 /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize|awk '{print $3" "$4}')" > /tmp/espinfo/hddsize
+echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+else
+fdisk -l | grep Disk | grep sda > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize|awk '{print $3 $4}')" > /tmp/espinfo/hddsize
+echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize)" | sed -i 's/,//g' /tmp/espinfo/hddsize
+fi
+
+free -g > /tmp/espinfo/ramsize
+echo "$(head -2 /tmp/espinfo/ramsize)" > /tmp/espinfo/ramsize
+echo "$(tail -n 1 /tmp/espinfo/ramsize)" > /tmp/espinfo/ramsize
+echo "$(cat /tmp/espinfo/ramsize|awk '{print $2}')" > /tmp/espinfo/ramsize
+echo "$(sed 's/^/server ram (GB): /g' /tmp/espinfo/ramsize)" > /tmp/espinfo/ramsize
+
+rpm -qi basesystem | grep "Install Date" > /tmp/espinfo/sysage
+echo "$(cat /tmp/espinfo/sysage|awk '{print $4" "$5" "$6}')" > /tmp/espinfo/sysage
+echo "$(sed 's/^/server age: /g' /tmp/espinfo/sysage)" > /tmp/espinfo/sysage
+
+ODBC999=$(/u/gui/whoui listterms | grep "999.999.999.1" | wc -l)
+if [ $ODBC999 -ge 1 ]
+then 
+echo "odbc: yes" > /tmp/espinfo/odbc
+else
+echo "odbc: no" > /tmp/espinfo/odbc
+fi
+
+rpm -qa | wc -l > /tmp/espinfo/serverpackages
+echo "$(sed 's/^/os packages no: /g' /tmp/espinfo/serverpackages)" > /tmp/espinfo/serverpackages
+
+df -Th /u/gui/espip.dat > /tmp/espinfo/serverfilesystem
+echo "$(cat /tmp/espinfo/serverfilesystem|awk '{print $2}')" > /tmp/espinfo/serverfilesystem
+echo "$(tail -n 1 /tmp/espinfo/serverfilesystem)" > /tmp/espinfo/serverfilesystem
+echo "$(sed 's/^/os filesystem: /g' /tmp/espinfo/serverfilesystem)" > /tmp/espinfo/serverfilesystem
+
+AFDPRESENT=$(find /u/gui -name afdlookup | wc -l)
+if [ $AFDPRESENT -ge 1 ]
+then
+what -s /u/gui/afdlookup > /tmp/espinfo/afdlookup
+echo "$(tail -n 1 /tmp/espinfo/afdlookup)" > /tmp/espinfo/afdlookup
+echo "$(cat /tmp/espinfo/afdlookup|awk '{print $3}')" > /tmp/espinfo/afdlookup
+#echo "$(sed 's/^/afdlookup version: /g' /tmp/espinfo/afdlookup)" > /tmp/espinfo/afdlookup
+else
+echo "afdlookup version: n/a" > /tmp/espinfo/afdlookup
+fi
+#=====
+BLANKAFDVER=$(find /tmp/espinfo -name afdlookup -size -5c -exec ls -lh {} \; | wc -l)
+if [ $BLANKAFDVER -ge 1 ]
+then
+echo "afdlookup version: blank version" > /tmp/espinfo/afdlookup
+else 
+echo ""
+fi
+
+CUSTMINDFILE=$(find /u -iname "custmind.csv*" -atime -7 -type f | wc -l)
+if [ $CUSTMINDFILE -ge 1 ]
+then 
+echo "customer minds: yes" > /tmp/espinfo/custmind
+else
+echo "customer minds: no" > /tmp/espinfo/custmind
+fi
+
+HTTPSERVICE=$(netstat -a | grep 50080 | wc -l)
+if [ $HTTPSERVICE -ge 1 ]
+then
+echo "http service: yes" > /tmp/espinfo/httpservice
+else
+echo "http service: no" > /tmp/espinfo/httpservice
+fi
+
+
+########################################
+
+find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5date
+BSMS5DATEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMS5DATEPRESENT=$(cat /tmp/espinfo/bsmsrh5date | wc -l)
+if [ $BSMS5DATEMULTI -ge 1 ]
+then
+echo "bsms.rh5 version: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh5date
+elif [ $BSMS5DATEPRESENT -le 0 ]
+then
+echo "bsms.rh5 date: n/a" > /tmp/espinfo/bsmsrh5date
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh5date)" > /tmp/espinfo/bsmsrh5date
+echo "$(cat /tmp/espinfo/bsmsrh5date|awk '{print $6" "$7" "$8}')" > /tmp/espinfo/bsmsrh5date
+echo "$(sed 's/^/bsms.rh5 date: /g' /tmp/espinfo/bsmsrh5date)" > /tmp/espinfo/bsmsrh5date
+fi
+
+find /u/esp -type f -name bsms.rh8 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh8date
+BSMS8DATEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMS8DATEPRESENT=$(cat /tmp/espinfo/bsmsrh8date | wc -l)
+if [ $BSMS8DATEMULTI -ge 1 ]
+then
+echo "bsms.rh8 version: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh8date
+elif [ $BSMS8DATEPRESENT -le 0 ]
+then
+echo "bsms.rh8 date: n/a" > /tmp/espinfo/bsmsrh8date
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh8date)" > /tmp/espinfo/bsmsrh8date
+echo "$(cat /tmp/espinfo/bsmsrh8date|awk '{print $6" "$7" "$8}')" > /tmp/espinfo/bsmsrh8date
+echo "$(sed 's/^/bsms.rh8 date: /g' /tmp/espinfo/bsmsrh8date)" > /tmp/espinfo/bsmsrh8date
+fi
+
+BSMSRH5=$(ls -l /u/ups/pos5file | wc -l)
+POS5FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS5FILEMULTI -ge 1 ]
+then
+echo "bsms.rh5 version: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh5
+elif [ $BSMSRH5 -ge 1 ]
+then
+find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
+echo "$(cat /tmp/espinfo/bsmsrh5|awk '{print $9}')" > /tmp/espinfo/bsmsrh5
+BSMSRH5=$(cat /tmp/espinfo/bsmsrh5)
+echo "$(what -s $BSMSRH5)"  > /tmp/espinfo/bsmsrh5
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
+echo "$(cat /tmp/espinfo/bsmsrh5|awk '{print $3}')" > /tmp/espinfo/bsmsrh5
+echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
+elif [ $BSMSRH5 -le 0 ]
+then
+echo "n/a"  > /tmp/espinfo/bsmsrh5
+echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
+fi
+
+BSMSRH8=$(ls -l /u/ups/pos8file | wc -l)
+POS8FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS8FILEMULTI -ge 1 ]
+then
+echo "bsms.rh8 version: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh8
+elif [ $BSMSRH8 -ge 1 ]
+then
+find /u/esp -type f -name bsms.rh8 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh8
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+echo "$(cat /tmp/espinfo/bsmsrh8|awk '{print $9}')" > /tmp/espinfo/bsmsrh8
+BSMSRH8=$(cat /tmp/espinfo/bsmsrh8)
+echo "$(what -s $BSMSRH8)"  > /tmp/espinfo/bsmsrh8
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+echo "$(cat /tmp/espinfo/bsmsrh8|awk '{print $3}')" > /tmp/espinfo/bsmsrh8
+echo "$(sed 's/^/bsms.rh8 version: /g' /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+elif [ $BSMSRH8 -le 0 ]
+then
+echo "n/a"  > /tmp/espinfo/bsmsrh8
+echo "$(sed 's/^/bsms.rh8 version: /g' /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+fi
+
+find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5size
+BSMS5SIZEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMS5SIZEPRESENT=$(cat /tmp/espinfo/bsmsrh5size | wc -l)
+if [ $BSMS5SIZEMULTI -ge 1 ]
+then
+echo "bsms.rh5 size: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh5size
+elif [ $BSMS5SIZEPRESENT -le 0 ]
+then 
+echo "bsms.rh5 size: n/a" > /tmp/espinfo/bsmsrh5size
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh5size)" > /tmp/espinfo/bsmsrh5size
+echo "$(cat /tmp/espinfo/bsmsrh5size|awk '{print $5}')" > /tmp/espinfo/bsmsrh5size
+echo "$(sed 's/^/bsms.rh5 size (bytes): /g' /tmp/espinfo/bsmsrh5size)" > /tmp/espinfo/bsmsrh5size
+fi
+
+find /u/esp -type f -name bsms.rh8 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh8size
+BSMS8SIZEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMS8SIZEPRESENT=$(cat /tmp/espinfo/bsmsrh8size | wc -l)
+if [ $BSMS8SIZEMULTI -ge 1 ]
+then
+echo "bsms.rh8 size: [MULTISITE GUI]" > /tmp/espinfo/bsmsrh8size
+elif [ $BSMS8SIZEPRESENT -le 0 ]
+then 
+echo "bsms.rh8 size: n/a" > /tmp/espinfo/bsmsrh8size
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsrh8size)" > /tmp/espinfo/bsmsrh8size
+echo "$(cat /tmp/espinfo/bsmsrh8size|awk '{print $5}')" > /tmp/espinfo/bsmsrh8size
+echo "$(sed 's/^/bsms.rh8 size (bytes): /g' /tmp/espinfo/bsmsrh8size)" > /tmp/espinfo/bsmsrh8size
+fi
+
+########################################
+
+ARERUNNINGRH5=$(ps -ef | grep bsms.rh5 | wc -l)
+ARERUNNINGRH8=$(ps -ef | grep bsms.rh8 | wc -l)
+RUNTIMEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $RUNTIMEMULTI -ge 1 ]
+then
+echo "site runtime: [MULTISITE GUI]" > /tmp/espinfo/runtime
+elif [ $ARERUNNINGRH5 -ge 5 ]
+then 
+echo "site runtime: bsms.rh5" > /tmp/espinfo/runtime
+else
+echo "site runtime: bsms.rh8" > /tmp/espinfo/runtime
+fi
+
+ESPCLIENTSIZ_PRESENT=$(ls -l /u/ups/espclient.upg | wc -l)
+ESPCLIENTSIZ=(/u/ups/espclient.upg)
+ESPCLIENTMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $ESPCLIENTMULTI -ge 1 ]
+then
+echo "espclient.upg size (bytes): [MULTISITE GUI]" > /tmp/espinfo/bsmsrh5size
+elif [ $ESPCLIENTSIZ_PRESENT -ge 1 ]
+then
+ls -l  $ESPCLIENTSIZ >> /tmp/espinfo/espclientsize
+echo "$(cat /tmp/espinfo/espclientsize|awk '{print $5}')" > /tmp/espinfo/espclientsize
+echo "$(sed 's/^/espclient.upg size (bytes): /g' /tmp/espinfo/espclientsize)" > /tmp/espinfo/espclientsize
+else
+echo "espclient.upg size (bytes): n/a" > /tmp/espinfo/espclientsize
+fi
+
+/usr/sbin/dmidecode | grep -A4 '^System Information' | grep 'Serial' > /tmp/espinfo/serverserial
+echo "$(cat /tmp/espinfo/serverserial|awk '{print $3}')" > /tmp/espinfo/serverserial
+echo "$(sed 's/^/server serial id: /g' /tmp/espinfo/serverserial)" > /tmp/espinfo/serverserial
+
+/usr/sbin/dmidecode | grep -A7 '^System Information' | grep 'SKU Number' > /tmp/espinfo/serversku
+echo "$(cat /tmp/espinfo/serversku|awk '{print $3}')" > /tmp/espinfo/serversku
+echo "$(sed 's/^/server sku id: /g' /tmp/espinfo/serversku)" > /tmp/espinfo/serversku
+
+/sbin/ip route show > /tmp/espinfo/hostgateway
+echo "$(cat /tmp/espinfo/hostgateway | grep default)" > /tmp/espinfo/hostgateway
+echo "$(sed 's/^/gateway ip: /g' /tmp/espinfo/hostgateway)" > /tmp/espinfo/hostgateway
+
+date > /tmp/espinfo/dateofinfo
+echo "$(sed 's/^/date of this info: /g' /tmp/espinfo/dateofinfo)" > /tmp/espinfo/dateofinfo
+
+FINDESPCLIENT32=$(find /home/linuxclient/client -name espclient32  | wc -l)
+if [ $FINDESPCLIENT32 == 1 ]
+then
+what -s /home/linuxclient/client/espclient32 > /tmp/espinfo/linux32ver
+echo "$(tail -n 1 /tmp/espinfo/linux32ver)" > /tmp/espinfo/linux32ver
+echo "$(cat /tmp/espinfo/linux32ver|awk '{print $2}')" > /tmp/espinfo/linux32ver
+echo "$(sed 's/^/linux espclient32 version: /g' /tmp/espinfo/linux32ver)" > /tmp/espinfo/linux32ver
+else
+echo "linux espclient32 version: n/a"  > /tmp/espinfo/linux32ver
+fi
+
+FINDESPCLIENT64=$(find /home/linuxclient/client -name espclient64  | wc -l)
+if [ $FINDESPCLIENT64 == 1 ]
+then
+what -s /home/linuxclient/client/espclient64 > /tmp/espinfo/linux64ver
+echo "$(tail -n 1 /tmp/espinfo/linux64ver)" > /tmp/espinfo/linux64ver
+echo "$(cat /tmp/espinfo/linux64ver|awk '{print $2}')" > /tmp/espinfo/linux64ver
+echo "$(sed 's/^/linux espclient64 version: /g' /tmp/espinfo/linux64ver)" > /tmp/espinfo/linux64ver
+else
+echo "linux espclient64 version: n/a"  > /tmp/espinfo/linux64ver
+fi
+
+cat esp.log | grep "Change Dir" > /tmp/lastused.txt
+touch /tmp/espinfo/syslastused
+echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/espinfo/syslastused
+echo "$(sed 's/^/system last used: /g' /tmp/espinfo/syslastused)" > /tmp/espinfo/syslastused
+rm -rf /tmp/lastused.txt
+
+################################
+## COMPILE ALL COLLECTED INFO ##
+################################
+
+cd /tmp/espinfo
+/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date bsmsrh8 bsmsrh8size bsmsrh8date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osarch serverpackages softwareraid serverfilesystem sysage hostip hostgateway publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
+
+mkdir complete
+HOSTNAMEIS=$(hostname)
+mv espsysteminfo.txt $HOSTNAMEIS-espsysteminfo.txt
+mv $HOSTNAMEIS-espsysteminfo.txt /tmp/espinfo/complete
+
+##############################
+## UPLOAD THE INFO VIA SFTP ##
+##############################
+
+export SSHPASS=$(cat /u/gui/scripts/sysinfopass)
+sshpass -e sftp -o StrictHostKeyChecking=no -oBatchMode=no -b - "$(cat /u/gui/scripts/sysinfouser)"@sysinfo.esp-support.co.uk << !
+   lcd /tmp/espinfo/complete
+   cd "$(cat /u/gui/scripts/sysinfouser)"
+   put *.txt
+   ls
+   bye
+!
