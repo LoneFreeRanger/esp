@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v06.12.22-1
+# Sysinfo script for ESP Linux servers - v08.12.22-1
 # Ray Reilly 
 
 #####################
@@ -581,3 +581,6 @@ sshpass -e sftp -o StrictHostKeyChecking=no -oBatchMode=no -b - "$(cat /u/gui/sc
    ls
    bye
 !
+
+# On remote server, files get uploaded to: 
+# /sftpusers/chroot/[SITE ID HERE]/
