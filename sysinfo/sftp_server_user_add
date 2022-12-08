@@ -8,7 +8,7 @@ echo $siteidpass > /tmp/siteidpass.txt
 
 # Add user with no shell login available
 adduser "$(cat /tmp/siteid.txt)" -g sftpgroup -s /sbin/nologin
-rm -rf .bash* /home/"$(cat /tmp/siteid.txt)"
+rm -rf /home/"$(cat /tmp/siteid.txt)"/.bash*
 
 # Add user chrooted directory
 mkdir /sftpusers/chroot/"$(cat /tmp/siteid.txt)"
