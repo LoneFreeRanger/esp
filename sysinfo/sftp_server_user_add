@@ -6,7 +6,7 @@ echo "What is the site address code sftp password?"
 read siteidpass
 echo $siteidpass > /tmp/siteidpass.txt
 
-# Add user with no shell login available
+# Add new sftp user with no shell login available and remove bash profiles
 adduser "$(cat /tmp/siteid.txt)" -g sftpgroup -s /sbin/nologin
 rm -rf /home/"$(cat /tmp/siteid.txt)"/.bash*
 
