@@ -1,0 +1,27 @@
+echo "What is the site address code?"
+read siteid
+echo $siteid > /tmp/siteid.txt
+echo "======"
+echo "What is the site address code sftp password?"
+read siteidpass
+echo $siteidpass > /tmp/siteidpass.txt
+
+# Add user with no shell login available
+adduser "$(cat /tmp/siteid.txt)" -g sftpgroup -s /sbin/nologin
+#rm -rf .bash* /home/"$(cat /tmp/siteid.txt)"
+
+# Add user chrooted directory
+mkdir /sftpusers/chroot/"$(cat /tmp/siteid.txt)"
+
+# Set perms on the user's home directory so chroot works
+chmod 700 /home/"$(cat /tmp/siteid.txt)"
+chown "$(cat /tmp/siteid.txt)":sftpgroup /home/"$(cat /tmp/siteid.txt)"
+
+# Set correct perms on the chroot directory aspect
+chown "$(cat /tmp/siteid.txt)":sftpgroup /sftpusers/chroot/"$(cat /tmp/siteid.txt)"/
+chmod 700 /sftpusers/chroot/"$(cat /tmp/siteid.txt)"/
+
+# Set the user password
+echo "$(cat /tmp/siteid.txt)":"$(cat /tmp/siteidpass.txt)" | chpasswd
+rm -rf /tmp/siteid.txt
+rm -rf /tmp/siteidpass.txt
