@@ -25,7 +25,7 @@ fi
 
 # Get Public IP
 curl https://icanhazip.com > /tmp/espinfo/publicipis
-echo "$(sed 's/^/public ip: /g' /tmp/espinfo/publicipis)" > /tmp/espinfo/publicip
+#echo "$(sed 's/^/public ip: /g' /tmp/espinfo/publicipis)" > /tmp/espinfo/publicip
 
 # Get Public IP info
 curl https://ipinfo.io/$(cat /tmp/espinfo/publicipis) > /tmp/espinfo/publicipinfo
