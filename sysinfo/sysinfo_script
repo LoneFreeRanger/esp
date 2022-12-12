@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "script ver: v05.12.22-1" > /tmp/espinfo/scriptver
+echo "v05.12.22-1" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
