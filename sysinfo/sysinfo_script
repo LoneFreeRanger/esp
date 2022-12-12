@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v12.12.22-1b
+# Sysinfo script for ESP Linux servers - v12.12.22-1c
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v05.12.22-1b" > /tmp/espinfo/scriptver
+echo "v05.12.22-1c" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
@@ -551,10 +551,10 @@ echo "n/a"  > /tmp/espinfo/linux64ver
 fi
 
 touch /tmp/espinfo/syslastused
-cat /u/gui/esp.log | grep "Change Dir" > /tmp/lastused.txt
+cat /u/gui/esp.log | grep "Connection from" > /tmp/lastused.txt
+sed -i '/195.171.180.242/d' /tmp/lastused.txt
 echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/espinfo/syslastused
 #echo "$(sed 's/^/system last used: /g' /tmp/espinfo/syslastused)" > /tmp/espinfo/syslastused
-rm -rf /tmp/lastused.txt
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
