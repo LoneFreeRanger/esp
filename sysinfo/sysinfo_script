@@ -54,7 +54,7 @@ echo "$(cat /tmp/espinfo/publicipcountry)" | sed -i 's/,//g' /tmp/espinfo/public
 
 # Public IP organisation
 cat /tmp/espinfo/publicipinfo | grep org > /tmp/espinfo/publiciporganisation
-echo "$(cat /tmp/espinfo/publiciporganisation|awk '{print $2 $3 $4 $5}')" > /tmp/espinfo/publiciporganisation
+echo "$(cat /tmp/espinfo/publiciporganisation|awk '{print $2" "$3" "$4" "$5}')" > /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/,//g' /tmp/espinfo/publiciporganisation
 #echo "$(sed 's/^/public ip org: /g' /tmp/espinfo/publiciporganisation)" > /tmp/espinfo/publiciporganisation
