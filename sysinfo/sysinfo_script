@@ -29,7 +29,6 @@ curl https://icanhazip.com > /tmp/espinfo/publicipis
 
 # Get Public IP info
 curl https://ipinfo.io/$(cat /tmp/espinfo/publicipis) > /tmp/espinfo/publicipinfo
-rm -rf /tmp/espinfo/publicipis
 
 # Public IP region
 cat /tmp/espinfo/publicipinfo | grep region > /tmp/espinfo/publicipregion
