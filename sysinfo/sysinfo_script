@@ -509,7 +509,7 @@ elif [ $ESPCLIENTSIZ_PRESENT -ge 1 ]
 then
 ls -l  $ESPCLIENTSIZ >> /tmp/espinfo/espclientsize
 echo "$(cat /tmp/espinfo/espclientsize|awk '{print $5}')" > /tmp/espinfo/espclientsize
-echo "$(sed 's/^/espclient.upg size (bytes): /g' /tmp/espinfo/espclientsize)" > /tmp/espinfo/espclientsize
+#echo "$(sed 's/^/espclient.upg size (bytes): /g' /tmp/espinfo/espclientsize)" > /tmp/espinfo/espclientsize
 else
 echo "n/a" > /tmp/espinfo/espclientsize
 fi
