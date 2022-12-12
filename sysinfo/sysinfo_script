@@ -18,9 +18,9 @@ echo "script ver: v05.12.22-1" > /tmp/espinfo/scriptver
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
 if [ $MULTISITECHECK -ge 1 ]
 then
-echo "multi-site gui: yes" > /tmp/espinfo/multisite
+echo "yes" > /tmp/espinfo/multisite
 else
-echo "multi-site gui: no" > /tmp/espinfo/multisite
+echo "no" > /tmp/espinfo/multisite
 fi
 
 # Get Public IP
