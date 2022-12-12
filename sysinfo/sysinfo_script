@@ -551,8 +551,8 @@ else
 echo "n/a"  > /tmp/espinfo/linux64ver
 fi
 
-cat esp.log | grep "Change Dir" > /tmp/lastused.txt
 touch /tmp/espinfo/syslastused
+cat esp.log | grep "Change Dir" > /tmp/lastused.txt
 echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/espinfo/syslastused
 #echo "$(sed 's/^/system last used: /g' /tmp/espinfo/syslastused)" > /tmp/espinfo/syslastused
 rm -rf /tmp/lastused.txt
