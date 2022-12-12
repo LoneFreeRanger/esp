@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v12.12.22-4
+# Sysinfo script for ESP Linux servers - v12.12.22-5
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v05.12.22-4" > /tmp/espinfo/scriptver
+echo "v05.12.22-5" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
@@ -562,7 +562,7 @@ rm -rf /tmp/lastused.txt
 ################################
 
 cd /tmp/espinfo
-/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date bsmsrh8 bsmsrh8size bsmsrh8date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osarch serverpackages softwareraid serverfilesystem sysage hostip hostgateway publicip publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
+/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date bsmsrh8 bsmsrh8size bsmsrh8date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osarch serverpackages softwareraid serverfilesystem sysage hostip hostgateway publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
 
 mkdir complete
 HOSTNAMEIS=$(hostname)
