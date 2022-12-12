@@ -1,0 +1,27 @@
+
+
+# Get the script
+
+mkdir -p /u/gui/scripts/
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/sysinfo/sysinfo_script' -O /u/gui/scripts/sysinfo-script
+chmod 777 /u/gui/scripts/sysinfo-script
+
+# Setup the sftp details
+
+echo "What is the site address code?"
+read siteid
+echo $siteid > /u/gui/scripts/sysinfouser
+echo "======"
+echo "What is the site address code sftp password?"
+read siteidpass
+echo $siteidpass > /u/gui/scripts/sysinfopass
+chmod 777 /u/gui/scripts/sysinfopass
+chmod 777 /u/gui/scripts/sysinfouser
+
+# Create root cron job to permit it to run
+
+echo "00 12 * * * /u/gui/scripts/sysinfo-script > /dev/null 2>&1" >> /var/spool/cron/root
+
+# Run it for the first time
+
+/u/gui/scripts/sysinfo-script
