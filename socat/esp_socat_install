@@ -1,5 +1,7 @@
 echo ""
 echo "Please wait...."
+mkdir -p /u/logs/socat
+mkdir -p /u/espbin/socat/startsocat_scripts
 
 # Make sure this is being run as root user
 
@@ -28,8 +30,6 @@ fi
 ######
 
 # Setup directories and install required packages
-mkdir -p /u/logs/socat
-mkdir -p /u/espbin/socat/startsocat_scripts
 yum -y install socat
 yum -y install wget
 
