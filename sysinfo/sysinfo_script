@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v19.12.22-1c
+# Sysinfo script for ESP Linux servers - v19.12.22-2
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v19.12.22-1c" > /tmp/espinfo/scriptver
+echo "v19.12.22-2" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
@@ -509,9 +509,8 @@ echo "$(cat /tmp/espinfo/serverserial|awk '{print $3}')" > /tmp/espinfo/serverse
 echo "$(cat /tmp/espinfo/serversku|awk '{print $3}')" > /tmp/espinfo/serversku
 #echo "$(sed 's/^/server sku id: /g' /tmp/espinfo/serversku)" > /tmp/espinfo/serversku
 
-/sbin/ip route show > /tmp/espinfo/hostgateway
-echo "$(cat /tmp/espinfo/hostgateway | grep default)" > /tmp/espinfo/hostgateway
-#echo "$(sed 's/^/gateway ip: /g' /tmp/espinfo/hostgateway)" > /tmp/espinfo/hostgateway
+ip route /tmp/espinfo/hostgateway
+sed -i -n '2p' /tmp/espinfo/hostgateway
 
 date > /tmp/espinfo/dateofinfo
 #echo "$(sed 's/^/date of this info: /g' /tmp/espinfo/dateofinfo)" > /tmp/espinfo/dateofinfo
