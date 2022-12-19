@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v19.12.22-2
+# Sysinfo script for ESP Linux servers - v19.12.22-3
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v19.12.22-2" > /tmp/espinfo/scriptver
+echo "v19.12.22-3" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
@@ -423,12 +423,12 @@ echo "n/a"  > /tmp/espinfo/bsmsrh5
 #echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
 fi
 
-BSMSRH8=$(ls -l /u/ups/pos8file | wc -l)
-POS8FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
-if [ $POS8FILEMULTI -ge 1 ]
+BSMSRH6=$(ls -l /u/ups/pos6file | wc -l)
+POS5FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS5FILEMULTI -ge 1 ]
 then
-echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsrh8
-elif [ $BSMSRH8 -ge 1 ]
+echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsrh5
+elif [ $BSMSRH6 -ge 1 ]
 then
 find /u/esp -type f -name bsms.rh8 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh8
 echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
@@ -437,11 +437,11 @@ BSMSRH8=$(cat /tmp/espinfo/bsmsrh8)
 echo "$(what -s $BSMSRH8)"  > /tmp/espinfo/bsmsrh8
 echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
 echo "$(cat /tmp/espinfo/bsmsrh8|awk '{print $3}')" > /tmp/espinfo/bsmsrh8
-#echo "$(sed 's/^/bsms.rh8 version: /g' /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+#echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
 elif [ $BSMSRH8 -le 0 ]
 then
 echo "n/a"  > /tmp/espinfo/bsmsrh8
-#echo "$(sed 's/^/bsms.rh8 version: /g' /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
+#echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
 fi
 
 find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5size
