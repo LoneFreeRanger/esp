@@ -74,6 +74,9 @@ hostname > /tmp/espinfo/hostname
 ip route > /tmp/espinfo/hostip
 sed -i -n '2p' /tmp/espinfo/hostip
 
+ip route > /tmp/espinfo/hostgateway
+sed -i -n '1p' /tmp/espinfo/hostgateway
+
 COMMS=$(find /u/esp -name systems.tab -exec grep "COMMS_SERVER" '{}' \; -print | wc -l)
 if [ $COMMS -ge 1 ]
 then
@@ -508,9 +511,6 @@ echo "$(cat /tmp/espinfo/serverserial|awk '{print $3}')" > /tmp/espinfo/serverse
 /usr/sbin/dmidecode | grep -A7 '^System Information' | grep 'SKU Number' > /tmp/espinfo/serversku
 echo "$(cat /tmp/espinfo/serversku|awk '{print $3}')" > /tmp/espinfo/serversku
 #echo "$(sed 's/^/server sku id: /g' /tmp/espinfo/serversku)" > /tmp/espinfo/serversku
-
-ip route /tmp/espinfo/hostgateway
-sed -i -n '2p' /tmp/espinfo/hostgateway
 
 date > /tmp/espinfo/dateofinfo
 #echo "$(sed 's/^/date of this info: /g' /tmp/espinfo/dateofinfo)" > /tmp/espinfo/dateofinfo
