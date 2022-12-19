@@ -71,18 +71,8 @@ rm -rf /tmp/espinfo/publicipinfo
 hostname > /tmp/espinfo/hostname
 #echo "$(sed 's/^/hostname: /g' /tmp/espinfo/hostname)" > /tmp/espinfo/hostname
 
-ETH0=$(ifconfig -a | grep eth0 | wc -l)
-ENO1=$(ifconfig -a | grep eno1 | wc -l)
-if [ $ETH0 -ge 1 ]
-then
-/sbin/ip addr show eth0 | grep "inet" | grep "brd" > /tmp/espinfo/hostip
-echo "$(sed 's/^....//' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
-#echo "$(sed 's/^/server ip: /g' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
-else
-/sbin/ip addr show eno1 | grep "inet" | grep "brd" > /tmp/espinfo/hostip
-echo "$(sed 's/^....//' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
-#echo "$(sed 's/^/server ip: /g' /tmp/espinfo/hostip)" > /tmp/espinfo/hostip
-fi
+ip route > /tmp/espinfo/hostip
+sed -i -n '2p' /tmp/espinfo/hostip
 
 COMMS=$(find /u/esp -name systems.tab -exec grep "COMMS_SERVER" '{}' \; -print | wc -l)
 if [ $COMMS -ge 1 ]
