@@ -311,7 +311,7 @@ echo "$(tail -n 1 /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
 echo "$(cat /tmp/espinfo/hddsize|awk '{print $3" "$4}')" > /tmp/espinfo/hddsize
 #echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
 else
-fdisk -l | grep Disk | grep sda > /tmp/espinfo/hddsize
+/usr/sbin/fdisk -l | grep Disk | grep sda > /tmp/espinfo/hddsize
 echo "$(cat /tmp/espinfo/hddsize|awk '{print $3 $4}')" > /tmp/espinfo/hddsize
 #echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
 echo "$(cat /tmp/espinfo/hddsize)" | sed -i 's/,//g' /tmp/espinfo/hddsize
