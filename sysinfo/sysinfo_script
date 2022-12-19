@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v19.12.22-1a
+# Sysinfo script for ESP Linux servers - v19.12.22-1b
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v19.12.22-1a" > /tmp/espinfo/scriptver
+echo "v19.12.22-1b" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
@@ -283,7 +283,7 @@ if [ $LISTERMSMULTI -ge 1 ]
 then
 echo "[MULTISITE GUI]" > /tmp/espinfo/licencelist
 else
-whoui listterms > /tmp/espinfo/licencelist
+/u/gui/whoui listterms > /tmp/espinfo/licencelist
 echo "$(sed '/*/d' /tmp/espinfo/licencelist)"  > /tmp/espinfo/licencelist
 echo "$(sed '/10.0.0.3/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
 echo "$(sed '/127.0.0.1/d' /tmp/espinfo/licencelist)" > /tmp/espinfo/licencelist
