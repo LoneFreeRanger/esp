@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v19.12.22-1b
+# Sysinfo script for ESP Linux servers - v19.12.22-1c
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v19.12.22-1b" > /tmp/espinfo/scriptver
+echo "v19.12.22-1c" > /tmp/espinfo/scriptver
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
