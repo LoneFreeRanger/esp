@@ -124,16 +124,14 @@ echo "n/a" > /tmp/espinfo/espclientver
 fi
 
 ESPCLIENTDATE=$(ls -l /u/ups/espclient.upg | wc -l)
-ESPCLIENTMULTI2=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
-ESPCLIENT_PRESENT2=$(ls -l /u/ups/espclient.upg | wc -l)
+ESPCLIENTMULTI2=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
 if [ $ESPCLIENTMULTI2 -ge 1 ]
 then
 echo "[MULTISITE GUI]" > /tmp/espinfo/espclientdate
-elif [ $ESPCLIENTMULTI2 -le 0 ]
+elif [ $ESPCLIENTDATE -le 0 ] 
 then
 echo "n/a" > /tmp/espinfo/espclientdate
-elif [ $ESPCLIENTMULTI2 -le 0 ]
-then
+else
 date -r /u/ups/espclient.upg -R > /tmp/espinfo/espclientdate
 echo "$(cat /tmp/espinfo/espclientdate|awk '{print $2" "$3" "$4}')" > /tmp/espinfo/espclientdate
 #echo "$(sed 's/^/espclient.upg date: /g' /tmp/espinfo/espclientdate)" > /tmp/espinfo/espclientdate
