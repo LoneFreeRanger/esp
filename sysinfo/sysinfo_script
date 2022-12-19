@@ -222,7 +222,7 @@ echo "$(tail -n 1 /tmp/espinfo/cpumodel)" > /tmp/espinfo/cpumodel
 
 MONITPID=$(pidof monit | wc -l)
 MONITRC=$(find /etc/monitrc | wc -l)
-if [ $MONITPID -ge 1 ] && [ $MONITRC -ge 1 ]
+if [ $MONITPID -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/monit
 else
