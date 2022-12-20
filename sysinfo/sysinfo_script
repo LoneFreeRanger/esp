@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v19.12.22-3
+# Sysinfo script for ESP Linux servers - v20.12.22-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v19.12.22-3" > /tmp/espinfo/scriptver
+echo "v20.12.22-1" > /tmp/espinfo/scriptver
 
 # Internet speed test
 curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
