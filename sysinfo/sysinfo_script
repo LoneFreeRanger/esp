@@ -14,6 +14,11 @@ rm -rf /tmp/espinfo/*
 
 echo "v19.12.22-3" > /tmp/espinfo/scriptver
 
+# Internet speed test
+curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
+cat /tmp/espinfo/internetspeed | grep "Upload:" > /tmp/espinfo/internetupload
+cat /tmp/espinfo/internetspeed | grep "Download:" > /tmp/espinfo/internetdownload
+
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
 if [ $MULTISITECHECK -ge 1 ]
