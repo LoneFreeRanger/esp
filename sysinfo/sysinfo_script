@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v20.12.22-1
+# Sysinfo script for ESP Linux servers - v20.12.22-2
 # Ray Reilly 
 
 #####################
@@ -12,10 +12,13 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v20.12.22-1" > /tmp/espinfo/scriptver
+echo "v20.12.22-2" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
+
+rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
+echo -n $str | tail -c 1 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
 # Internet speed test
 curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
@@ -556,7 +559,7 @@ echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/es
 ################################
 
 cd /tmp/espinfo
-/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date bsmsrh8 bsmsrh8size bsmsrh8date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
+/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date bsmsrh8 bsmsrh8size bsmsrh8date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
 
 mkdir complete
 HOSTNAMEIS=$(hostname)
