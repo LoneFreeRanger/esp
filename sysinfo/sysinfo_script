@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v20.12.22-2
+# Sysinfo script for ESP Linux servers - v29.12.22-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v20.12.22-2" > /tmp/espinfo/scriptver
+echo "v29.12.22-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -24,6 +24,8 @@ echo -n $str | tail -c 1 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
 cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/espinfo/internetupload
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
+echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
+echo "$(cat /tmp/espinfo/internetdownload | awk '{print $1}')" > /tmp/espinfo/internetdownload
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
