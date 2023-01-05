@@ -26,6 +26,7 @@ cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/e
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
 echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
 echo "$(cat /tmp/espinfo/internetdownload | awk '{print $1}')" > /tmp/espinfo/internetdownload
+sleep 30
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
