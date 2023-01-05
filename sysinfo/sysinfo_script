@@ -18,7 +18,8 @@ echo "v05.01.23-1" > /tmp/espinfo/scriptver
 uname -r > /tmp/espinfo/kernelversion
 
 rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
-echo -n $str | tail -c 1 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
+echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajorver1
+cut -c 6 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
 # Internet speed test
 curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
