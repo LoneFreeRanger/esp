@@ -86,10 +86,10 @@ rm -rf /tmp/espinfo/publicipinfo
 hostname > /tmp/espinfo/hostname
 #echo "$(sed 's/^/hostname: /g' /tmp/espinfo/hostname)" > /tmp/espinfo/hostname
 
-ip route > /tmp/espinfo/hostip
+/usr/sbin/ip route > /tmp/espinfo/hostip
 sed -i -n '2p' /tmp/espinfo/hostip
 
-ip route > /tmp/espinfo/hostgateway
+/usr/sbin/ip route > /tmp/espinfo/hostgateway
 sed -i -n '1p' /tmp/espinfo/hostgateway
 
 COMMS=$(find /u/esp -name systems.tab -exec grep "COMMS_SERVER" '{}' \; -print | wc -l)
