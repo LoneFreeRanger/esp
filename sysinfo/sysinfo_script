@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v06.01.23-1
+# Sysinfo script for ESP Linux servers - v09.01.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v06.01.23-1" > /tmp/espinfo/scriptver
+echo "v09.01.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -86,11 +86,11 @@ rm -rf /tmp/espinfo/publicipinfo
 hostname > /tmp/espinfo/hostname
 #echo "$(sed 's/^/hostname: /g' /tmp/espinfo/hostname)" > /tmp/espinfo/hostname
 
-/usr/sbin/ip route > /tmp/espinfo/hostip
-sed -i -n '2p' /tmp/espinfo/hostip
-
 /usr/sbin/ip route > /tmp/espinfo/hostgateway
-sed -i -n '1p' /tmp/espinfo/hostgateway
+sed -i -n '2p' /tmp/espinfo/hostgateway
+
+/usr/sbin/ip route > /tmp/espinfo/hostip
+sed -i -n '1p' /tmp/espinfo/hostip
 
 COMMS=$(find /u/esp -name systems.tab -exec grep "COMMS_SERVER" '{}' \; -print | wc -l)
 if [ $COMMS -ge 1 ]
