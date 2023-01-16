@@ -1,2 +1,7 @@
 # Enable Ipv4 forwarding
 echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+# Add rule to firewall to accept ports in first instance
+-A INPUT -p tcp -m tcp --dport 1001 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10001 -j ACCEPT
