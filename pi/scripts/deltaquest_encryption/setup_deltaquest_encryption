@@ -1,6 +1,6 @@
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
-# Add rule to firewall to accept ports in first instance
+# Add rules to firewall to forward Nortech Ports to Nortech Boxes
 iptables -t nat -A PREROUTING -p tcp --dport 1001 -j DNAT --to-destination [NORTECH_IP]:1001
 iptables -t nat -A POSTROUTING -j MASQUERADE
