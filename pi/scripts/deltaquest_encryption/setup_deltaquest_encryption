@@ -1,6 +1,5 @@
-# Enable Ipv4 forwarding
-echo 1 > /proc/sys/net/ipv4/ip_forward
-
+# Enable Ipv4 forwarding at boot
+sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
 # Add rule to firewall to accept ports in first instance
 -A INPUT -p tcp -m tcp --dport 1001 -j ACCEPT
