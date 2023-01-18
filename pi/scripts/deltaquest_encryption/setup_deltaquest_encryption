@@ -1,6 +1,8 @@
+https://charlesreid1.com/wiki/RaspberryPi/SSH_Stunnel
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
-
+# Enable Ipv4 forwarding at boot
+sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
 # Generate ssh keys
 openssl genrsa -out key.pem 2048
@@ -27,8 +29,7 @@ connect = 127.0.0.1:10001
 
 
 
-# Enable Ipv4 forwarding at boot
-sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
+
 
 # Add to the bottom of /etc/iptables.firewall.rules file. This permits the e-lite server to forward the connection into the e-lite server
 *nat
@@ -76,16 +77,16 @@ sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 -A PREROUTING -s 127.0.0.1 -p tcp --dport 1038 -j DNAT --to-destination 98.98.98.98:10038
 -A PREROUTING -s 127.0.0.1 -p tcp --dport 1039 -j DNAT --to-destination 98.98.98.98:10039
 -A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10040
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10041
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10042
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10043
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10044
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10045
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10046
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10047
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10048
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10049
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10050
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1041 -j DNAT --to-destination 98.98.98.98:10041
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1042 -j DNAT --to-destination 98.98.98.98:10042
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1043 -j DNAT --to-destination 98.98.98.98:10043
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1044 -j DNAT --to-destination 98.98.98.98:10044
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1045 -j DNAT --to-destination 98.98.98.98:10045
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1046 -j DNAT --to-destination 98.98.98.98:10046
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1047 -j DNAT --to-destination 98.98.98.98:10047
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1048 -j DNAT --to-destination 98.98.98.98:10048
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1049 -j DNAT --to-destination 98.98.98.98:10049
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1050 -j DNAT --to-destination 98.98.98.98:10050
 -A POSTROUTING -j MASQUERADE
 COMMIT
 
