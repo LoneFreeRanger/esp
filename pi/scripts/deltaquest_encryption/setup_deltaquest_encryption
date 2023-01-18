@@ -30,53 +30,62 @@ connect = 127.0.0.1:10001
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
-# Add to the bottom of /etc/iptables.firewall.rules file:
+# Add to the bottom of /etc/iptables.firewall.rules file. This permits the e-lite server to forward the connection into the e-lite server
 *nat
 :PREROUTING ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 :POSTROUTING ACCEPT [0:0]
 # Nortech DeltaQuest Ports (change the 98.98.98.98 to the applicable Nortech DeltaQuest units local IPs)
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1001 -j DNAT --to-destination 98.98.98.98:1001
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1002 -j DNAT --to-destination 98.98.98.98:1002
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1003 -j DNAT --to-destination 98.98.98.98:1003
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1004 -j DNAT --to-destination 98.98.98.98:1004
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1005 -j DNAT --to-destination 98.98.98.98:1005
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1006 -j DNAT --to-destination 98.98.98.98:1006
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1007 -j DNAT --to-destination 98.98.98.98:1007
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1008 -j DNAT --to-destination 98.98.98.98:1008
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1009 -j DNAT --to-destination 98.98.98.98:1009
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1010 -j DNAT --to-destination 98.98.98.98:1010
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1011 -j DNAT --to-destination 98.98.98.98:1011
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1012 -j DNAT --to-destination 98.98.98.98:1012
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1013 -j DNAT --to-destination 98.98.98.98:1013
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1014 -j DNAT --to-destination 98.98.98.98:1014
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1015 -j DNAT --to-destination 98.98.98.98:1015
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1016 -j DNAT --to-destination 98.98.98.98:1016
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1017 -j DNAT --to-destination 98.98.98.98:1017
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1018 -j DNAT --to-destination 98.98.98.98:1018
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1019 -j DNAT --to-destination 98.98.98.98:1019
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1020 -j DNAT --to-destination 98.98.98.98:1020
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1021 -j DNAT --to-destination 98.98.98.98:1021
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1022 -j DNAT --to-destination 98.98.98.98:1022
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1023 -j DNAT --to-destination 98.98.98.98:1023
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1024 -j DNAT --to-destination 98.98.98.98:1024
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1025 -j DNAT --to-destination 98.98.98.98:1025
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1026 -j DNAT --to-destination 98.98.98.98:1026
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1027 -j DNAT --to-destination 98.98.98.98:1027
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1028 -j DNAT --to-destination 98.98.98.98:1028
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1029 -j DNAT --to-destination 98.98.98.98:1029
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1030 -j DNAT --to-destination 98.98.98.98:1030
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1031 -j DNAT --to-destination 98.98.98.98:1031
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1032 -j DNAT --to-destination 98.98.98.98:1032
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1033 -j DNAT --to-destination 98.98.98.98:1033
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1034 -j DNAT --to-destination 98.98.98.98:1034
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1035 -j DNAT --to-destination 98.98.98.98:1035
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1036 -j DNAT --to-destination 98.98.98.98:1036
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1037 -j DNAT --to-destination 98.98.98.98:1037
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1038 -j DNAT --to-destination 98.98.98.98:1038
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1039 -j DNAT --to-destination 98.98.98.98:1039
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:1040
-
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1001 -j DNAT --to-destination 98.98.98.98:10001
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1002 -j DNAT --to-destination 98.98.98.98:10002
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1003 -j DNAT --to-destination 98.98.98.98:10003
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1004 -j DNAT --to-destination 98.98.98.98:10004
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1005 -j DNAT --to-destination 98.98.98.98:10005
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1006 -j DNAT --to-destination 98.98.98.98:10006
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1007 -j DNAT --to-destination 98.98.98.98:10007
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1008 -j DNAT --to-destination 98.98.98.98:10008
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1009 -j DNAT --to-destination 98.98.98.98:10009
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1010 -j DNAT --to-destination 98.98.98.98:10010
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1011 -j DNAT --to-destination 98.98.98.98:10011
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1012 -j DNAT --to-destination 98.98.98.98:10012
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1013 -j DNAT --to-destination 98.98.98.98:10013
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1014 -j DNAT --to-destination 98.98.98.98:10014
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1015 -j DNAT --to-destination 98.98.98.98:10015
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1016 -j DNAT --to-destination 98.98.98.98:10016
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1017 -j DNAT --to-destination 98.98.98.98:10017
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1018 -j DNAT --to-destination 98.98.98.98:10018
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1019 -j DNAT --to-destination 98.98.98.98:10019
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1020 -j DNAT --to-destination 98.98.98.98:10020
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1021 -j DNAT --to-destination 98.98.98.98:10021
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1022 -j DNAT --to-destination 98.98.98.98:10022
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1023 -j DNAT --to-destination 98.98.98.98:10023
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1024 -j DNAT --to-destination 98.98.98.98:10024
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1025 -j DNAT --to-destination 98.98.98.98:10025
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1026 -j DNAT --to-destination 98.98.98.98:10026
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1027 -j DNAT --to-destination 98.98.98.98:10027
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1028 -j DNAT --to-destination 98.98.98.98:10028
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1029 -j DNAT --to-destination 98.98.98.98:10029
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1030 -j DNAT --to-destination 98.98.98.98:10030
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1031 -j DNAT --to-destination 98.98.98.98:10031
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1032 -j DNAT --to-destination 98.98.98.98:10032
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1033 -j DNAT --to-destination 98.98.98.98:10033
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1034 -j DNAT --to-destination 98.98.98.98:10034
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1035 -j DNAT --to-destination 98.98.98.98:10035
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1036 -j DNAT --to-destination 98.98.98.98:10036
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1037 -j DNAT --to-destination 98.98.98.98:10037
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1038 -j DNAT --to-destination 98.98.98.98:10038
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1039 -j DNAT --to-destination 98.98.98.98:10039
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10040
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10041
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10042
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10043
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10044
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10045
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10046
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10047
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10048
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10049
+-A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10050
 -A POSTROUTING -j MASQUERADE
 COMMIT
 
