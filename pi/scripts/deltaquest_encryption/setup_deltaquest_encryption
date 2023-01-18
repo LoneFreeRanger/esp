@@ -1,8 +1,36 @@
+# This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
+
+
+
+# Generate ssh keys
+openssl genrsa -out key.pem 2048
+
+# Generate a Self-Signed Certificate
+openssl req -new -x509 -key key.pem -out cert.pem -days 14600
+
+# Copy the keys into stunnel configuration
+cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
+
+# Edit Stunnel config
+touch /etc/stunnel/stunnel.conf
+
+
+output = /var/log/stunnel4/stunnel-deltaquest.log
+cert=/etc/stunnel/stunnel-deltaquest.pem
+key=/etc/stunnel/stunnel-deltaquest.pem
+pid=/var/run/stunnel4/stunnel-deltaquest.pid
+client=yes
+[ssh]
+accept = 10.0.0.19:1001
+connect = 127.0.0.1:10001
+
+
+
+
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
 # Add to the bottom of /etc/iptables.firewall.rules file:
-
 *nat
 :PREROUTING ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
