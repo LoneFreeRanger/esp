@@ -17,15 +17,14 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 touch /etc/stunnel/stunnel.conf
 
 
-output = /var/log/stunnel4/stunnel-deltaquest.log
-cert=/etc/stunnel/stunnel-deltaquest.pem
-key=/etc/stunnel/stunnel-deltaquest.pem
-pid=/var/run/stunnel4/stunnel-deltaquest.pid
-client=yes
-[ssh]
-accept = 10.0.0.19:1001
-connect = 127.0.0.1:10001
-
+output = /var/log/stunnel4/stunnel.log
+cert = /etc/stunnel/stunnel.pem
+key = /etc/stunnel/stunnel.pem
+pid = /var/run/stunnel4/stunnel.pid
+client = yes
+[DELTAQUEST_BOX_1]
+accept = 1001
+connect = 192.168.68.201:22
 
 
 
