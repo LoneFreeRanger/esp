@@ -14,6 +14,8 @@ chmod -R 777 /u/tunnels
 # Create a deltaquest user that will use the tunnel to the e-lite server
 useradd -g50 -s /bin/bash -d /home/deltaquest deltaquest
 
+
+# Put in place the ssh keys
 cp -rf /srv/files/customer_deltaquest_user_ssh_key.tar.gz /home/deltaquest/
 cd /home/deltaquest/
 tar xfz customer_deltaquest_user_ssh_key.tar.gz
