@@ -16,6 +16,7 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 # Edit Stunnel config
 touch /etc/stunnel/stunnel.conf
 
+# Populate it with the following:
 
 output = /var/log/stunnel4/stunnel.log
 cert = /etc/stunnel/stunnel.pem
