@@ -11,18 +11,17 @@ openssl genrsa -out key.pem 2048
 openssl req -new -x509 -key key.pem -out cert.pem -days 14600
 
 # Copy the keys into stunnel configuration
-cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
-chmod 400 /etc/stunnel/stunnel.pem
+cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
+chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 
 # Edit Stunnel config
 touch /etc/stunnel/stunnel.conf
 
 # Populate it with the following:
-
-output = /var/log/stunnel4/stunnel.log
-cert = /etc/stunnel/stunnel.pem
-key = /etc/stunnel/stunnel.pem
-pid = /var/run/stunnel4/stunnel.pid
+output = /var/log/stunnel4/stunnel-deltaquest.log
+cert = /etc/stunnel/stunnel-deltaquest.pem
+key = /etc/stunnel/stunnel-deltaquest.pem
+pid = /var/run/stunnel4/stunnel-deltaquest.pid
 client = yes
 [DELTAQUEST_BOX_1]
 accept = 1001
