@@ -22,10 +22,14 @@ cert = /etc/stunnel/stunnel.pem
 key = /etc/stunnel/stunnel.pem
 pid = /var/run/stunnel4/stunnel.pid
 client = yes
+
 [DELTAQUEST_BOX_1]
 accept = 1001
 connect = 192.168.68.201:22
 
+[DELTAQUEST_BOX_2]
+accept = 1002
+connect = 192.168.68.201:22
 
 
 
