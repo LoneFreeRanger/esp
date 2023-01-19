@@ -1,21 +1,17 @@
 
-# get the stunnel-deltaquest.service file here place in /etc/systemd/system
+# get the stunnel-deltaquest.service file and place in /etc/systemd/system
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service' -O /etc/systemd/system/stunnel-deltaquest.service
 
-
-
-
-
-
+# Set perms on the service file, load into kernel and enable on boot
 chmod 777 /etc/systemd/system/stunnel-deltaquest.service
 systemctl daemon-reload
-
-mkdir -p /u/tunnels
-chmod -R 777 /u/tunnels
 systemctl enable stunnel-deltaquest.service
 
+# Create stunnel config holding directory it not already present and set perms
+mkdir -p /u/tunnels
+chmod -R 777 /u/tunnels
 
-# Createdeltaquest user that will use the above deltaquest tunnel service
+# Create a deltaquest user that will use the tunnel to the e-lite server
 useradd -g50 -s /bin/bash -d /home/deltaquest deltaquest
 
 cp -rf /srv/files/customer_deltaquest_user_ssh_key.tar.gz /home/deltaquest/
