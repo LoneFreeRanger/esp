@@ -6,20 +6,20 @@ xxxxxxx
 chmod 777 /etc/systemd/system/stunnel-deltaquest.service
 systemctl daemon-reload
 
-mkdir /u/tunnels
+mkdir -p /u/tunnels
 chmod -R 777 /u/tunnels
 systemctl enable stunnel-deltaquest.service
 
 
-# Createdeltaquest user that will use the above tunnel service
+# Createdeltaquest user that will use the above deltaquest tunnel service
 useradd -g50 -s /bin/bash -d /home/deltaquest deltaquest
 
-cp -rf /srv/files/customer_api_user_ssh_key.tar.gz /home/deltaquest/
+cp -rf /srv/files/customer_deltaquest_user_ssh_key.tar.gz /home/deltaquest/
 cd /home/deltaquest/
-tar xfz customer_api_user_ssh_key.tar.gz
+tar xfz customer_deltaquest_user_ssh_key.tar.gz
 chmod 700 .ssh
-chown api:api .ssh
+chown deltaquest:deltaquest .ssh
 cd .ssh
 chmod 600 authorized_keys
-chown api:sites authorized_keys
+chown deltaquest:sites authorized_keys
 echo "Done!"
