@@ -85,7 +85,66 @@ accept = 10020
 connect = 192.168.68.201:22
 
 
-
+[DELTAQUEST_BOX_31]
+accept = 10031
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_32]
+accept = 10032
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_33]
+accept = 10033
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_34]
+accept = 10034
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_35]
+accept = 10035
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_36]
+accept = 10036
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_37]
+accept = 10037
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_38]
+accept = 10038
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_39]
+accept = 10039
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_40]
+accept = 10040
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_41]
+accept = 10041
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_42]
+accept = 10042
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_43]
+accept = 10043
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_44]
+accept = 10044
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_45]
+accept = 10045
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_46]
+accept = 10046
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_47]
+accept = 10047
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_48]
+accept = 10048
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_49]
+accept = 10049
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_50]
+accept = 10050
+connect = 192.168.68.201:22
 
 
 
