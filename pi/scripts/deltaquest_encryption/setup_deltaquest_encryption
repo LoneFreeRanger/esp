@@ -29,7 +29,30 @@ connect = 192.168.68.201:22
 [DELTAQUEST_BOX_2]
 accept = 10002
 connect = 192.168.68.201:22
-
+[DELTAQUEST_BOX_3]
+accept = 10003
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_4]
+accept = 10004
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_5]
+accept = 10005
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_6]
+accept = 10006
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_7]
+accept = 10007
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_8]
+accept = 10008
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_9]
+accept = 10009
+connect = 192.168.68.201:22
+[DELTAQUEST_BOX_10]
+accept = 10010
+connect = 192.168.68.201:22
 
 
 
