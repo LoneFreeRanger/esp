@@ -1,24 +1,21 @@
-cp -rf /srv/files/tunnels /u
-chmod -R 777 /u/tunnels
-systemctl enable local-tunnel.service
-echo "Done!"
+
+# get the stunnel-deltaquest.service file here place in /etc/systemd/system
+xxxxxxx
 
 
-echo "Setting up tunnel service...."
-
-cp -rf /srv/files/local-tunnel.service /etc/systemd/system
-chmod 777 /etc/systemd/system/local-tunnel.service
+chmod 777 /etc/systemd/system/stunnel-deltaquest.service
 systemctl daemon-reload
-cp -rf /srv/files/tunnels /u
+
+mkdir /u/tunnels
 chmod -R 777 /u/tunnels
-systemctl enable local-tunnel.service
-echo "Done!"
+systemctl enable stunnel-deltaquest.service
 
-echo "Creating the api user that will use the above tunnel service..."
-useradd -g50 -s /bin/bash -d /home/api api
 
-cp -rf /srv/files/customer_api_user_ssh_key.tar.gz /home/api/
-cd /home/api/
+# Createdeltaquest user that will use the above tunnel service
+useradd -g50 -s /bin/bash -d /home/deltaquest deltaquest
+
+cp -rf /srv/files/customer_api_user_ssh_key.tar.gz /home/deltaquest/
+cd /home/deltaquest/
 tar xfz customer_api_user_ssh_key.tar.gz
 chmod 700 .ssh
 chown api:api .ssh
