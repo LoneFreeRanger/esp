@@ -1,6 +1,10 @@
 
 # get the stunnel-deltaquest.service file here place in /etc/systemd/system
-https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service' -O /etc/systemd/system/stunnel-deltaquest.service
+
+
+
+
 
 
 chmod 777 /etc/systemd/system/stunnel-deltaquest.service
