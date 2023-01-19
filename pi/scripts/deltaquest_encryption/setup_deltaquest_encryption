@@ -11,7 +11,8 @@ openssl genrsa -out key.pem 2048
 openssl req -new -x509 -key key.pem -out cert.pem -days 14600
 
 # Copy the keys into stunnel configuration
-cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+chmod 400 /etc/stunnel/stunnel.pem
 
 # Edit Stunnel config
 touch /etc/stunnel/stunnel.conf
