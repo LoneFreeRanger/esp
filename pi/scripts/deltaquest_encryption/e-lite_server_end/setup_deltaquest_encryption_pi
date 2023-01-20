@@ -7,9 +7,9 @@ sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 # Install stunnel package if not already installed
 sudo apt-get install -y stunnel
 
+cd /etc/stunnel/
 # Generate ssh keys
 # openssl genrsa -out key.pem 2048
-
 # Generate a Self-Signed Certificate
 # openssl req -new -x509 -key key.pem -out cert.pem -days 14600
 
