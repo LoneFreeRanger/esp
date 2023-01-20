@@ -8,13 +8,13 @@ sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 sudo apt-get install -y stunnel
 
 # Generate ssh keys
-openssl genrsa -out key.pem 2048
+# openssl genrsa -out key.pem 2048
 
 # Generate a Self-Signed Certificate
-openssl req -new -x509 -key key.pem -out cert.pem -days 14600
+# openssl req -new -x509 -key key.pem -out cert.pem -days 14600
 
 # Copy the keys into stunnel configuration
-cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
+# cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 
 # Get the Stunnel config file and put in place
@@ -74,7 +74,10 @@ echo "0.0.0.0 deltaquest48" >> /etc/hosts
 echo "0.0.0.0 deltaquest49" >> /etc/hosts
 echo "0.0.0.0 deltaquest50" >> /etc/hosts
 
+# Start the stunnel service
+/etc/init.d/stunnel4 restart
 
+# Enable stunnel on boot
 
 
 
