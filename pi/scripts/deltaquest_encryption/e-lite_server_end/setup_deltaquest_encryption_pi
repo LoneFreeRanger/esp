@@ -21,6 +21,60 @@ chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
 
+# Add host file enteries
+echo "" >> /etc/hosts
+echo "# DeltaQuest Door Entry Boxes" >> /etc/hosts
+echo "0.0.0.0 deltaquest1" >> /etc/hosts
+echo "0.0.0.0 deltaquest2" >> /etc/hosts
+echo "0.0.0.0 deltaquest3" >> /etc/hosts
+echo "0.0.0.0 deltaquest4" >> /etc/hosts
+echo "0.0.0.0 deltaquest5" >> /etc/hosts
+echo "0.0.0.0 deltaquest6" >> /etc/hosts
+echo "0.0.0.0 deltaquest7" >> /etc/hosts
+echo "0.0.0.0 deltaquest8" >> /etc/hosts
+echo "0.0.0.0 deltaquest9" >> /etc/hosts
+echo "0.0.0.0 deltaquest10" >> /etc/hosts
+echo "0.0.0.0 deltaquest11" >> /etc/hosts
+echo "0.0.0.0 deltaquest12" >> /etc/hosts
+echo "0.0.0.0 deltaquest13" >> /etc/hosts
+echo "0.0.0.0 deltaquest14" >> /etc/hosts
+echo "0.0.0.0 deltaquest15" >> /etc/hosts
+echo "0.0.0.0 deltaquest16" >> /etc/hosts
+echo "0.0.0.0 deltaquest17" >> /etc/hosts
+echo "0.0.0.0 deltaquest18" >> /etc/hosts
+echo "0.0.0.0 deltaquest19" >> /etc/hosts
+echo "0.0.0.0 deltaquest20" >> /etc/hosts
+echo "0.0.0.0 deltaquest21" >> /etc/hosts
+echo "0.0.0.0 deltaquest22" >> /etc/hosts
+echo "0.0.0.0 deltaquest23" >> /etc/hosts
+echo "0.0.0.0 deltaquest24" >> /etc/hosts
+echo "0.0.0.0 deltaquest25" >> /etc/hosts
+echo "0.0.0.0 deltaquest26" >> /etc/hosts
+echo "0.0.0.0 deltaquest27" >> /etc/hosts
+echo "0.0.0.0 deltaquest28" >> /etc/hosts
+echo "0.0.0.0 deltaquest29" >> /etc/hosts
+echo "0.0.0.0 deltaquest30" >> /etc/hosts
+echo "0.0.0.0 deltaquest31" >> /etc/hosts
+echo "0.0.0.0 deltaquest32" >> /etc/hosts
+echo "0.0.0.0 deltaquest33" >> /etc/hosts
+echo "0.0.0.0 deltaquest34" >> /etc/hosts
+echo "0.0.0.0 deltaquest35" >> /etc/hosts
+echo "0.0.0.0 deltaquest36" >> /etc/hosts
+echo "0.0.0.0 deltaquest37" >> /etc/hosts
+echo "0.0.0.0 deltaquest38" >> /etc/hosts
+echo "0.0.0.0 deltaquest39" >> /etc/hosts
+echo "0.0.0.0 deltaquest40" >> /etc/hosts
+echo "0.0.0.0 deltaquest41" >> /etc/hosts
+echo "0.0.0.0 deltaquest42" >> /etc/hosts
+echo "0.0.0.0 deltaquest43" >> /etc/hosts
+echo "0.0.0.0 deltaquest44" >> /etc/hosts
+echo "0.0.0.0 deltaquest45" >> /etc/hosts
+echo "0.0.0.0 deltaquest46" >> /etc/hosts
+echo "0.0.0.0 deltaquest47" >> /etc/hosts
+echo "0.0.0.0 deltaquest48" >> /etc/hosts
+echo "0.0.0.0 deltaquest49" >> /etc/hosts
+echo "0.0.0.0 deltaquest50" >> /etc/hosts
+
 
 
 
