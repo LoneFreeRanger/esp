@@ -20,8 +20,7 @@ chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 # Get the Stunnel config file and put in place
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
-
-# Add host file enteries
+# Add default host file enteries
 echo "" >> /etc/hosts
 echo "# DeltaQuest Door Entry Boxes" >> /etc/hosts
 echo "0.0.0.0 deltaquest1" >> /etc/hosts
