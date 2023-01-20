@@ -1,4 +1,4 @@
-https://charlesreid1.com/wiki/RaspberryPi/SSH_Stunnel
+# https://charlesreid1.com/wiki/RaspberryPi/SSH_Stunnel
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
 # Enable Ipv4 forwarding at boot
