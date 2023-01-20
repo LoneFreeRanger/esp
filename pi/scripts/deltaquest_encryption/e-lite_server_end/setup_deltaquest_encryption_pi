@@ -14,8 +14,9 @@ openssl req -new -x509 -key key.pem -out cert.pem -days 14600
 cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 
-# Edit Stunnel config
-touch /etc/stunnel/stunnel.conf
+# Get the Stunnel config file
+# get the stunnel-deltaquest.service file and place in /etc/systemd/system
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service' -O /etc/systemd/system/stunnel-deltaquest.service
 
 # Populate it with the following:
 output = /var/log/stunnel4/stunnel-deltaquest.log
