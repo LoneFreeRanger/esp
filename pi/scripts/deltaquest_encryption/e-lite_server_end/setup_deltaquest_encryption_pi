@@ -4,6 +4,9 @@
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
+# Install stunnel package if not already installed
+sudo apt-get install -y stunnel
+
 # Generate ssh keys
 openssl genrsa -out key.pem 2048
 
