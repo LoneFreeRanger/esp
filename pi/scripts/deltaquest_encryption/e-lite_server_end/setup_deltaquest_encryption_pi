@@ -2,6 +2,20 @@
 # https://blog.thesysadmins.co.uk/using-stunnel-to-encrypt-unsecure-connections.html
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
+
+
+
+echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server before continuing"
+echo ""
+pause
+echo "Checking for key stunnel-deltaquest.pem within /tmp....."
+sleep 5
+
+if
+
+###############
+
+
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
@@ -9,7 +23,8 @@ sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 sudo apt-get install -y stunnel
 
 cd /etc/stunnel/
-# Generate ssh keys
+
+# How the key was originally created on the e-lite server
 # openssl genrsa -out key.pem 2048
 # Generate a Self-Signed Certificate
 # openssl req -new -x509 -key key.pem -out cert.pem -days 14600
