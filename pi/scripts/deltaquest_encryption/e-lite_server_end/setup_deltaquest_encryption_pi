@@ -79,7 +79,7 @@ echo "0.0.0.0 deltaquest50" >> /etc/hosts
 
 # Enable stunnel on boot
 
-
+# Enable firewall rules
 
 
 
