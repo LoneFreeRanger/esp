@@ -7,7 +7,7 @@ chmod 777 /etc/systemd/system/stunnel-deltaquest.service
 systemctl daemon-reload
 systemctl enable stunnel-deltaquest.service
 
-# Create stunnel config holding directory it not already present and set perms
+# Create stunnel config holding directory if not already present and set perms
 mkdir -p /u/tunnels
 chmod -R 777 /u/tunnels
 
@@ -24,4 +24,3 @@ chown deltaquest:deltaquest .ssh
 cd .ssh
 chmod 600 authorized_keys
 chown deltaquest:sites authorized_keys
-echo "Done!"
