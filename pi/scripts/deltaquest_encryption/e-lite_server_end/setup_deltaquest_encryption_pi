@@ -17,6 +17,9 @@ cd /etc/stunnel/
 # cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 chmod 400 /etc/stunnel/stunnel-deltaquest.pem
 
+# Create stunnel logs directory if not already present
+mkdir -p /u/logs/stunnel/
+
 # Get the Stunnel config file and put in place
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
