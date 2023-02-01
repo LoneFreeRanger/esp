@@ -3,8 +3,9 @@
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
 
-sleep 5
+clear
 echo "Checking for key stunnel-deltaquest.pem within /tmp....."
+sleep 5
 
 CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
@@ -43,6 +44,9 @@ mkdir -p /u/logs/stunnel/
 
 # Get the Stunnel config file and put in place
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
+
+# Start the stunnel service
+/etc/init.d/stunnel4 restart
 
 # Add default hosts file enteries
 echo "" >> /etc/hosts
@@ -98,13 +102,12 @@ echo "0.0.0.0 deltaquest48" >> /etc/hosts
 echo "0.0.0.0 deltaquest49" >> /etc/hosts
 echo "0.0.0.0 deltaquest50" >> /etc/hosts
 
-# Start the stunnel service
-/etc/init.d/stunnel4 restart
 
-# Enable stunnel on boot
 
-# Enable firewall rules
 
+
+# Enable firewall rules ?????
+ 
 
 
 
