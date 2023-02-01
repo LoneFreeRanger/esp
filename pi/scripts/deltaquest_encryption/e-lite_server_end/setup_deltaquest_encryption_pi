@@ -3,14 +3,8 @@
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
 
-
-
-echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server before continuing"
-echo ""
-pause
-echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 sleep 5
-
+echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 
 CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
@@ -18,6 +12,8 @@ then
 echo "Key is present. Continuing...."
 else
 echo "No key is present. Now exiting. No changes have been made."
+echo ""
+echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
 exit
 fi
 
