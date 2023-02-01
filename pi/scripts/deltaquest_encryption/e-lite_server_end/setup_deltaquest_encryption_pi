@@ -13,8 +13,7 @@ sleep 5
 
 
 CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
-if 
-[ $CERT_PRESENT -ge ]
+if [ $CERT_PRESENT -ge 1 ]
 then
 echo "Key is present. Continuing...."
 else
