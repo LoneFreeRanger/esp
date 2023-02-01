@@ -11,7 +11,17 @@ pause
 echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 sleep 5
 
-if
+
+CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
+if 
+[ $CERT_PRESENT -ge ]
+then
+echo "Key is present. Continuing...."
+else
+echo "No key is present. Now exiting. No changes have been made."
+exit
+fi
+
 
 ###############
 
