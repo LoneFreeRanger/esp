@@ -24,7 +24,7 @@ echo "What is the free port number that can be used by this server and that of w
 read portidinput
 echo $portidinput > /tmp/portid
 
-mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(/tmp/portid)-tunnel
+mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
 
 
 #############################################
