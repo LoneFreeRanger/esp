@@ -1,3 +1,5 @@
+# Check for the certifcate being pesent
+
 # Install stunnel if not already installed
 yum install -y stunnel
 
