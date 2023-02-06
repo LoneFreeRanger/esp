@@ -1,5 +1,5 @@
-# Install stunnel
-yum -y stunnel
+# Install stunnel if not already installed
+yum install -y stunnel
 
 # Setup directories
 mkdir -p /var/log/stunnel/
