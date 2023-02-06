@@ -12,15 +12,13 @@ mkdir -p /u/tunnels/
 
 
 clear
-# What is the address code for site?
 echo "What is the address code for site?"
 read addresscodeinput
 echo $addresscodeinput > /tmp/addresscode
 echo ""
 echo "--------------------------------------------------"
 echo ""
-# What is the free port number that can be used by this server and that of what is configured on the remote deltaquest box?
-echo "What is the free port number that can be used by this server and that of what is configured on the remote deltaquest box?"
+echo "What is the free port number that can be used by this server and that of what is configured on the remote deltaquest box this tunnel is for?"
 read portidinput
 echo $portidinput > /tmp/portid
 
