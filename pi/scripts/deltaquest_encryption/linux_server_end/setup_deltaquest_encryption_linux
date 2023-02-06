@@ -1,5 +1,5 @@
-mkdir -p /var/log/stunnel
-mkdir -p /var/run/stunnel
+mkdir -p /var/log/stunnel/
+mkdir -p /var/run/stunnel/
 
 # get the stunnel-deltaquest.service file and place in /etc/systemd/system
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service' -O /etc/systemd/system/stunnel-deltaquest.service
