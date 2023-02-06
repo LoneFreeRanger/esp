@@ -1,7 +1,7 @@
 # Install stunnel if not already installed
 yum install -y stunnel
 
-# Setup directories
+# Setup directories if not already present
 mkdir -p /var/log/stunnel/
 mkdir -p /var/run/stunnel/
 mkdir -p /var/run/stunnel4/
@@ -21,8 +21,15 @@ echo "What is the free port number that can be used by this server and that of w
 read portidinput
 echo $portidinput > /tmp/portid
 
-# Update the config file with the port and site ID
+# Rename the config file previously supplied the port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
+
+# Re-configure the config file with the previously supplied details
+
+
+
+
+
 
 
 #############################################
