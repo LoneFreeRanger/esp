@@ -51,56 +51,57 @@ mkdir -p /u/logs/stunnel/
 # Add default hosts file enteries
 echo "" >> /etc/hosts
 echo "# DeltaQuest IP Door Entry Boxes" >> /etc/hosts
-echo "0.0.0.0 deltaquest1" >> /etc/hosts
-echo "0.0.0.0 deltaquest2" >> /etc/hosts
-echo "0.0.0.0 deltaquest3" >> /etc/hosts
-echo "0.0.0.0 deltaquest4" >> /etc/hosts
-echo "0.0.0.0 deltaquest5" >> /etc/hosts
-echo "0.0.0.0 deltaquest6" >> /etc/hosts
-echo "0.0.0.0 deltaquest7" >> /etc/hosts
-echo "0.0.0.0 deltaquest8" >> /etc/hosts
-echo "0.0.0.0 deltaquest9" >> /etc/hosts
-echo "0.0.0.0 deltaquest10" >> /etc/hosts
-echo "0.0.0.0 deltaquest11" >> /etc/hosts
-echo "0.0.0.0 deltaquest12" >> /etc/hosts
-echo "0.0.0.0 deltaquest13" >> /etc/hosts
-echo "0.0.0.0 deltaquest14" >> /etc/hosts
-echo "0.0.0.0 deltaquest15" >> /etc/hosts
-echo "0.0.0.0 deltaquest16" >> /etc/hosts
-echo "0.0.0.0 deltaquest17" >> /etc/hosts
-echo "0.0.0.0 deltaquest18" >> /etc/hosts
-echo "0.0.0.0 deltaquest19" >> /etc/hosts
-echo "0.0.0.0 deltaquest20" >> /etc/hosts
-echo "0.0.0.0 deltaquest21" >> /etc/hosts
-echo "0.0.0.0 deltaquest22" >> /etc/hosts
-echo "0.0.0.0 deltaquest23" >> /etc/hosts
-echo "0.0.0.0 deltaquest24" >> /etc/hosts
-echo "0.0.0.0 deltaquest25" >> /etc/hosts
-echo "0.0.0.0 deltaquest26" >> /etc/hosts
-echo "0.0.0.0 deltaquest27" >> /etc/hosts
-echo "0.0.0.0 deltaquest28" >> /etc/hosts
-echo "0.0.0.0 deltaquest29" >> /etc/hosts
-echo "0.0.0.0 deltaquest30" >> /etc/hosts
-echo "0.0.0.0 deltaquest31" >> /etc/hosts
-echo "0.0.0.0 deltaquest32" >> /etc/hosts
-echo "0.0.0.0 deltaquest33" >> /etc/hosts
-echo "0.0.0.0 deltaquest34" >> /etc/hosts
-echo "0.0.0.0 deltaquest35" >> /etc/hosts
-echo "0.0.0.0 deltaquest36" >> /etc/hosts
-echo "0.0.0.0 deltaquest37" >> /etc/hosts
-echo "0.0.0.0 deltaquest38" >> /etc/hosts
-echo "0.0.0.0 deltaquest39" >> /etc/hosts
-echo "0.0.0.0 deltaquest40" >> /etc/hosts
-echo "0.0.0.0 deltaquest41" >> /etc/hosts
-echo "0.0.0.0 deltaquest42" >> /etc/hosts
-echo "0.0.0.0 deltaquest43" >> /etc/hosts
-echo "0.0.0.0 deltaquest44" >> /etc/hosts
-echo "0.0.0.0 deltaquest45" >> /etc/hosts
-echo "0.0.0.0 deltaquest46" >> /etc/hosts
-echo "0.0.0.0 deltaquest47" >> /etc/hosts
-echo "0.0.0.0 deltaquest48" >> /etc/hosts
-echo "0.0.0.0 deltaquest49" >> /etc/hosts
-echo "0.0.0.0 deltaquest50" >> /etc/hosts
+
+echo "0.0.0.0 deltaquest1   # Port 10001" >> /etc/hosts
+echo "0.0.0.0 deltaquest2   # Port 10002" >> /etc/hosts
+echo "0.0.0.0 deltaquest3   # Port 10003" >> /etc/hosts
+echo "0.0.0.0 deltaquest4   # Port 10004" >> /etc/hosts
+echo "0.0.0.0 deltaquest5   # Port 10005" >> /etc/hosts
+echo "0.0.0.0 deltaquest6   # Port 10006" >> /etc/hosts
+echo "0.0.0.0 deltaquest7   # Port 10007" >> /etc/hosts
+echo "0.0.0.0 deltaquest8   # Port 10008" >> /etc/hosts
+echo "0.0.0.0 deltaquest9   # Port 10009" >> /etc/hosts
+echo "0.0.0.0 deltaquest10  # Port 10010" >> /etc/hosts
+echo "0.0.0.0 deltaquest11  # Port 10011" >> /etc/hosts
+echo "0.0.0.0 deltaquest12  # Port 10012" >> /etc/hosts
+echo "0.0.0.0 deltaquest13  # Port 10013" >> /etc/hosts
+echo "0.0.0.0 deltaquest14  # Port 10014" >> /etc/hosts
+echo "0.0.0.0 deltaquest15  # Port 10015" >> /etc/hosts
+echo "0.0.0.0 deltaquest16  # Port 10016" >> /etc/hosts
+echo "0.0.0.0 deltaquest17  # Port 10017" >> /etc/hosts
+echo "0.0.0.0 deltaquest18  # Port 10018" >> /etc/hosts
+echo "0.0.0.0 deltaquest19  # Port 10019" >> /etc/hosts
+echo "0.0.0.0 deltaquest20  # Port 10020" >> /etc/hosts
+echo "0.0.0.0 deltaquest21  # Port 10021" >> /etc/hosts
+echo "0.0.0.0 deltaquest22  # Port 10022" >> /etc/hosts
+echo "0.0.0.0 deltaquest23  # Port 10023" >> /etc/hosts
+echo "0.0.0.0 deltaquest24  # Port 10024" >> /etc/hosts
+echo "0.0.0.0 deltaquest25  # Port 10025" >> /etc/hosts
+echo "0.0.0.0 deltaquest26  # Port 10026" >> /etc/hosts
+echo "0.0.0.0 deltaquest27  # Port 10027" >> /etc/hosts
+echo "0.0.0.0 deltaquest28  # Port 10028" >> /etc/hosts
+echo "0.0.0.0 deltaquest29  # Port 10029" >> /etc/hosts
+echo "0.0.0.0 deltaquest30  # Port 10030" >> /etc/hosts
+echo "0.0.0.0 deltaquest31  # Port 10031" >> /etc/hosts
+echo "0.0.0.0 deltaquest32  # Port 10032" >> /etc/hosts
+echo "0.0.0.0 deltaquest33  # Port 10033" >> /etc/hosts
+echo "0.0.0.0 deltaquest34  # Port 10034" >> /etc/hosts
+echo "0.0.0.0 deltaquest35  # Port 10035" >> /etc/hosts
+echo "0.0.0.0 deltaquest36  # Port 10036" >> /etc/hosts
+echo "0.0.0.0 deltaquest37  # Port 10037" >> /etc/hosts
+echo "0.0.0.0 deltaquest38  # Port 10038" >> /etc/hosts
+echo "0.0.0.0 deltaquest39  # Port 10039" >> /etc/hosts
+echo "0.0.0.0 deltaquest40  # Port 10040" >> /etc/hosts
+echo "0.0.0.0 deltaquest41  # Port 10041" >> /etc/hosts
+echo "0.0.0.0 deltaquest42  # Port 10042" >> /etc/hosts
+echo "0.0.0.0 deltaquest43  # Port 10043" >> /etc/hosts
+echo "0.0.0.0 deltaquest44  # Port 10044" >> /etc/hosts
+echo "0.0.0.0 deltaquest45  # Port 10045" >> /etc/hosts
+echo "0.0.0.0 deltaquest46  # Port 10046" >> /etc/hosts
+echo "0.0.0.0 deltaquest47  # Port 10047" >> /etc/hosts
+echo "0.0.0.0 deltaquest48  # Port 10048" >> /etc/hosts
+echo "0.0.0.0 deltaquest49  # Port 10049" >> /etc/hosts
+echo "0.0.0.0 deltaquest50  # Port 10050" >> /etc/hosts
 
 
 
