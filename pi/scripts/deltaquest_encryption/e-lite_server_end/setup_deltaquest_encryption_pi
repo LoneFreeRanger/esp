@@ -51,7 +51,7 @@ mkdir -p /u/logs/stunnel/
 # Add default hosts file enteries
 echo "" >> /etc/hosts
 echo "# DeltaQuest IP Door Entry Boxes" >> /etc/hosts
-
+echo "# If configuring new units, make sure the port is not already in-use on the server" >> /etc/hosts
 echo "0.0.0.0 deltaquest1   # Port 10001" >> /etc/hosts
 echo "0.0.0.0 deltaquest2   # Port 10002" >> /etc/hosts
 echo "0.0.0.0 deltaquest3   # Port 10003" >> /etc/hosts
