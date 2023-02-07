@@ -17,6 +17,7 @@ echo "Please make sure to use an e-lite server to use this script."
 exit
 fi 
 
+clear
 echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 sleep 3
 CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
@@ -30,6 +31,7 @@ echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem
 exit
 fi
 
+clear
 echo "Checking to see if certificate seems valid...."
 VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
 if [ $VALID_CERT -ge 1 ]
