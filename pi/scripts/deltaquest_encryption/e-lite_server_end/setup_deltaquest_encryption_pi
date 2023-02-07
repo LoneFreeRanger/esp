@@ -2,8 +2,23 @@
 # https://blog.thesysadmins.co.uk/using-stunnel-to-encrypt-unsecure-connections.html
 # This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
 
-
 clear
+
+
+echo "Checking if this is an e-lite server....."
+ELITECHECK1=$(ls -l /u/espbin/pi_site_setup | wc -l)
+ELITECHECK2=$(cat /etc/os-release | grep ID=raspbian | wc -l)
+if [ $ELITECHECK1 -ge 1 ] && [ $ELITECHECK2 -ge 1 ]
+then
+echo "This appears to be an e-lite server. Continuing..."
+else
+echo "This does not seem to be an e-lit eserver."
+echo ""
+echo "Please make sure to use an e-lite server to use this script."
+exit
+fi 
+
+
 echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 sleep 5
 
@@ -18,7 +33,6 @@ echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem
 exit
 fi
 
-
 echo "Checking to see if certificate seems valid...."
 VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
 if [ $VALID_CERT -ge 1 ]
@@ -31,7 +45,6 @@ echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaq
 exit
 fi
 
-O2qB3Zrart32XDAPB
 
 ###############
 
