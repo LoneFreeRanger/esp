@@ -139,7 +139,7 @@ echo "The rules should be in the following format:"
 echo ""
 echo "-A INPUT -p tcp -m tcp --dport 10001 -s [ELITE SERVER URL/ IP] -j ACCEPT"
 echo ""
-echo "There should be a rule for every deltaquest box like so:
+echo "There should be a rule for every deltaquest box like so:"
 echo ""
 echo "DeltaQuest box 1 - 10001"
 echo "DeltaQuest box 2 - 10002"
