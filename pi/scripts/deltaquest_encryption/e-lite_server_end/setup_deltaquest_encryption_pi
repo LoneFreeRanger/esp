@@ -129,18 +129,64 @@ echo "0.0.0.0 deltaquest50  # DeltaQuest port 10050" >> /etc/hosts
 /etc/init.d/stunnel4 restart
 
 
-# Enable firewall rules
+# Add firewall rules
  
 
 
 
+-A INPUT -p tcp -m tcp --dport 10001 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10002 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10003 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10004 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10005 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10006 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10007 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10008 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10009 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10010 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10011 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10012 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10013 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10014 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10015 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10016 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10017 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10018 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10019 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10020 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10021 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10022 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10023 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10024 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10025 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10026 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10027 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10028 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10029 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10030 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10031 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10032 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10033 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10034 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10035 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10036 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10037 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10038 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10039 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10040 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10041 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10042 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10043 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10044 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10045 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10046 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10047 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10048 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10049 -s 0.0.0.0 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 10050 -s 0.0.0.0 -j ACCEPT
 
-
-
-
-
-
-
+# Restart firewall service
+/sbin/iptables-restore < /etc/iptables.firewall.rules
 
 # Add to the bottom of /etc/iptables.firewall.rules file. This permits the e-lite server to forward the connection into the e-lite server
 *nat
