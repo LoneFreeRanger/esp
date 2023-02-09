@@ -1,6 +1,5 @@
-# https://charlesreid1.com/wiki/RaspberryPi/SSH_Stunnel
-# https://blog.thesysadmins.co.uk/using-stunnel-to-encrypt-unsecure-connections.html
-# This script is to run on an e-lite server in order enable stunnel ssh keys passwordless login
+# Ray Reilly
+# Set-up DeltaQuest Stunnel encryption for e-lite units
 
 clear
 echo "Checking if this is an e-lite server....."
