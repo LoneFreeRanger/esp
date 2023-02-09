@@ -132,6 +132,21 @@ echo "0.0.0.0 deltaquest50  # DeltaQuest port 10050" >> /etc/hosts
 /etc/init.d/stunnel4 restart
 
 # Add firewall rules
+clear
+echo "Please now manually add the required 100xx ports to the firewall file /etc/iptables.firewall.rules if they are not already present."
+echo ""
+echo "The rule should be in the following format:"
+echo ""
+echo "-A INPUT -p tcp -m tcp --dport 10001 -s [ELITE SERVER URL/ IP] -j ACCEPT"
+echo ""
+echo "There should be a rule for every deltaquest box like so:
+echo ""
+echo "DeltaQuest box 1 - 10001"
+echo "DeltaQuest box 2 - 10002"
+echo "DeltaQuest box 3 - 10003"
+echo ""
+echo "Once a rule has been added you will need to restart the firewall: /sbin/iptables-restore < /etc/iptables.firewall.rules"
+
 echo "################" >
 echo "## DELTAQUEST ##" >
 echo "################" >
