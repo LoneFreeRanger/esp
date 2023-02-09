@@ -44,9 +44,7 @@ echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaq
 exit
 fi
 
-
 ###############
-
 
 # Enable Ipv4 forwarding at boot
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
@@ -71,9 +69,6 @@ mkdir -p /u/logs/stunnel/
 
 # Get the default Stunnel config file and put in place
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
-
-# Re-start the stunnel service
-/etc/init.d/stunnel4 restart
 
 # Add default hosts file enteries
 echo "" >> /etc/hosts
@@ -130,11 +125,11 @@ echo "0.0.0.0 deltaquest48  # DeltaQuest port 10048" >> /etc/hosts
 echo "0.0.0.0 deltaquest49  # DeltaQuest port 10049" >> /etc/hosts
 echo "0.0.0.0 deltaquest50  # DeltaQuest port 10050" >> /etc/hosts
 
+# Re-start the stunnel service
+/etc/init.d/stunnel4 restart
 
 
-
-
-# Enable firewall rules ?????
+# Enable firewall rules
  
 
 
