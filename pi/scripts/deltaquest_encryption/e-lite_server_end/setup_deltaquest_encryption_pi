@@ -29,7 +29,7 @@ sleep 2
 else
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
-echo "Please place the deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
+echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this e-lite server."
 exit
 fi
 
@@ -53,7 +53,7 @@ fi
 sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 
 # Install stunnel package if not already installed
-sudo apt-get install -y stunnel
+sudo apt-get install -y stunnel4
 
 cd /etc/stunnel/
 
