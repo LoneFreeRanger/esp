@@ -135,7 +135,7 @@ echo "0.0.0.0 deltaquest50  # DeltaQuest port 10050" >> /etc/hosts
 clear
 echo "Please now manually add the required 100xx ports to the firewall file /etc/iptables.firewall.rules if they are not already present."
 echo ""
-echo "The rule should be in the following format:"
+echo "The rules should be in the following format:"
 echo ""
 echo "-A INPUT -p tcp -m tcp --dport 10001 -s [ELITE SERVER URL/ IP] -j ACCEPT"
 echo ""
@@ -146,202 +146,14 @@ echo "DeltaQuest box 2 - 10002"
 echo "DeltaQuest box 3 - 10003"
 echo ""
 echo "Once a rule has been added you will need to restart the firewall: /sbin/iptables-restore < /etc/iptables.firewall.rules"
-
-echo "################" >
-echo "## DELTAQUEST ##" >
-echo "################" >
-echo "-A INPUT -p tcp -m tcp --dport 10001 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10002 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10003 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10004 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10005 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10006 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10007 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10008 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10009 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10010 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10011 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10012 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10013 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10014 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10015 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10016 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10017 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10018 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10019 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10020 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10021 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10022 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10023 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10024 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10025 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10026 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10027 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10028 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10029 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10030 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10031 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10032 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10033 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10034 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10035 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10036 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10037 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10038 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10039 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10040 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10041 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10042 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10043 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10044 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10045 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10046 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10047 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10048 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10049 -s 69.69.69.69 -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 10050 -s 69.69.69.69 -j ACCEPT"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--A INPUT -p tcp -m tcp --dport 10001 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10002 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10003 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10004 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10005 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10006 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10007 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10008 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10009 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10010 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10011 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10012 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10013 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10014 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10015 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10016 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10017 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10018 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10019 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10020 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10021 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10022 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10023 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10024 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10025 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10026 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10027 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10028 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10029 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10030 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10031 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10032 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10033 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10034 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10035 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10036 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10037 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10038 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10039 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10040 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10041 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10042 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10043 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10044 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10045 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10046 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10047 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10048 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10049 -s 69.69.69.69 -j ACCEPT
--A INPUT -p tcp -m tcp --dport 10050 -s 69.69.69.69 -j ACCEPT
-
-clear
-echo "What is site's Elite system URL (i.e: demo.esp-elite.com) or static public IP?"
-read serverurlinput
-echo $serverurlinput > /tmp/serverurl
 echo ""
+echo "Done."
+
+#clear
+#echo "What is site's Elite system URL (i.e: demo.esp-elite.com) or static public IP?"
+#read serverurlinput
+#echo $serverurlinput > /tmp/serverurl
+#echo ""
 
 # Update firewall deltaquest rules to be correct server url or IP to accept connections from
-sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /etc/iptables.firewall.rules
-
-# Restart firewall service
-/sbin/iptables-restore < /etc/iptables.firewall.rules
-
-# Add to the bottom of /etc/iptables.firewall.rules file. This permits the e-lite server to forward the connection into the e-lite server
-*nat
-:PREROUTING ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-:POSTROUTING ACCEPT [0:0]
-# Nortech DeltaQuest Ports (change the 98.98.98.98 to the applicable Nortech DeltaQuest units local IPs)
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1001 -j DNAT --to-destination 98.98.98.98:10001
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1002 -j DNAT --to-destination 98.98.98.98:10002
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1003 -j DNAT --to-destination 98.98.98.98:10003
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1004 -j DNAT --to-destination 98.98.98.98:10004
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1005 -j DNAT --to-destination 98.98.98.98:10005
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1006 -j DNAT --to-destination 98.98.98.98:10006
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1007 -j DNAT --to-destination 98.98.98.98:10007
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1008 -j DNAT --to-destination 98.98.98.98:10008
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1009 -j DNAT --to-destination 98.98.98.98:10009
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1010 -j DNAT --to-destination 98.98.98.98:10010
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1011 -j DNAT --to-destination 98.98.98.98:10011
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1012 -j DNAT --to-destination 98.98.98.98:10012
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1013 -j DNAT --to-destination 98.98.98.98:10013
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1014 -j DNAT --to-destination 98.98.98.98:10014
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1015 -j DNAT --to-destination 98.98.98.98:10015
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1016 -j DNAT --to-destination 98.98.98.98:10016
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1017 -j DNAT --to-destination 98.98.98.98:10017
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1018 -j DNAT --to-destination 98.98.98.98:10018
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1019 -j DNAT --to-destination 98.98.98.98:10019
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1020 -j DNAT --to-destination 98.98.98.98:10020
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1021 -j DNAT --to-destination 98.98.98.98:10021
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1022 -j DNAT --to-destination 98.98.98.98:10022
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1023 -j DNAT --to-destination 98.98.98.98:10023
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1024 -j DNAT --to-destination 98.98.98.98:10024
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1025 -j DNAT --to-destination 98.98.98.98:10025
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1026 -j DNAT --to-destination 98.98.98.98:10026
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1027 -j DNAT --to-destination 98.98.98.98:10027
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1028 -j DNAT --to-destination 98.98.98.98:10028
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1029 -j DNAT --to-destination 98.98.98.98:10029
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1030 -j DNAT --to-destination 98.98.98.98:10030
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1031 -j DNAT --to-destination 98.98.98.98:10031
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1032 -j DNAT --to-destination 98.98.98.98:10032
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1033 -j DNAT --to-destination 98.98.98.98:10033
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1034 -j DNAT --to-destination 98.98.98.98:10034
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1035 -j DNAT --to-destination 98.98.98.98:10035
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1036 -j DNAT --to-destination 98.98.98.98:10036
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1037 -j DNAT --to-destination 98.98.98.98:10037
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1038 -j DNAT --to-destination 98.98.98.98:10038
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1039 -j DNAT --to-destination 98.98.98.98:10039
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1040 -j DNAT --to-destination 98.98.98.98:10040
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1041 -j DNAT --to-destination 98.98.98.98:10041
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1042 -j DNAT --to-destination 98.98.98.98:10042
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1043 -j DNAT --to-destination 98.98.98.98:10043
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1044 -j DNAT --to-destination 98.98.98.98:10044
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1045 -j DNAT --to-destination 98.98.98.98:10045
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1046 -j DNAT --to-destination 98.98.98.98:10046
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1047 -j DNAT --to-destination 98.98.98.98:10047
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1048 -j DNAT --to-destination 98.98.98.98:10048
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1049 -j DNAT --to-destination 98.98.98.98:10049
--A PREROUTING -s 127.0.0.1 -p tcp --dport 1050 -j DNAT --to-destination 98.98.98.98:10050
--A POSTROUTING -j MASQUERADE
-COMMIT
-
-
-
-
-
-
-THESE COMMANDS ALSO WORK OUTSIDE OF iptables FILE:
-# Add rules to firewall to forward Nortech Ports to Nortech Boxes
-iptables -t nat -A PREROUTING -p tcp --dport 1001 -j DNAT --to-destination [NORTECH_IP]:1001
-iptables -t nat -A POSTROUTING -j MASQUERADE
+# sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /etc/iptables.firewall.rules
