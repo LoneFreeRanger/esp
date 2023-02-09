@@ -153,6 +153,3 @@ echo "Done."
 #read serverurlinput
 #echo $serverurlinput > /tmp/serverurl
 #echo ""
-
-# Update firewall deltaquest rules to be correct server url or IP to accept connections from
-# sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /etc/iptables.firewall.rules
