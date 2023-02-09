@@ -41,7 +41,7 @@ then
 echo "Certificate appears valid. Continuing...."
 sleep 2
 else
-echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made.""
+echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made."
 echo ""
 echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
 exit
