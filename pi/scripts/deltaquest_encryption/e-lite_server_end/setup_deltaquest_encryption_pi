@@ -189,9 +189,9 @@ echo $serverurlinput > /tmp/serverurl
 echo ""
 
 # Update firewall rules for deltaquest with correct server IP to accept connections from
-sed -i 's/69.69.69.69/$(cat /tmp/serverurl)/g' /etc/iptables.firewall.rules
+sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /etc/iptables.firewall.rules
 
-
+sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /tmp/test
 
 # Restart firewall service
 /sbin/iptables-restore < /etc/iptables.firewall.rules
