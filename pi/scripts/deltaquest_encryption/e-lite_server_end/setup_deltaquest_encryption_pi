@@ -251,12 +251,12 @@ echo "-A INPUT -p tcp -m tcp --dport 10050 -s 69.69.69.69 -j ACCEPT"
 -A INPUT -p tcp -m tcp --dport 10050 -s 69.69.69.69 -j ACCEPT
 
 clear
-echo "What is site's Elite system URL or static public IP?"
+echo "What is site's Elite system URL (i.e: demo.esp-elite.com) or static public IP?"
 read serverurlinput
 echo $serverurlinput > /tmp/serverurl
 echo ""
 
-# Update firewall deltaquest rules to be correct server IP to accept connections from
+# Update firewall deltaquest rules to be correct server url or IP to accept connections from
 sed -i 's/69.69.69.69/'$(cat /tmp/serverurl)'/g' /etc/iptables.firewall.rules
 
 # Restart firewall service
