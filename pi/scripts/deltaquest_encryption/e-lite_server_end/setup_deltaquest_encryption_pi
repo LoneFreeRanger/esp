@@ -10,6 +10,7 @@ ELITECHECK2=$(cat /etc/os-release | grep ID=raspbian | wc -l)
 if [ $ELITECHECK1 -ge 1 ] && [ $ELITECHECK2 -ge 1 ]
 then
 echo "This appears to be an e-lite server. Continuing..."
+sleep 2
 else
 echo "This does not seem to be an e-lite eserver."
 echo ""
@@ -24,7 +25,7 @@ CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
 then
 echo "Key is present. Continuing...."
-sleep 3
+sleep 2
 else
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
@@ -38,7 +39,7 @@ VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
 if [ $VALID_CERT -ge 1 ]
 then
 echo "Certificate appears valid. Continuing...."
-sleep 3
+sleep 2
 else
 echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made.""
 echo ""
@@ -131,6 +132,73 @@ echo "0.0.0.0 deltaquest50  # DeltaQuest port 10050" >> /etc/hosts
 /etc/init.d/stunnel4 restart
 
 # Add firewall rules
+echo "################" >
+echo "## DELTAQUEST ##" >
+echo "################" >
+echo "-A INPUT -p tcp -m tcp --dport 10001 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10002 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10003 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10004 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10005 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10006 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10007 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10008 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10009 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10010 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10011 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10012 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10013 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10014 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10015 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10016 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10017 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10018 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10019 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10020 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10021 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10022 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10023 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10024 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10025 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10026 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10027 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10028 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10029 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10030 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10031 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10032 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10033 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10034 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10035 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10036 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10037 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10038 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10039 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10040 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10041 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10042 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10043 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10044 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10045 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10046 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10047 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10048 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10049 -s 69.69.69.69 -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 10050 -s 69.69.69.69 -j ACCEPT"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -A INPUT -p tcp -m tcp --dport 10001 -s 69.69.69.69 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 10002 -s 69.69.69.69 -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 10003 -s 69.69.69.69 -j ACCEPT
