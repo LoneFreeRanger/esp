@@ -273,6 +273,9 @@ sed -i 's@-A INPUT -p tcp -m tcp --dport 60022 -s server.server.server.server -j
 # Configure the Pi firewall to only accept ipps port 631 connections from sites's elite server IP
 sed -i 's@-A INPUT -p tcp -m tcp --dport 631 -s server.server.server.server -j ACCEPT@-A INPUT -p tcp -m tcp --dport 631 -s '$(cat /tmp/serverip)' -j ACCEPT@' /etc/iptables.firewall.rules
 
+# Update firewall deltaquest rules to be correct server url or IP to accept connections from
+sed -i 's/server.server.server.server/'$(cat /tmp/serverip)'/g' /etc/iptables.firewall.rules
+
 # Configure pi's firewall to accept the Pis network IP range on ssh port 60022 (class c only)
 cp /tmp/networkip /tmp/networkip-iptables
 # Remove last octet and replace with '.0/24
