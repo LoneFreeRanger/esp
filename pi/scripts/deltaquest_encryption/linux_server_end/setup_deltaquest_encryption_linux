@@ -42,32 +42,13 @@ mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
 chmod -R 777 /u/tunnels
 
-# Get the default stunnel ESP config file
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
-
 clear
-echo "What is the address code for site?"
-read addresscodeinput
-echo $addresscodeinput > /tmp/addresscode
+echo "DeltaQuest encryption has now been setup (but with no tunnels configured)"
 echo ""
-echo "--------------------------------------------------"
+echo "Should a new tunnel me needed, please run seperate script 'new_deltaquest_tunnel_instance' "
 echo ""
-echo "What is the free port number that can be used by this server and that of what is configured on the remote deltaquest box this tunnel is for?"
-read portidinput
-echo $portidinput > /tmp/portid
 
-# Rename the config file previously supplied the port and site ID
-mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
 
-#############################################
-
-# get the stunnel-deltaquest.service file and place in /etc/systemd/system
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest.service' -O /etc/systemd/system/stunnel-deltaquest.service
-
-# Set perms on the service file, load into kernel and enable on boot
-chmod 777 /etc/systemd/system/stunnel-deltaquest.service
-systemctl daemon-reload
-systemctl enable stunnel-deltaquest.service
 
 
 
