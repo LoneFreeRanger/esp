@@ -16,11 +16,14 @@ echo $portidinput > /tmp/portid
 PORTCHECK=$(netstat -a | grep $(/tmp/portid) | wc -l)
 IF [ $PORTCHECK -ge 1 ]
 then
-echo "There is an error. The port number supplied is already in-use on the server".
+echo "There is an error. The port number supplied ($cat /tmp/portid) is already in-use on this server. It cannot be used again."
 echo ""
-echo "You will need to select a port in the range of 10001 - 10050 that is not in 
+echo "You will need to use a port in the range of 10001 - 10050 that is not in 
 echo "use on this server and one that is configured on the remote DeltaQuest box you are trying to setup a connection to." 
-
+exit
+else
+echo "Continuing..."
+fi
 
 
 # Rename the config file with previously supplied port and site ID
