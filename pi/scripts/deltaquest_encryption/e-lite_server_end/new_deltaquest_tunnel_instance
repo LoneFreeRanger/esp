@@ -3,28 +3,29 @@ clear
 echo "Checking if stunnel is installed....."
 sleep 3
 STUNNEL_PRESENT=$(rpm -qa | grep stunnel | wc -l)
-if [ $CERT_PRESENT -ge 1 ]
+if [ $STUNNEL_PRESENT -ge 1 ]
 then
 echo "Stunnel is installed. Continuing...."
 sleep 2
 else
 echo "Stunnel is not installed. No changes have been made."
 echo ""
-echo "Please make sure 'setup_deltaquest_encryption_linux' is run first in  the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this e-lite server."
+echo "Please make sure the 'setup_deltaquest_encryption_linux' script has been run on this server before you can setup a new stunnel tunnel."
 exit
 fi
 
 clear
-echo "Checking to see if certificate seems valid...."
-VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
-if [ $VALID_CERT -ge 1 ]
+echo "Checking to see if the ESP deltaquest certificate is present and valid...."
+VALID_CERT=$(cat /etc/stunnel/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
+CERT_PRESENT=$(ls -l /etc/stunnel/stunnel-deltaquest.pem | wc -l)
+if [ $VALID_CERT -ge 1 ] && [ $CERT_PRESENT -ge 1 ]
 then
-echo "Certificate appears valid. Continuing...."
+echo "Certificate appears present and valid. Continuing...."
 sleep 2
 else
-echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made."
+echo "Certificate stunnel-deltaquest.pem is not present/ ESP stunnel does not seem to be installed. No changes have been made."
 echo ""
-echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
+echo "Please make sure ESP stunnel deltaquest is installed. Try running 'setup_deltaquest_encryption_linux' script."
 exit
 fi
 
