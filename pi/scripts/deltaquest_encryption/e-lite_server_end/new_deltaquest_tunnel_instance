@@ -1,1 +1,29 @@
-.
+# Get the default stunnel ESP config file
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
+
+clear
+echo "What is the address code for site?"
+read addresscodeinput
+echo $addresscodeinput > /tmp/addresscode
+echo ""
+echo "--------------------------------------------------"
+echo ""
+echo "What is the free deltaquest port number that can be used by this server?
+echo "This should be that of what is configured on the remote deltaquest box?"
+read portidinput
+echo $portidinput > /tmp/portid
+
+PORTCHECK=$(netstat -a | grep $(/tmp/portid) | wc -l)
+IF [ $PORTCHECK -ge 1 ]
+then
+echo "There is an error. The port number supplied is already in-use on the server".
+echo ""
+echo "You will need to select a port in the range of 10001 - 10050 that is not in 
+echo "use on this server and one that is configured on the remote DeltaQuest box you are trying to setup a connection to." 
+
+
+
+# Rename the config file with previously supplied port and site ID
+mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
+
+#############################################
