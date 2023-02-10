@@ -4,5 +4,5 @@ key = /etc/stunnel/stunnel-deltaquest.pem
 #pid = /var/run/stunnel/stunnel-deltaquest.pid
 client  = yes
 [ssh]
-accept  = 127.0.0.1:[port]
-connect = [site_url_ip]:[port]
+accept  = 127.0.0.1:port
+connect = site_url_ip:port
