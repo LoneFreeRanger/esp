@@ -32,11 +32,15 @@ fi
 # Install stunnel if not already installed
 yum install -y stunnel
 
+# Copy into place the rsa key
+cp /tmp/stunnel-deltaquest.pem /etc/stunnel
+
 # Setup directories if not already present
 mkdir -p /var/log/stunnel/
 mkdir -p /var/run/stunnel/
 mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
+chmod -R 777 /u/tunnels
 
 # Get the default stunnel ESP config file
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
@@ -55,14 +59,6 @@ echo $portidinput > /tmp/portid
 # Rename the config file previously supplied the port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
 
-# Re-configure the config file with the previously supplied details
-
-
-
-
-
-
-
 #############################################
 
 # get the stunnel-deltaquest.service file and place in /etc/systemd/system
@@ -73,20 +69,5 @@ chmod 777 /etc/systemd/system/stunnel-deltaquest.service
 systemctl daemon-reload
 systemctl enable stunnel-deltaquest.service
 
-# Create stunnel config holding directory if not already present and set perms
-mkdir -p /u/tunnels
-chmod -R 777 /u/tunnels
-
-# Create a deltaquest user that will use the tunnel to the e-lite server
-useradd -g50 -s /bin/bash -d /home/deltaquest deltaquest
 
 
-# Put in place the ssh keys
-cp -rf /srv/files/customer_deltaquest_user_ssh_key.tar.gz /home/deltaquest/
-cd /home/deltaquest/
-tar xfz customer_deltaquest_user_ssh_key.tar.gz
-chmod 700 .ssh
-chown deltaquest:deltaquest .ssh
-cd .ssh
-chmod 600 authorized_keys
-chown deltaquest:sites authorized_keys
