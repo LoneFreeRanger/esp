@@ -3,32 +3,18 @@ clear
 echo "Checking if stunnel is installed....."
 sleep 3
 STUNNEL_PRESENT=$(rpm -qa | grep stunnel | wc -l)
-if [ $STUNNEL_PRESENT -ge 1 ]
+CERT_PRESENT=$(ls -l /etc/stunnel/stunnel-deltaquest.pem | wc -l)
+VALID_CERT=$(cat /etc/stunnel/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
+if [ $STUNNEL_PRESENT -ge 1 ] && [ $CERT_PRESENT -ge 1 ] && [ $VALID_CERT -ge 1 ]
 then
-echo "Stunnel is installed. Continuing...."
+echo "ESP stunnel DeltaQuest is installed and certifcate is valid. Continuing...."
 sleep 2
 else
-echo "Stunnel is not installed. No changes have been made."
+echo "ESP stunnel DeltaQuest is not installed or certifcate is invalid. No changes have been made."
 echo ""
 echo "Please make sure the 'setup_deltaquest_encryption_linux' script has been run on this server before you can setup a new stunnel tunnel."
 exit
 fi
-
-clear
-echo "Checking to see if the ESP deltaquest certificate is present and valid...."
-VALID_CERT=$(cat /etc/stunnel/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
-CERT_PRESENT=$(ls -l /etc/stunnel/stunnel-deltaquest.pem | wc -l)
-if [ $VALID_CERT -ge 1 ] && [ $CERT_PRESENT -ge 1 ]
-then
-echo "Certificate appears present and valid. Continuing...."
-sleep 2
-else
-echo "Certificate stunnel-deltaquest.pem is not present/ ESP stunnel does not seem to be installed. No changes have been made."
-echo ""
-echo "Please make sure ESP stunnel deltaquest is installed. Try running 'setup_deltaquest_encryption_linux' script."
-exit
-fi
-
 
 clear
 echo "What is the address code for site?"
@@ -38,7 +24,7 @@ echo ""
 echo "--------------------------------------------------"
 echo ""
 echo "What is the free deltaquest port number that can be used by this server?
-echo "This should be that of what is configured on the remote deltaquest box?"
+echo "This should be that of what is configured on the remote deltaquest box you are trying to connect to."
 read portidinput
 echo $portidinput > /tmp/portid
 
@@ -47,8 +33,8 @@ IF [ $PORTCHECK -ge 1 ]
 then
 echo "There is an error. The port number supplied ($cat /tmp/portid) is already in-use on this server. It cannot be used again."
 echo ""
-echo "You will need to use a port in the range of 10001 - 10050 that is not in 
-echo "use on this server and one that is configured on the remote DeltaQuest box you are trying to setup a connection to." 
+echo "You will need to use a port in the range of 10001 - 10050 that is not in use on this server
+echo "and one that is configured on the remote DeltaQuest box you are trying to setup a connection to." 
 exit
 else
 echo "Continuing..."
