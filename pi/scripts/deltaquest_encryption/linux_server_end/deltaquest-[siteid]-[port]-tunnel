@@ -2,7 +2,9 @@ output = /var/log/stunnel/deltaquest-[siteid]-[port]-tunnel.log
 cert = /etc/stunnel/stunnel-deltaquest.pem
 key = /etc/stunnel/stunnel-deltaquest.pem
 pid = /var/run/stunnel/stunnel-deltaquest.pid
+retry = yes
 client  = yes
-[DELTAQUEST - site_url port]
+TIMEOUTidle = 31557600
+[DELTAQUEST - siteid site_url port]
 accept  = 127.0.0.1:port
 connect = site_url:port
