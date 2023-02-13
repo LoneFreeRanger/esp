@@ -40,7 +40,7 @@ fi
 ############################
 clear
 echo ""
-echo "Please confirm that you wish for the new DeltQuest tunnel to be configured with the following:"
+echo "Please confirm you wish for the new DeltQuest tunnel to be configured with the following:"
 echo ""
 echo "Site address code: $(cat /tmp/addresscode)"
 echo ""
@@ -48,6 +48,30 @@ echo "DeltaQuest box and tunnel port number: $(cat /tmp/portid)"
 echo ""
 echo "e-Lite server URL: $(cat /tmp/e-liteurl)"
 echo ""
+echo "===================================================================="
+echo ""
+echo "Are all the above details correct? (n/y)"
+read confirmdetails
+
+if [ $confirmdetails == n ] || [ $confirmdetails == N ]
+then
+clear
+echo ""
+echo "Please run this script again and supply the correct details."
+echo ""
+echo "No changes have been made."
+echo ""
+echo "Good Bye."
+exit
+else
+ping -c1 127.0.0.1 > /dev/null
+fi
+
+
+
+
+
+
 
 
 ############################
