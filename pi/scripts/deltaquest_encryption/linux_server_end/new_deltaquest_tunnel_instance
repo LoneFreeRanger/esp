@@ -36,8 +36,8 @@ else
 clear
 fi
 
-
 ############################
+
 clear
 echo ""
 echo "Please confirm you wish for the new DeltQuest tunnel to be configured with the following:"
@@ -67,16 +67,7 @@ else
 ping -c1 127.0.0.1 > /dev/null
 fi
 
-
-
-
-
-
-
-
 ############################
-
-
 
 # Get the default stunnel ESP config file
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
@@ -87,33 +78,6 @@ sed -i 's/port/'$(cat /tmp/portid)'/g' /u/tunnels/deltaquest-[siteid]-[port]-tun
 # Update the server url/ ip within the default config to be that of stated server url/ IP supplied above
 sed -i 's/site_url_ip/'$(cat /tmp/siteurl)'/g' /u/tunnels/deltaquest-[siteid]-[port]-tunnel
 
-
-
-
 # Rename the config file with previously supplied port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
-
-
-
-
-
-
-
-
-
-#############################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
