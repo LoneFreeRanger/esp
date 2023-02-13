@@ -16,11 +16,16 @@ echo ""
 echo "--------------------------------------------------"
 echo ""
 PORTCHECK=$(netstat -a | grep $(cat /tmp/portid) | wc -l)
+CONFIGCHECK=$(cat /u/tunnels/deltaquest-* | grep $(cat /tmp/portid) | wc -l)
 
-if [ $PORTCHECK -ge 1 ]
+if [ $PORTCHECK -ge 1 ] || [ $CONFIGCHECK -ge 1 ]
 then
 clear
 echo "The port you stated is already in use on this server and can't be used again"
+echo ""
+echo "or"
+echo ""
+echo "The port you stated is already present in config on the server."
 echo ""
 echo "No changes have been made. Please run this script again making sure the port ID is correct"
 echo""
@@ -29,7 +34,38 @@ echo "Port ID seems good. Continuing...."
 sleep 2
 fi
 
+
+
+
+
+
+
+deltaquest-[siteid]-[port]-tunnel
+
+
+
+
+
+
+
+
+
 # Rename the config file with previously supplied port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
 
 #############################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
