@@ -6,7 +6,7 @@ echo $addresscodeinput > /tmp/addresscode
 echo ""
 echo "--------------------------------------------------"
 echo ""
-echo "What is the free deltaquest port number that can be used by this server?
+echo "What is the free deltaquest port number that can be used by this server?"
 echo "This should be the port of what is configured on the remote deltaquest box this tunnel is for."
 read portidinput
 echo $portidinput > /tmp/portid
