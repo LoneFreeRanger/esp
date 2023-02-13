@@ -38,8 +38,6 @@ echo""
 exit
 else
 clear
-echo "Port ID seems good. Continuing...."
-sleep 2
 fi
 
 # Get the default stunnel ESP config file
