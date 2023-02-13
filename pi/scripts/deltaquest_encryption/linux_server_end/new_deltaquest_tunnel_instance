@@ -18,10 +18,6 @@ read eliteurlinput
 echo $eliteurlinput > /tmp/e-liteurl
 echo ""
 
-
-
-
-
 PORTCHECK=$(netstat -a | grep $(cat /tmp/portid) | wc -l)
 CONFIGCHECK=$(cat /u/tunnels/deltaquest-* | grep $(cat /tmp/portid) | wc -l)
 if [ $PORTCHECK -ge 1 ] || [ $CONFIGCHECK -ge 1 ]
@@ -39,6 +35,22 @@ exit
 else
 clear
 fi
+
+
+############################
+clear
+echo "Please confirm that you wish for the new DeltQuest to be configured with the following?:"
+echo ""
+echo "Site address code: $(cat /tmp/addresscode)"
+echo ""
+echo "DeltaQuest box and tunnel port number: $(/tmp/portid)"
+echo ""
+echo "e-Lite server URL: $(/tmp/e-liteurl)"
+
+
+############################
+
+
 
 # Get the default stunnel ESP config file
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
