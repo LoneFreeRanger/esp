@@ -3,6 +3,6 @@ cert = /etc/stunnel/stunnel-deltaquest.pem
 key = /etc/stunnel/stunnel-deltaquest.pem
 #pid = /var/run/stunnel/stunnel-deltaquest.pid
 client  = yes
-[ssh]
+[DELTAQUEST_site_url_port]
 accept  = 127.0.0.1:port
 connect = site_url_ip:port
