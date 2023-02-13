@@ -81,3 +81,8 @@ sed -i 's/site_url_ip/'$(cat /tmp/e-liteurl)'/g' /u/tunnels/deltaquest-[siteid]-
 # Rename the config file with previously supplied port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
 
+############################
+
+# Setup OS service
+
+
