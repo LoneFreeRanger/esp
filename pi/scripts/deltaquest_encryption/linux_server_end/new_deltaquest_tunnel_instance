@@ -13,9 +13,17 @@ echo $portidinput > /tmp/portid
 echo ""
 echo "--------------------------------------------------"
 echo ""
+echo "What is the remote e-lite unit url?"
+read e-liteurlinput
+echo $e-liteurlinput > /tmp/e-liteurl
+echo ""
+
+
+
+
+
 PORTCHECK=$(netstat -a | grep $(cat /tmp/portid) | wc -l)
 CONFIGCHECK=$(cat /u/tunnels/deltaquest-* | grep $(cat /tmp/portid) | wc -l)
-
 if [ $PORTCHECK -ge 1 ] || [ $CONFIGCHECK -ge 1 ]
 then
 clear
