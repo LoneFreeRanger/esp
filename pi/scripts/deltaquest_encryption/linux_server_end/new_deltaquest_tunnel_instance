@@ -43,9 +43,9 @@ echo "Please confirm that you wish for the new DeltQuest to be configured with t
 echo ""
 echo "Site address code: $(cat /tmp/addresscode)"
 echo ""
-echo "DeltaQuest box and tunnel port number: $(/tmp/portid)"
+echo "DeltaQuest box and tunnel port number: $(cat /tmp/portid)"
 echo ""
-echo "e-Lite server URL: $(/tmp/e-liteurl)"
+echo "e-Lite server URL: $(cat /tmp/e-liteurl)"
 
 
 ############################
