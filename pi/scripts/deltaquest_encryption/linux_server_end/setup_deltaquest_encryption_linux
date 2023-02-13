@@ -45,7 +45,7 @@ chmod -R 777 /u/tunnels
 clear
 echo "DeltaQuest encryption has now been setup (but with no tunnels configured)"
 echo ""
-echo "Should a new tunnel me needed, please run seperate script 'new_deltaquest_tunnel_instance' "
+echo "Should a new tunnel be needed, please run seperate script 'new_deltaquest_tunnel_instance' "
 echo ""
 
 
