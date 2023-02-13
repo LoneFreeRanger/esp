@@ -1,5 +1,3 @@
-# Get the default stunnel ESP config file
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
 
 clear
 echo "What is the address code for site?"
@@ -29,26 +27,15 @@ echo "The port you stated is already present in config on the server."
 echo ""
 echo "No changes have been made. Please run this script again making sure the port ID is correct"
 echo""
+exit
 else
+clear
 echo "Port ID seems good. Continuing...."
 sleep 2
 fi
 
-
-
-
-
-
-
-deltaquest-[siteid]-[port]-tunnel
-
-
-
-
-
-
-
-
+# Get the default stunnel ESP config file
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/deltaquest-%5Bsiteid%5D-%5Bport%5D-tunnel' -O /u/tunnels/deltaquest-[siteid]-[port]-tunnel
 
 # Rename the config file with previously supplied port and site ID
 mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
