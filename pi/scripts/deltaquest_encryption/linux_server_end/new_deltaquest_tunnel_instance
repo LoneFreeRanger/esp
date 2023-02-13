@@ -14,8 +14,8 @@ echo ""
 echo "--------------------------------------------------"
 echo ""
 echo "What is the remote e-lite unit url?"
-read e-liteurlinput
-echo $e-liteurlinput > /tmp/e-liteurl
+read eliteurlinput
+echo $eliteurlinput > /tmp/e-liteurl
 echo ""
 
 
