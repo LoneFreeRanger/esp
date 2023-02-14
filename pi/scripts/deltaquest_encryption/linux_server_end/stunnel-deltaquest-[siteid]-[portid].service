@@ -1,1 +1,12 @@
-.
+[Unit]
+Description="DeltaQuest Stunnel Tunnel - siteid port"
+After=network.target
+
+[Service]
+ExecStart=stunnel /u/tunnels/deltaquest-siteid-port-tunnel
+RestartSec=15
+Restart=always
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
