@@ -98,7 +98,8 @@ mv /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service /etc/systemd
 
 # Load the service into the kernel
 systemctl daemon-reload
-systemctl enable local-tunnel.service
+systemctl enable stunnel-deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid).service
+systemctl start stunnel-deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid).service
 
 
 
