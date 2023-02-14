@@ -1,5 +1,22 @@
-# Check for the certifcate being pesent
+# Install stunnel if not already installed
+yum install -y stunnel
 
+# Make sure the stunnel package is installed
+STUNNELCHECK=$(rpm -qa | grep stunnel | wc -l)
+if [ $STUNNELCHECK -ge 1]
+then 
+echo ""
+else
+echo "Stunnel does not appear to be installed."
+echo ""
+echo "It is an absolute requirement that stunnel is installed."
+echo ""
+echo "Please get stunnel installed and try again".
+echo ""
+exit
+fi
+
+# Check for the certifcate being pesent
 clear
 echo "Checking for key stunnel-deltaquest.pem within /tmp....."
 sleep 3
@@ -28,9 +45,6 @@ echo ""
 echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
 exit
 fi
-
-# Install stunnel if not already installed
-yum install -y stunnel
 
 # Copy into place the rsa key
 cp /tmp/stunnel-deltaquest.pem /etc/stunnel
