@@ -83,5 +83,22 @@ mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp
 
 ############################
 
-# Setup OS service
+# Get OS service file
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest-[siteid]-[portid].service' -O /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
+chmod 777 /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
+
+# Configure the OS service file port
+sed -i 's/portid/'$(cat /tmp/portid)'/g' /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
+
+# Configure the OS service file siteid
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
+
+# Rename the default OS service file
+mv /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service /etc/systemd/system/stunnel-deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid).service
+
+# Load the service into the kernel
+systemctl daemon-reload
+systemctl enable local-tunnel.service
+
+
 
