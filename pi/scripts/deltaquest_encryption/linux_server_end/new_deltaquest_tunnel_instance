@@ -2,7 +2,7 @@
 clear
 echo "What is the address code for site?"
 read addresscodeinput
-echo $addresscodeinput > /tmp/addresscode
+echo $addresscodeinput > /tmp/siteid
 echo ""
 echo "--------------------------------------------------"
 echo ""
