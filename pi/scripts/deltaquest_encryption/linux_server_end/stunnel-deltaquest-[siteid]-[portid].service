@@ -3,7 +3,7 @@ Description="DeltaQuest Stunnel Tunnel - siteid portid"
 After=network.target
 
 [Service]
-ExecStart=stunnel /u/tunnels/deltaquest-siteid-portid-tunnel
+ExecStart=/usr/bin/stunnel /u/tunnels/deltaquest-siteid-portid-tunnel
 RestartSec=15
 Restart=always
 KillMode=mixed
