@@ -1,9 +1,9 @@
 [Unit]
-Description="DeltaQuest Stunnel Tunnel - siteid port"
+Description="DeltaQuest Stunnel Tunnel - siteid portid"
 After=network.target
 
 [Service]
-ExecStart=stunnel /u/tunnels/deltaquest-siteid-port-tunnel
+ExecStart=stunnel /u/tunnels/deltaquest-siteid-portid-tunnel
 RestartSec=15
 Restart=always
 KillMode=mixed
