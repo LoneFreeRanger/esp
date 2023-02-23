@@ -28,7 +28,7 @@ sleep 2
 else
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
-echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this e-lite server."
+echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this server."
 exit
 fi
 
