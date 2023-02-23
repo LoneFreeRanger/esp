@@ -7,7 +7,8 @@ echo ""
 echo "--------------------------------------------------"
 echo ""
 echo "What is the free deltaquest port number that can be used by this server?"
-echo "This should be the port of what is configured on the remote deltaquest box this tunnel is for."
+echo ""
+echo "NOTE: This should be the port that is configured on the remote deltaquest box this tunnel is for."
 read portidinput
 echo $portidinput > /tmp/portid
 echo ""
@@ -42,7 +43,7 @@ clear
 echo ""
 echo "Please confirm you wish for the new DeltQuest tunnel to be configured with the following:"
 echo ""
-echo "Site address code: $(cat /tmp/addresscode)"
+echo "Site address code: $(cat /tmp/siteid)"
 echo ""
 echo "DeltaQuest box and tunnel port number: $(cat /tmp/portid)"
 echo ""
