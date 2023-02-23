@@ -8,6 +8,7 @@ if [ $STUNNELCHECK -ge 1 ]
 then 
 echo ""
 else
+echo ""
 echo "Stunnel does not appear to be installed."
 echo ""
 echo "It is an absolute requirement that stunnel is installed."
@@ -27,6 +28,7 @@ then
 echo "Key is present. Continuing...."
 sleep 2
 else
+echo ""
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
 echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this server."
