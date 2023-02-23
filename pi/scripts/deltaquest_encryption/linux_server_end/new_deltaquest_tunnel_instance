@@ -79,8 +79,11 @@ sed -i 's/portid/'$(cat /tmp/portid)'/g' /u/tunnels/deltaquest-[siteid]-[port]-t
 # Update the server url/ ip within the default config to be that of stated server url/ IP supplied above
 sed -i 's/site_url/'$(cat /tmp/e-liteurl)'/g' /u/tunnels/deltaquest-[siteid]-[port]-tunnel
 
+# Update site id within tunnel config file from supplied detail above
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/deltaquest-[siteid]-[port]-tunnel
+
 # Rename the config file with previously supplied port and site ID
-mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/addresscode)-$(cat /tmp/portid)-tunnel
+mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid)-tunnel
 
 ############################
 
