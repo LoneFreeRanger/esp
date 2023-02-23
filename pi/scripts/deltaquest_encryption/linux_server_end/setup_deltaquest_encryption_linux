@@ -11,7 +11,7 @@ echo "Stunnel does not appear to be installed."
 echo ""
 echo "It is an absolute requirement that stunnel is installed."
 echo ""
-echo "Please get stunnel installed and try again".
+echo "Please get stunnel installed and try again."
 echo ""
 exit
 fi
