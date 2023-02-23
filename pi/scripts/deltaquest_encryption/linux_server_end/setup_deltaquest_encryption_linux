@@ -25,6 +25,7 @@ sleep 3
 CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
 then
+echo ""
 echo "Key is present. Continuing...."
 sleep 2
 else
@@ -40,6 +41,7 @@ echo "Checking to see if certificate seems valid...."
 VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
 if [ $VALID_CERT -ge 1 ]
 then
+echo ""
 echo "Certificate appears valid. Continuing...."
 sleep 2
 else
