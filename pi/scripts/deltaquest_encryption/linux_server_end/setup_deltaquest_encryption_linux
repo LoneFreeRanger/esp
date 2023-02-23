@@ -1,9 +1,10 @@
+clear
 # Install stunnel if not already installed
 yum install -y stunnel
 
 # Make sure the stunnel package is installed
 STUNNELCHECK=$(rpm -qa | grep stunnel | wc -l)
-if [ $STUNNELCHECK -ge 1]
+if [ $STUNNELCHECK -ge 1 ]
 then 
 echo ""
 else
