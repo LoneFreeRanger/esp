@@ -575,6 +575,9 @@ mv $HOSTNAMEIS-espsysteminfo.txt /tmp/espinfo/complete
 ## UPLOAD THE INFO VIA SFTP ##
 ##############################
 
+SSHPASS_HOST=sysinfo.esp-support.co.uk
+sed -i '/[$SSHPASS_HOST]/d' /root/.ssh/known_hosts
+
 export SSHPASS=$(cat /u/gui/scripts/sysinfopass)
 sshpass -e sftp -o StrictHostKeyChecking=no -oBatchMode=no -b - "$(cat /u/gui/scripts/sysinfouser)"@sysinfo.esp-support.co.uk << !
    lcd /tmp/espinfo/complete
