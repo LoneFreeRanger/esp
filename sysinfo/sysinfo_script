@@ -145,6 +145,8 @@ echo "$(cat /tmp/espinfo/espclientdate|awk '{print $2" "$3" "$4}')" > /tmp/espin
 #echo "$(sed 's/^/espclient.upg date: /g' /tmp/espinfo/espclientdate)" > /tmp/espinfo/espclientdate
 fi
 
+
+
 what -s /u/gui/espsite > /tmp/espinfo/espsite
 echo "$(tail -n 1 /tmp/espinfo/espsite)" > /tmp/espinfo/espsite
 echo "$(cat /tmp/espinfo/espsite|awk '{print $3}')" > /tmp/espinfo/espsite
@@ -417,6 +419,21 @@ echo "$(cat /tmp/espinfo/bsmsrh8date|awk '{print $6" "$7" "$8}')" > /tmp/espinfo
 #echo "$(sed 's/^/bsms.rh8 date: /g' /tmp/espinfo/bsmsrh8date)" > /tmp/espinfo/bsmsrh8date
 fi
 
+find /u/esp -type f -name bsms.l64 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsl64date
+BSMSL64DATEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMSL64DATEPRESENT=$(cat /tmp/espinfo/bsmsl64date | wc -l)
+if [ $BSMSL64DATEMULTI -ge 1 ]
+then
+echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsl64date
+elif [ $BSMSL64DATEPRESENT -le 0 ]
+then
+echo "n/a" > /tmp/espinfo/bsmsl64date
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsl64date)" > /tmp/espinfo/bsmsl64date
+echo "$(cat /tmp/espinfo/bsmsl64date|awk '{print $6" "$7" "$8}')" > /tmp/espinfo/bsmsl64date
+#echo "$(sed 's/^/bsms.l64 date: /g' /tmp/espinfo/bsmsl64date)" > /tmp/espinfo/bsmsl64date
+fi
+
 BSMSRH5=$(ls -l /u/ups/pos5file | wc -l)
 POS5FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 if [ $POS5FILEMULTI -ge 1 ]
@@ -489,6 +506,25 @@ echo "$(tail -n 1 /tmp/espinfo/bsmsrh8size)" > /tmp/espinfo/bsmsrh8size
 echo "$(cat /tmp/espinfo/bsmsrh8size|awk '{print $5}')" > /tmp/espinfo/bsmsrh8size
 #echo "$(sed 's/^/bsms.rh8 size (bytes): /g' /tmp/espinfo/bsmsrh8size)" > /tmp/espinfo/bsmsrh8size
 fi
+
+
+find /u/esp -type f -name bsms.l64 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsl64size
+BSMSL64SIZEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+BSMSL64SIZEPRESENT=$(cat /tmp/espinfo/bsmsl64size | wc -l)
+if [ $BSMSL64SIZEMULTI -ge 1 ]
+then
+echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsl64size
+elif [ $BSMSL64SIZEPRESENT -le 0 ]
+then 
+echo "n/a" > /tmp/espinfo/bsmsl64size
+else
+echo "$(tail -n 1 /tmp/espinfo/bsmsl64size)" > /tmp/espinfo/bsmsl64size
+echo "$(cat /tmp/espinfo/bsmsl64size|awk '{print $5}')" > /tmp/espinfo/bsmsl64size
+#echo "$(sed 's/^/bsms.l64 size (bytes): /g' /tmp/espinfo/bsmsl64size)" > /tmp/espinfo/bsmsl64size
+fi
+
+
+
 
 ########################################
 
