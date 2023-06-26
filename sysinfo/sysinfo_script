@@ -477,6 +477,31 @@ then
 echo "n/a"  > /tmp/espinfo/bsmsrh8
 fi
 
+
+
+BSMSL64=$(ls -l /u/ups/pos7file | wc -l)
+POS7FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS7FILEMULTI -ge 1 ]
+then
+echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsl64
+elif [ $BSMSL64 -le 0 ]
+then
+echo "n/a" > /tmp/espinfo/bsmsl64
+elif [ $BSMSL64 -ge 1 ]
+then
+find /u/esp -type f -name bsms.l64 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsl64
+echo "$(tail -n 1 /tmp/espinfo/bsmsl64)" > /tmp/espinfo/bsmsl64
+echo "$(cat /tmp/espinfo/bsmsl64|awk '{print $9}')" > /tmp/espinfo/bsmsl64
+BSMSL64=$(cat /tmp/espinfo/bsmsl64)
+echo "$(what -s $BSMSL64)"  > /tmp/espinfo/bsmsl64
+echo "$(tail -n 1 /tmp/espinfo/bsmsl64)" > /tmp/espinfo/bsmsl64
+echo "$(cat /tmp/espinfo/bsmsl64|awk '{print $3}')" > /tmp/espinfo/bsmsl64
+elif [ $BSMSL64 -le 0 ]
+then
+echo "n/a"  > /tmp/espinfo/bsmsl64
+fi
+
+
 find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5size
 BSMS5SIZEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 BSMS5SIZEPRESENT=$(cat /tmp/espinfo/bsmsrh5size | wc -l)
