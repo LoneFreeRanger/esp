@@ -494,6 +494,8 @@ fi
 
 ARERUNNINGRH5=$(ps -ef | grep bsms.rh5 | wc -l)
 ARERUNNINGRH8=$(ps -ef | grep bsms.rh8 | wc -l)
+ARERUNNINGL64=$(ps -ef | grep bsms.l64 | wc -l)
+
 RUNTIMEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 if [ $RUNTIMEMULTI -ge 1 ]
 then
@@ -501,8 +503,12 @@ echo "[MULTISITE GUI]" > /tmp/espinfo/runtime
 elif [ $ARERUNNINGRH5 -ge 5 ]
 then 
 echo "bsms.rh5" > /tmp/espinfo/runtime
-else
+elif [ $ARERUNNINGRH8 -ge 5 ]
+then
 echo "bsms.rh8" > /tmp/espinfo/runtime
+elif [ $ARERUNNINGL64 -ge 5 ]
+then 
+echo "bsms.l64" > /tmp/espinfo/runtime
 fi
 
 ESPCLIENTSIZ_PRESENT=$(ls -l /u/ups/espclient.upg | wc -l)
