@@ -22,7 +22,7 @@ echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajor
 cut -c 6 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
 # Internet speed test
-curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python - > /tmp/espinfo/internetspeed
+curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python > /tmp/espinfo/internetspeed
 cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/espinfo/internetupload
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
 echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
