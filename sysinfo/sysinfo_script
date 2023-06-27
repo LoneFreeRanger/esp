@@ -23,11 +23,11 @@ cut -c 6 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
 # Internet speed test
 curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python > /tmp/espinfo/internetspeed
+sleep 80
 cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/espinfo/internetupload
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
 echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
 echo "$(cat /tmp/espinfo/internetdownload | awk '{print $1}')" > /tmp/espinfo/internetdownload
-sleep 30
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
