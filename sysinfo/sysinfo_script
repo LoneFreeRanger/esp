@@ -49,43 +49,80 @@ curl -k https://icanhazip.com > /tmp/espinfo/publicipis
 #echo "$(sed 's/^/public ip: /g' /tmp/espinfo/publicipis)" > /tmp/espinfo/publicip
 
 # Get Public IP info
+REDHATIPINFO=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPINFO -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipinfo
+else
 curl -k https://ipinfo.io/$(cat /tmp/espinfo/publicipis) > /tmp/espinfo/publicipinfo
+fi
+
 
 # Public IP region
+REDHATIPREGION=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPREGION -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipregion
+else
 cat /tmp/espinfo/publicipinfo | grep region > /tmp/espinfo/publicipregion
-echo "$(cat /tmp/espinfo/publicipregion|awk '{print $2}')" > /tmp/espinfo/publicipregion
+echo "$(cat /tmp/espinfo/publicipregion|awk '{print $2}')" > c
 echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/"//g' /tmp/espinfo/publicipregion
 echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/,//g' /tmp/espinfo/publicipregion
 #echo "$(sed 's/^/public ip region: /g' /tmp/espinfo/publicipregion)" > /tmp/espinfo/publicipregion
+fi
 
 # Public IP city
+REDHATIPCITY=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPCITY -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipcity
+else
 cat /tmp/espinfo/publicipinfo | grep city > /tmp/espinfo/publicipcity
 echo "$(cat /tmp/espinfo/publicipcity|awk '{print $2}')" > /tmp/espinfo/publicipcity
 echo "$(cat /tmp/espinfo/publicipcity)" | sed -i 's/"//g' /tmp/espinfo/publicipcity
 echo "$(cat /tmp/espinfo/publicipcity)" | sed -i 's/,//g' /tmp/espinfo/publicipcity
 #echo "$(sed 's/^/public ip city: /g' /tmp/espinfo/publicipcity)" > /tmp/espinfo/publicipcity
+fi
 
 # Public IP country
+REDHATIPCOUNTRY=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPCOUNTRY -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipcountry
+else
 cat /tmp/espinfo/publicipinfo | grep country > /tmp/espinfo/publicipcountry
 echo "$(cat /tmp/espinfo/publicipcountry|awk '{print $2}')" > /tmp/espinfo/publicipcountry
 echo "$(cat /tmp/espinfo/publicipcountry)" | sed -i 's/"//g' /tmp/espinfo/publicipcountry
 echo "$(cat /tmp/espinfo/publicipcountry)" | sed -i 's/,//g' /tmp/espinfo/publicipcountry
 #echo "$(sed 's/^/public ip country: /g' /tmp/espinfo/publicipcountry)" > /tmp/espinfo/publicipcountry
+fi
 
 # Public IP organisation
+REDHATIPORG=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPORG -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publiciporganisation
+else
 cat /tmp/espinfo/publicipinfo | grep org > /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation|awk '{print $2" "$3" "$4" "$5}')" > /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/,//g' /tmp/espinfo/publiciporganisation
 #echo "$(sed 's/^/public ip org: /g' /tmp/espinfo/publiciporganisation)" > /tmp/espinfo/publiciporganisation
+cat
 
 # Public IP longitude and latitude
+REDHATIPGEO=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHATIPGEO -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipgeoloc
+else
 cat /tmp/espinfo/publicipinfo | grep loc > /tmp/espinfo/publicipgeoloc
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/loc//g' /tmp/espinfo/publicipgeoloc
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publicipgeoloc
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/://g' /tmp/espinfo/publicipgeoloc
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/ //g' /tmp/espinfo/publicipgeoloc
 #echo "$(sed 's/^/public ip geolocation: /g' /tmp/espinfo/publicipgeoloc)" > /tmp/espinfo/publicipgeoloc
+fi
 
 rm -rf /tmp/espinfo/publicipinfo
 
