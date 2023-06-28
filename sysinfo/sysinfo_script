@@ -22,12 +22,18 @@ echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajor
 cut -c 6 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
 # Internet speed test
+REDHAT6LINETEST=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $REDHAT6LINETEST -ge 1 ]
+then
+echo "Curl Error - Redhat 6" > /tmp/espinfo/internetspeed
+else
 curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python > /tmp/espinfo/internetspeed
 sleep 80
 cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/espinfo/internetupload
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
 echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
 echo "$(cat /tmp/espinfo/internetdownload | awk '{print $1}')" > /tmp/espinfo/internetdownload
+fi
 
 # Multi-site check
 MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
