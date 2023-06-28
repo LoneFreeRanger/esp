@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v28.07.23-7" > /tmp/espinfo/scriptver
+echo "v28.07.23-8" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -26,6 +26,8 @@ REDHAT6LINETEST=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Serve
 if [ $REDHAT6LINETEST -ge 1 ]
 then
 echo "Curl Error - Redhat 6" > /tmp/espinfo/internetspeed
+echo "Curl Error - Redhat 6" > /tmp/espinfo/internetdownload
+echo "Curl Error - Redhat 6" > /tmp/espinfo/internetupload
 else
 curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python > /tmp/espinfo/internetspeed
 sleep 80
