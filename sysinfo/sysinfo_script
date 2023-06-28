@@ -213,6 +213,22 @@ else
 echo "n/a" > /tmp/espinfo/pos6date
 fi
 
+
+POS7FILE=$(ls -l /u/ups/pos7file | wc -l)
+POS7FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS7FILEMULTI -ge 1 ]
+then
+echo "[MULTISITE GUI]" > /tmp/espinfo/pos7date
+elif [ $POS7FILE -ge 1 ]
+then
+date -r /u/ups/pos7file -R > /tmp/espinfo/pos7date
+echo "$(cat /tmp/espinfo/pos7date|awk '{print $2" "$3" "$4}')" > /tmp/espinfo/pos7date
+#echo "$(sed 's/^/pos7 date: /g' /tmp/espinfo/pos7date)" > /tmp/espinfo/pos7date
+else
+echo "n/a" > /tmp/espinfo/pos7date
+fi
+
+
 VNCPACKAGES=$(rpm -qa | grep vnc | wc -l)
 CLIENTDIRS=$(find /home -name client* | wc -l)
 if [ $VNCPACKAGES -ge 1 ] && [ $CLIENTDIRS -ge 1 ]
@@ -631,7 +647,7 @@ echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/es
 ################################
 
 cd /tmp/espinfo
-/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
+/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date pos7date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
 
 mkdir complete
 HOSTNAMEIS=$(hostname)
