@@ -631,7 +631,7 @@ echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/es
 ################################
 
 cd /tmp/espinfo
-/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date pos6date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
+/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date espclientver espclientsize espclientdate espsite espsitesize comms eftver useseft nooflicences accessctl httpservice custmind export phones range odbc elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc > espsysteminfo.txt
 
 mkdir complete
 HOSTNAMEIS=$(hostname)
