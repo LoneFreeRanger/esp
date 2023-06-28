@@ -471,24 +471,24 @@ echo "n/a"  > /tmp/espinfo/bsmsrh5
 #echo "$(sed 's/^/bsms.rh5 version: /g' /tmp/espinfo/bsmsrh5)" > /tmp/espinfo/bsmsrh5
 fi
 
-BSMSRH6=$(ls -l /u/ups/pos6file | wc -l)
-POS5FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
-if [ $POS5FILEMULTI -ge 1 ]
+BSMSRH8_2=$(ls -l /u/ups/pos6file | wc -l)
+POS6FILEMULTI_2=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
+if [ $POS6FILEMULTI_2 -ge 1 ]
 then
 echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsrh8
-elif [ $BSMSRH6 -le 0 ]
-then
-echo "n/a" > /tmp/espinfo/bsmsrh8
-elif [ $BSMSRH6 -ge 1 ]
+#elif [ $BSMSRH8_2 -le 0 ]
+#then
+#echo "n/a" > /tmp/espinfo/bsmsrh8
+elif [ $POS6FILEMULTI_2 -le 0 ]
 then
 find /u/esp -type f -name bsms.rh8 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh8
 echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
 echo "$(cat /tmp/espinfo/bsmsrh8|awk '{print $9}')" > /tmp/espinfo/bsmsrh8
-BSMSRH8=$(cat /tmp/espinfo/bsmsrh8)
-echo "$(what -s $BSMSRH8)"  > /tmp/espinfo/bsmsrh8
+BSMSRH8_3=$(cat /tmp/espinfo/bsmsrh8)
+echo "$(what -s $BSMSRH8_3)"  > /tmp/espinfo/bsmsrh8
 echo "$(tail -n 1 /tmp/espinfo/bsmsrh8)" > /tmp/espinfo/bsmsrh8
 echo "$(cat /tmp/espinfo/bsmsrh8|awk '{print $3}')" > /tmp/espinfo/bsmsrh8
-elif [ $BSMSRH8 -le 0 ]
+elif [ $BSMSRH8_3 -le 0 ]
 then
 echo "n/a"  > /tmp/espinfo/bsmsrh8
 fi
