@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v28.07.23-6" > /tmp/espinfo/scriptver
+echo "v28.07.23-7" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -108,7 +108,7 @@ echo "$(cat /tmp/espinfo/publiciporganisation|awk '{print $2" "$3" "$4" "$5}')" 
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/"//g' /tmp/espinfo/publiciporganisation
 echo "$(cat /tmp/espinfo/publiciporganisation)" | sed -i 's/,//g' /tmp/espinfo/publiciporganisation
 #echo "$(sed 's/^/public ip org: /g' /tmp/espinfo/publiciporganisation)" > /tmp/espinfo/publiciporganisation
-cat
+fi
 
 # Public IP longitude and latitude
 REDHATIPGEO=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
