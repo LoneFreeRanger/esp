@@ -70,21 +70,16 @@ mkdir -p /u/logs/stunnel/
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
 # Re-start the stunnel service
-/etc/init.d/stunnel4 restart
+service stunnel restart
 
 # Add firewall rules
 clear
-echo "Please now manually add the required 100xx ports to the firewall file /etc/iptables.firewall.rules if they are not already present."
+echo "Please now manually add the required 50080 and 60080 ports to the outbound firewall file /etc/firewalld/direct.xml if OS is running Redhat 8/ AlmaLinux 8/ CentOS 8 or above."
 echo ""
 echo "The rules should be in the following format:"
 echo ""
-echo "-A INPUT -p tcp -m tcp --dport 50080 -s [ELITE SERVER URL/ IP] -j ACCEPT"
-echo "-A INPUT -p tcp -m tcp --dport 60080 -s [ELITE SERVER URL/ IP] -j ACCEPT"
+echo "<rule ipv="ipv4" table="filter" chain="OUTPUT" priority="1">-p tcp -m tcp --dport 50080 -j ACCEPT</rule>"
+echo "<rule ipv="ipv4" table="filter" chain="OUTPUT" priority="1">-p tcp -m tcp --dport 60080 -j ACCEPT</rule>"
 echo ""
-echo "There should be a rule for every deltaquest box like so:"
-echo ""
-echo "DeltaQuest box 1 - 10001"
-echo "DeltaQuest box 2 - 10002"
-echo "DeltaQuest box 3 - 10003"
 echo ""
 echo "Done."
