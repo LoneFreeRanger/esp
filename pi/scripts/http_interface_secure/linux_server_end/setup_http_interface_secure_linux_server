@@ -102,7 +102,7 @@ echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunne
 echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
 echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
 echo "pid = /var/run/stunnel4/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
-echo "client = no" >>
+echo "client = no" >> /etc/stunnel/stunnel.conf
 echo "fips = no" >> /etc/stunnel/stunnel.conf
 echo "debug = 7" >> /etc/stunnel/stunnel.conf
 echo "[HTTP_INTERFACE_$eliteunithttpport]" >> /etc/stunnel/stunnel.conf
