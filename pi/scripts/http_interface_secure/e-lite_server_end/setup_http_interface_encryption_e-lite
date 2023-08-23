@@ -1,4 +1,15 @@
 clear
+
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
 # Install stunnel if not already installed
 yum install -y stunnel
 
@@ -20,9 +31,9 @@ fi
 
 # Check for the certifcate being pesent
 clear
-echo "Checking for key stunnel-deltaquest.pem within /tmp....."
+echo "Checking for key key_http_secure_stunnel.pem within /tmp....."
 sleep 3
-CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
+CERT_PRESENT=$(find /tmp -name key_http_secure_stunnel.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
 then
 echo ""
@@ -32,28 +43,28 @@ else
 echo ""
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
-echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this server."
+echo "Please place the deltaquest stunnel encryption key key_http_secure_stunnel.pem within /tmp on this server."
 exit
 fi
 
 clear
 echo "Checking to see if certificate seems valid...."
-VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
+VALID_CERT=$(cat /tmp/key_http_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
 if [ $VALID_CERT -ge 1 ]
 then
 echo ""
 echo "Certificate appears valid. Continuing...."
 sleep 2
 else
-echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made."
+echo "Certificate key_http_secure_stunnel.pem within /tmp does not seem valid. Now exiting. No changes have been made."
 echo ""
-echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this server."
+echo "Please place the correct deltaquest stunnel encryption key (key_http_secure_stunnel.pem) within /tmp on this server."
 exit
 fi
 
 # Copy into place the rsa key
-cp /tmp/stunnel-deltaquest.pem /etc/stunnel
-chmod 600 /etc/stunnel/stunnel-deltaquest.pem
+cp /tmp/key_http_secure_stunnel.pem /etc/stunnel
+chmod 600 /etc/stunnel/key_http_secure_stunnel.pem
 
 # Setup directories if not already present
 mkdir -p /var/log/stunnel/
