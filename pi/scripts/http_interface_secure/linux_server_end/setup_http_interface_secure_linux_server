@@ -1,5 +1,5 @@
 # Ray Reilly
-# Set-up DeltaQuest Stunnel encryption for e-lite units
+# Set-up http secure Stunnel encryption for ESP Elite application server
 
 clear
 echo "Checking if this is an ESP application server....."
