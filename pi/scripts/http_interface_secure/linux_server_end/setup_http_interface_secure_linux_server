@@ -71,11 +71,6 @@ mkdir -p /u/logs/stunnel/
 ###############
 clear
 # Gather the detail to configure stunnel with
-echo "What is the URL in which the e-lite server can be reached at? (i.e: [SITE_ADDRESS_CODE]-p1.esp-elite.com)"
-read eliteuniturl
-echo $eliteuniturl > /tmp/eliteuniturl
-echo ""
-echo "=============="
 echo ""
 echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 60080])"
 read httpserviceport
@@ -100,8 +95,8 @@ echo "client = no" >>
 echo "fips = no" >> /etc/stunnel/stunnel.conf
 echo "debug = 7" >> /etc/stunnel/stunnel.conf
 echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
-echo "accept = 50080" >> /etc/stunnel/stunnel.conf
-echo "connect = 127.0.0.1:60080" >> /etc/stunnel/stunnel.conf
+echo "accept = $eliteunithttpport" >> /etc/stunnel/stunnel.conf
+echo "connect = 127.0.0.1:$httpserviceport" >> /etc/stunnel/stunnel.conf
 
 # Re-start the stunnel service
 service stunnel restart
