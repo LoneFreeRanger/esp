@@ -97,8 +97,6 @@ echo $eliteuniturl > /tmp/eliteuniturl
 echo ""
 echo "=============="
 
-
-
 # Add default  stunnel config for http tunnel
 touch /etc/stunnel/stunnel.conf
 echo "" >> /etc/stunnel/stunnel.conf
@@ -112,11 +110,6 @@ echo "debug = 7" >> /etc/stunnel/stunnel.conf
 echo "[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" >> /etc/stunnel/stunnel.conf
 echo "accept = $(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
 echo "connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-
-
-
-
-
 
 # Get 'new_deltaquest_tunnel_instance' script
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/new_deltaquest_tunnel_instance' -O /u/espbin/new_deltaquest_tunnel_instance
