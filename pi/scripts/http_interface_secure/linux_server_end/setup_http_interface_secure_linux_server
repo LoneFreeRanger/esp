@@ -57,6 +57,7 @@ fi
 
 ###############
 
+clear
 # Install stunnel package if not already installed
 yum -y install stunnel
 
@@ -104,7 +105,7 @@ echo "pid = /var/run/stunnel4/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel
 echo "client = no" >>
 echo "fips = no" >> /etc/stunnel/stunnel.conf
 echo "debug = 7" >> /etc/stunnel/stunnel.conf
-echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
+echo "[HTTP_INTERFACE_$eliteunithttpport]" >> /etc/stunnel/stunnel.conf
 echo "accept = $eliteunithttpport" >> /etc/stunnel/stunnel.conf
 echo "connect = 127.0.0.1:$httpserviceport" >> /etc/stunnel/stunnel.conf
 
