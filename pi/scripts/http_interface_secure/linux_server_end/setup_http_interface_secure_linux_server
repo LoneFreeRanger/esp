@@ -66,14 +66,29 @@ chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 mkdir -p /u/logs/stunnel/
 
 # Get the default Stunnel config file and put in place
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
+#/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
+
+# Setup the stunnel config
+touch /etc/stunnel/stunnel.conf
+echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
+echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
+echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
+echo "pid = /var/run/stunnel4/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
+echo "client = no" >>
+echo "fips = no" >> /etc/stunnel/stunnel.conf
+echo "debug = 7" >> /etc/stunnel/stunnel.conf
+echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
+echo "accept = 50080" >> /etc/stunnel/stunnel.conf
+echo "connect = eliteserverurl:60080" >> /etc/stunnel/stunnel.conf
+
 
 # Re-start the stunnel service
 service stunnel restart
 
 # Add firewall rules
 clear
-echo "Please now manually add the required 50080 and 60080 ports to the outbound firewall file /etc/firewalld/direct.xml if OS is running Redhat 8/ AlmaLinux 8/ CentOS 8 or above."
+echo "Please now manually add the required outnound rules (ie: 5008x and 6008x) ports to the outbound firewall file /etc/firewalld/direct.xml"
+echo "if OS is running Redhat 8/ AlmaLinux 8/ CentOS 8 or above."
 echo ""
 echo "The rules should be in the following format:"
 echo ""
