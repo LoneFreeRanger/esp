@@ -1,1 +1,73 @@
+clear
+# Install stunnel if not already installed
+yum install -y stunnel
 
+# Make sure the stunnel package is installed
+STUNNELCHECK=$(rpm -qa | grep stunnel | wc -l)
+if [ $STUNNELCHECK -ge 1 ]
+then 
+echo ""
+else
+echo ""
+echo "Stunnel does not appear to be installed."
+echo ""
+echo "It is an absolute requirement that stunnel is installed."
+echo ""
+echo "Please get stunnel installed and try again."
+echo ""
+exit
+fi
+
+# Check for the certifcate being pesent
+clear
+echo "Checking for key stunnel-deltaquest.pem within /tmp....."
+sleep 3
+CERT_PRESENT=$(find /tmp -name stunnel-deltaquest.pem | wc -l)
+if [ $CERT_PRESENT -ge 1 ]
+then
+echo ""
+echo "Key is present. Continuing...."
+sleep 2
+else
+echo ""
+echo "No key is present. Now exiting. No changes have been made."
+echo ""
+echo "Please place the deltaquest stunnel encryption key stunnel-deltaquest.pem within /tmp on this server."
+exit
+fi
+
+clear
+echo "Checking to see if certificate seems valid...."
+VALID_CERT=$(cat /tmp/stunnel-deltaquest.pem | grep "O2qB3Zrart32XDAPB" | wc -l)
+if [ $VALID_CERT -ge 1 ]
+then
+echo ""
+echo "Certificate appears valid. Continuing...."
+sleep 2
+else
+echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made."
+echo ""
+echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this server."
+exit
+fi
+
+# Copy into place the rsa key
+cp /tmp/stunnel-deltaquest.pem /etc/stunnel
+chmod 600 /etc/stunnel/stunnel-deltaquest.pem
+
+# Setup directories if not already present
+mkdir -p /var/log/stunnel/
+mkdir -p /var/run/stunnel/
+mkdir -p /var/run/stunnel4/
+mkdir -p /u/tunnels/
+chmod -R 777 /u/tunnels
+
+# Get 'new_deltaquest_tunnel_instance' script
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/new_deltaquest_tunnel_instance' -O /u/espbin/new_deltaquest_tunnel_instance
+chmod 777 /u/espbin/new_deltaquest_tunnel_instance
+
+clear
+echo "DeltaQuest encryption has now been setup (but with no tunnels configured)"
+echo ""
+echo "Should a new tunnel be needed, please run seperate script '/u/espbin/new_deltaquest_tunnel_instance' "
+echo ""
