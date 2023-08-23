@@ -81,7 +81,6 @@ echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
 echo "accept = 50080" >> /etc/stunnel/stunnel.conf
 echo "connect = eliteserverurl:60080" >> /etc/stunnel/stunnel.conf
 
-
 # Re-start the stunnel service
 service stunnel restart
 
