@@ -1,6 +1,16 @@
 # Ray Reilly
 # Set-up http secure Stunnel encryption for ESP Elite application server
 
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
 clear
 echo "Checking if this is an ESP application server....."
 sleep 3
