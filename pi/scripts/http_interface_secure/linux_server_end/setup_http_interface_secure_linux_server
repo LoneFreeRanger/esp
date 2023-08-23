@@ -60,8 +60,8 @@ cd /etc/stunnel/
 
 # Copy the keys into stunnel configuration
 # cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
-cp -rf /tmp/stunnel-deltaquest.pem /etc/stunnel/
-chmod 400 /etc/stunnel/stunnel-deltaquest.pem
+cp -rf /tmp/key_http_secure_stunnel.pem /etc/stunnel/
+chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 
 # Create stunnel logs directory if not already present
 mkdir -p /u/logs/stunnel/
@@ -78,7 +78,8 @@ echo "Please now manually add the required 100xx ports to the firewall file /etc
 echo ""
 echo "The rules should be in the following format:"
 echo ""
-echo "-A INPUT -p tcp -m tcp --dport 10001 -s [ELITE SERVER URL/ IP] -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 50080 -s [ELITE SERVER URL/ IP] -j ACCEPT"
+echo "-A INPUT -p tcp -m tcp --dport 60080 -s [ELITE SERVER URL/ IP] -j ACCEPT"
 echo ""
 echo "There should be a rule for every deltaquest box like so:"
 echo ""
@@ -89,9 +90,3 @@ echo ""
 echo "Once a rule has been added you will need to restart the firewall: /sbin/iptables-restore < /etc/iptables.firewall.rules"
 echo ""
 echo "Done."
-
-#clear
-#echo "What is site's Elite system URL (i.e: demo.esp-elite.com) or static public IP?"
-#read serverurlinput
-#echo $serverurlinput > /tmp/serverurl
-#echo ""
