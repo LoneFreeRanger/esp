@@ -103,13 +103,9 @@ service stunnel restart
 
 # Add firewall rules
 clear
-echo "Please now manually add the required outnound rules (ie: 5008x and 6008x) ports to the outbound firewall file /etc/firewalld/direct.xml"
-echo "if OS is running Redhat 8/ AlmaLinux 8/ CentOS 8 or above."
+echo "Please now manually add the required inbound rules (ie: 5008x and 6008x) ports to the server firewall file."
 echo ""
-echo "The rules should be in the following format:"
+echo "This will be either /etc/iptables or /etc/firewalld/zones/public.xml dependent on server OS version."
 echo ""
-echo "<rule ipv="ipv4" table="filter" chain="OUTPUT" priority="1">-p tcp -m tcp --dport 50080 -j ACCEPT</rule>"
-echo "<rule ipv="ipv4" table="filter" chain="OUTPUT" priority="1">-p tcp -m tcp --dport 60080 -j ACCEPT</rule>"
+echo "Site will also need to port forward/ open the applicable ports on their internet facing fierwall/ router."
 echo ""
-echo ""
-echo "Done."
