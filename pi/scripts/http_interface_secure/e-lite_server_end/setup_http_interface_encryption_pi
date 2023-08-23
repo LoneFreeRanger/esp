@@ -121,9 +121,3 @@ echo "connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)" >> /etc/
 # Get 'new_deltaquest_tunnel_instance' script
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/new_deltaquest_tunnel_instance' -O /u/espbin/new_deltaquest_tunnel_instance
 chmod 777 /u/espbin/new_deltaquest_tunnel_instance
-
-clear
-echo "DeltaQuest encryption has now been setup (but with no tunnels configured)"
-echo ""
-echo "Should a new tunnel be needed, please run seperate script '/u/espbin/new_deltaquest_tunnel_instance' "
-echo ""
