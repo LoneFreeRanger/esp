@@ -63,6 +63,8 @@ clear
 # Install stunnel package if not already installed
 yum -y install stunnel
 
+# Enable stunnel service on server boot
+systemctl enable stunnel
 cd /etc/stunnel/
 
 # How the key was originally created on the e-lite server
