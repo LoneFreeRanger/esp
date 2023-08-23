@@ -4,9 +4,8 @@
 clear
 echo "Checking if this is an ESP application server....."
 sleep 3
-ELITECHECK1=$(ls -l /u/espbin/pi_site_setup | wc -l)
-ELITECHECK2=$(cat /etc/os-release | grep ID=raspbian | wc -l)
-if [ $ELITECHECK1 -ge 1 ] && [ $ELITECHECK2 -ge 1 ]
+ELITECHECK1=$(ls -l /u/gui/espip.dat | wc -l)
+if [ $ELITECHECK1 -ge 1 ]
 then
 echo "This appears to be an ESP application server. Continuing..."
 sleep 2
@@ -28,7 +27,7 @@ sleep 2
 else
 echo "No key is present. Now exiting. No changes have been made."
 echo ""
-echo "Please place the deltaquest stunnel encryption key key_http_secure_stunnel.pem within /tmp on this ESP application server."
+echo "Please place the http secure stunnel encryption key key_http_secure_stunnel.pem within /tmp on this ESP application server."
 exit
 fi
 
@@ -40,9 +39,9 @@ then
 echo "Certificate appears valid. Continuing...."
 sleep 2
 else
-echo "Certificate stunnel-deltaquest.pem within /tmp does not seem valid. Now exiting. No changes have been made."
+echo "Certificate key_http_secure_stunnel.pem within /tmp does not seem valid. Now exiting. No changes have been made."
 echo ""
-echo "Please place the correct deltaquest stunnel encryption key (stunnel-deltaquest.pem) within /tmp on this e-lite server."
+echo "Please place the correct deltaquest stunnel encryption key (key_http_secure_stunnel.pem) within /tmp on this e-lite server."
 exit
 fi
 
