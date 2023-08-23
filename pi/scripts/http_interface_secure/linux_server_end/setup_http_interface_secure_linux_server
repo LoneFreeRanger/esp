@@ -91,7 +91,17 @@ echo "=============="
 
 
 # Add default the stunnel config for http tunnel
-
+touch /etc/stunnel/stunnel.conf
+echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
+echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
+echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
+echo "pid = /var/run/stunnel4/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
+echo "client = no" >>
+echo "fips = no" >> /etc/stunnel/stunnel.conf
+echo "debug = 7" >> /etc/stunnel/stunnel.conf
+echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
+echo "accept = 50080" >> /etc/stunnel/stunnel.conf
+echo "connect = 127.0.0.1:60080" >> /etc/stunnel/stunnel.conf
 
 # Re-start the stunnel service
 service stunnel restart
