@@ -68,18 +68,30 @@ mkdir -p /u/logs/stunnel/
 # Get the default Stunnel config file and put in place
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
-# Setup the stunnel config
-touch /etc/stunnel/stunnel.conf
-echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
-echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "pid = /var/run/stunnel4/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
-echo "client = no" >>
-echo "fips = no" >> /etc/stunnel/stunnel.conf
-echo "debug = 7" >> /etc/stunnel/stunnel.conf
-echo "[HTTP_INTERFACE_50080]" >> /etc/stunnel/stunnel.conf
-echo "accept = 50080" >> /etc/stunnel/stunnel.conf
-echo "connect = eliteserverurl:60080" >> /etc/stunnel/stunnel.conf
+###############
+clear
+# Gather the detail to configure stunnel with
+echo "What is the URL in which the e-lite server can be reached at? (i.e: [SITE_ADDRESS_CODE]-p1.esp-elite.com)"
+read eliteuniturl
+echo $eliteuniturl > /tmp/eliteuniturl
+echo ""
+echo "=============="
+echo ""
+echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 60080])"
+read httpserviceport
+echo $httpserviceport > /tmp/httpserviceport
+echo ""
+echo "=============="
+echo ""
+echo "What port numnber is the e-Elite server listening on for HTTP interface connections? [i.e: 50080]"
+read eliteunithttpport
+echo $eliteunithttpport > /tmp/eliteunithttpport
+echo ""
+echo "=============="
+
+
+# Add default the stunnel config for http tunnel
+
 
 # Re-start the stunnel service
 service stunnel restart
