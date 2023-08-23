@@ -1,5 +1,7 @@
 # Ray Reilly
 # Set-up http secure Stunnel encryption for ESP Elite application server
+# example http URL: HTTP://[server url]:60080/images/membpictures/TEST
+
 
 # Check if script is being run as the root user
 WHO=$(whoami)
