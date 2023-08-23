@@ -74,7 +74,32 @@ mkdir -p /u/tunnels/
 chmod -R 777 /u/tunnels
 
 
-# Add default the stunnel config for http tunnel
+
+###############
+clear
+# Gather the detail to configure stunnel with
+echo ""
+echo "What port numnber is the HTTP service running on the Elite application server? [i.e: 60080])"
+read httpserviceport
+echo $httpserviceport > /tmp/httpserviceport
+echo ""
+echo "=============="
+echo ""
+echo "What port numnber is this e-Elite server going to listen on for HTTP interface connections? [i.e: 50080]"
+read eliteunithttpport
+echo $eliteunithttpport > /tmp/eliteunithttpport
+echo ""
+echo "=============="
+echo ""
+echo "What is URL of the remote ESP application server? [i.e: [SITE_ADDRESS_CODE]-s1.esp-elite.com]"
+read eliteuniturl
+echo $eliteuniturl > /tmp/eliteuniturl
+echo ""
+echo "=============="
+
+
+
+# Add default  stunnel config for http tunnel
 touch /etc/stunnel/stunnel.conf
 echo "" >> /etc/stunnel/stunnel.conf
 echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
@@ -86,7 +111,7 @@ echo "fips = no" >> /etc/stunnel/stunnel.conf
 echo "debug = 7" >> /etc/stunnel/stunnel.conf
 echo "[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" >> /etc/stunnel/stunnel.conf
 echo "accept = $(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-echo "connect = $(cat /tmp/httpserviceport)" >> /etc/stunnel/stunnel.conf
+echo "connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
 
 
 
