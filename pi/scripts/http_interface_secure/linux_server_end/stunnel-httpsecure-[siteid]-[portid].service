@@ -1,0 +1,12 @@
+[Unit]
+Description="http Interface Stunnel Tunnel - siteid portid"
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/stunnel /u/tunnels/http-interface-siteid-portid-tunnel
+RestartSec=15
+Restart=always
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
