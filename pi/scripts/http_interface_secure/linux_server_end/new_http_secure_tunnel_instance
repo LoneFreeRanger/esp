@@ -56,14 +56,14 @@ fi
 clear
 # Gather the detail to configure stunnel with
 echo ""
-echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [usually this is 5008x]"
+echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [i.e: 5008x]"
 echo "This will be the port this server will accept encrypted connections form the e-lite unit on for the http interface."
 read eliteunithttpport
 echo $eliteunithttpport > /tmp/eliteunithttpport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 60080])"
+echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 6008x])"
 read httpserviceport
 echo $httpserviceport > /tmp/httpserviceport
 echo ""
