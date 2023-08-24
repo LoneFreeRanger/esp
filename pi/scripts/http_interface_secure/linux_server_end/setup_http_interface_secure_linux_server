@@ -1,5 +1,6 @@
 # Ray Reilly
 # Set-up http secure Stunnel encryption for ESP Elite application server
+
 # This script should only be run once whenever a server has never had http secure before
 # example http URL: HTTP://[server url]:60080/images/membpictures/TEST
 
@@ -80,6 +81,27 @@ chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 
 # Create stunnel logs directory if not already present
 mkdir -p /u/logs/stunnel/
+
+
+
+
+# Get OS service file
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Bportid%5D.service' -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service
+chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service
+
+# Configure the OS service file port
+sed -i 's/portid/'$(cat /tmp/portid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service
+
+# Configure the OS service file siteid
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service
+
+# Rename the default OS service file
+mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service /etc/systemd/system/stunnel-deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid).service
+
+# Load the service into the kernel
+systemctl daemon-reload
+systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/portid).service
+systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/portid).service
 
 
 
