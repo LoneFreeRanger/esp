@@ -78,10 +78,24 @@ echo ""
 ##############################
 
 clear
-echo "Checking if port numbers supplied are already in use on this server...."
+echo "Checking if port numbers you supplied are already in use on this server...."
+sleep 3
 
-
-
+PORTCHECK1=$(netstat -a | grep $(cat /tmp/eliteunithttpport) | wc -l)
+if [ $PORTCHECK1 -ge 1 ]
+then 
+clear
+echo "The http secure portyou have specified above is already in active use on this server."
+echo "
+echo "You are are not able to use the same port number again."
+echo ""
+echo "If there is a ESP http service running, please make sure to stop this, re-configure it for the 6008x range and restart it."
+echo ""
+echo "No changes have been made. Now exiting."
+exit
+else
+echo "Implementing the details you have supplied..."
+fi
 
 ##############################
 ##############################
