@@ -80,50 +80,5 @@ chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 # Create stunnel logs directory if not already present
 mkdir -p /u/logs/stunnel/
 
-# Get the default Stunnel config file and put in place
-#/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/e-lite_server_end/stunnel.conf' -O /etc/stunnel/stunnel.conf
 
-###############
-clear
-# Gather the detail to configure stunnel with
-echo ""
-echo "What port numnber is the e-Elite server listening on for HTTP interface connections? [usually this is 50080]"
-read eliteunithttpport
-echo $eliteunithttpport > /tmp/eliteunithttpport
-echo ""
-echo "=============="
-echo ""
-echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 60080])"
-read httpserviceport
-echo $httpserviceport > /tmp/httpserviceport
-echo ""
-echo "=============="
 
-clear
-# Add default the stunnel config for http tunnel
-touch /etc/stunnel/stunnel.conf
-echo "" >> /etc/stunnel/stunnel.conf
-echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
-echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "pid = /var/run/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
-echo "client = no" >> /etc/stunnel/stunnel.conf
-echo "fips = no" >> /etc/stunnel/stunnel.conf
-echo "debug = 7" >> /etc/stunnel/stunnel.conf
-echo "[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" >> /etc/stunnel/stunnel.conf
-echo "accept = $(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-echo "connect = $(cat /tmp/httpserviceport)" >> /etc/stunnel/stunnel.conf
-
-# Re-start the stunnel service
-service stunnel restart
-
-# Add firewall rules
-clear
-echo "Please now manually add the required inbound rules (ie: 5008x) port to the server inbound firewall file."
-echo ""
-echo "This will be either /etc/iptables or /etc/firewalld/zones/public.xml dependent on server OS version."
-echo ""
-echo "If this is an ESP Cloud server, the firewall rule will also need to be opened here too."
-echo ""
-echo "Site will also need to port forward/ open this port on their internet facing fierwall/ router to the server."
-echo ""
