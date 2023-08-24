@@ -110,22 +110,18 @@ echo $siteid > /tmp/siteid
 echo ""
 echo "=============="
 
-###############
-###############
-###############
-
 # Get OS service file and set perms
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
-# Configure the OS service file port
+# Configure the OS service file port with detail supplied
 sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
-# Configure the OS service file siteid
+# Configure the OS service file siteid with detail supplied
 sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
-# Rename the default OS service file
+# Rename the default OS service file with detail supplied
 mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /etc/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
 # Load the new service into the kernel, enable on boot and start it 
