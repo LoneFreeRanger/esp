@@ -24,7 +24,7 @@ exit
 fi 
 
 clear
-echo "Checking for key key_http_secure_stunnel.pem within....."
+echo "Checking for key key_http_secure_stunnel.pem ....."
 sleep 3
 CERT_PRESENT=$(find /etc/stunnel -name key_http_secure_stunnel.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
@@ -69,7 +69,7 @@ echo $httpserviceport > /tmp/httpserviceport
 echo ""
 echo "=============="
 echo ""
-echo "What is site's address code for which is for?"
+echo "What is site's address code?"
 read siteid
 echo $siteid > /tmp/siteid 
 echo ""
@@ -94,7 +94,7 @@ echo ""
 echo "No changes have been made. Now exiting."
 exit
 else
-echo "Implementing the details you have supplied..."
+echo "All seems good. Implementing the details you have supplied..."
 fi
 
 ##############################
@@ -102,7 +102,6 @@ fi
 
 # Get OS service file and set perms
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
-
 chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the OS service file port with detail supplied
