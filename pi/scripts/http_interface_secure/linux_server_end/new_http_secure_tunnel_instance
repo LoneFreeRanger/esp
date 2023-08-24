@@ -101,6 +101,23 @@ fi
 ##############################
 ##############################
 
+# Get stunnel config file and set perms
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file port with detail supplied
+sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file siteid with detail supplied
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file httpserviceport with detail supplied
+sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Rename the default OS service file with detail supplied
+mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)
+
+##############################
+
 # Get OS service file and set perms
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
@@ -118,3 +135,6 @@ mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /
 systemctl daemon-reload
 systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+
+
+
