@@ -85,7 +85,7 @@ PORTCHECK1=$(netstat -a | grep $(cat /tmp/eliteunithttpport) | wc -l)
 if [ $PORTCHECK1 -ge 1 ]
 then 
 clear
-echo "The http secure portyou have specified above is already in active use on this server."
+echo "The http secure port you have specified above is already in active use on this server."
 echo ""
 echo "You are are not able to use the same port number again."
 echo ""
