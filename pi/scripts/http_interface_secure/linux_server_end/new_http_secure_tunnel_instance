@@ -86,7 +86,7 @@ if [ $PORTCHECK1 -ge 1 ]
 then 
 clear
 echo "The http secure portyou have specified above is already in active use on this server."
-echo "
+echo ""
 echo "You are are not able to use the same port number again."
 echo ""
 echo "If there is a ESP http service running, please make sure to stop this, re-configure it for the 6008x range and restart it."
