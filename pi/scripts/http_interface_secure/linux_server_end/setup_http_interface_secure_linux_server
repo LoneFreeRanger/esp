@@ -92,7 +92,8 @@ mkdir -p /u/logs/stunnel/
 clear
 # Gather the detail to configure stunnel with
 echo ""
-echo "What port numnber is the e-Elite server listening on for HTTP interface connections? [usually this is 50080]"
+echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [usually this is 50080]"
+echo "This will be the port this server will accept encrypted connections form the e-lite unit on for the http interface."
 read eliteunithttpport
 echo $eliteunithttpport > /tmp/eliteunithttpport
 echo ""
