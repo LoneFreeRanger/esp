@@ -87,19 +87,19 @@ mkdir -p /u/logs/stunnel/
 clear
 # Gather the detail to configure stunnel with
 echo ""
+echo "What port numnber is the e-Elite server listening on for HTTP interface connections? [usually this is 50080]"
+read eliteunithttpport
+echo $eliteunithttpport > /tmp/eliteunithttpport
+echo ""
+echo "=============="
+echo ""
 echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 60080])"
 read httpserviceport
 echo $httpserviceport > /tmp/httpserviceport
 echo ""
 echo "=============="
-echo ""
-echo "What port numnber is the e-Elite server listening on for HTTP interface connections? [i.e: 50080]"
-read eliteunithttpport
-echo $eliteunithttpport > /tmp/eliteunithttpport
-echo ""
-echo "=============="
 
-
+clear
 # Add default the stunnel config for http tunnel
 touch /etc/stunnel/stunnel.conf
 echo "" >> /etc/stunnel/stunnel.conf
@@ -122,6 +122,8 @@ clear
 echo "Please now manually add the required inbound rules (ie: 5008x) port to the server inbound firewall file."
 echo ""
 echo "This will be either /etc/iptables or /etc/firewalld/zones/public.xml dependent on server OS version."
+echo ""
+echo "If this is an ESP Cloud server, the firewall rule will also need to be opened here too."
 echo ""
 echo "Site will also need to port forward/ open this port on their internet facing fierwall/ router to the server."
 echo ""
