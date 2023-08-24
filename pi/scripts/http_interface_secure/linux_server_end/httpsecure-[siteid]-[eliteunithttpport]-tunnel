@@ -5,6 +5,6 @@ pid = /var/run/stunnel-siteid-eliteunithttpport-httpinterface.pid
 client = no
 fips = no
 debug = 7
-[HTTP_INTERFACE_eliteunithttpport]
+[HTTP_INTERFACE_siteid_eliteunithttpport]
 accept = eliteunithttpport
 connect = httpserviceport
