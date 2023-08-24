@@ -1,7 +1,62 @@
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
+clear
+echo "Checking if this is an ESP application server....."
+sleep 3
+ELITECHECK1=$(ls -l /u/gui/espip.dat | wc -l)
+if [ $ELITECHECK1 -ge 1 ]
+then
+echo "This appears to be an ESP application server. Continuing..."
+sleep 2
+else
+echo "This does not seem to be an ESP application server."
+echo ""
+echo "Please make sure to use an ESP application to use this script."
+exit
+fi 
+
+clear
+echo "Checking for key key_http_secure_stunnel.pem within....."
+sleep 3
+CERT_PRESENT=$(find /etc/stunnel -name key_http_secure_stunnel.pem | wc -l)
+if [ $CERT_PRESENT -ge 1 ]
+then
+echo "Key is present. Continuing...."
+sleep 2
+else
+echo "No key is present. Now exiting. No changes have been made."
+echo ""
+exit
+fi
+
+clear
+echo "Checking to see if certificate seems valid...."
+VALID_CERT=$(cat /etc/stunnel/key_http_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
+if [ $VALID_CERT -ge 1 ]
+then
+echo "Certificate appears valid. Continuing...."
+sleep 2
+else
+echo ""
+echo "This server has not had http secure baseline script run on. Please make sure this is done first."
+exit
+fi
+
+##############################
+##############################
+
 clear
 # Gather the detail to configure stunnel with
 echo ""
-echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [usually this is 50080]"
+echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [usually this is 5008x]"
 echo "This will be the port this server will accept encrypted connections form the e-lite unit on for the http interface."
 read eliteunithttpport
 echo $eliteunithttpport > /tmp/eliteunithttpport
@@ -18,7 +73,18 @@ echo "What is site's address code for which is for?"
 read siteid
 echo $siteid > /tmp/siteid 
 echo ""
-echo "=============="
+
+##############################
+##############################
+
+clear
+echo "Checking if port numbers supplied are already in use on this server...."
+
+
+
+
+##############################
+##############################
 
 # Get OS service file and set perms
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
