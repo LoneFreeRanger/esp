@@ -1,10 +1,10 @@
-output = /var/log/stunnel/deltaquest-siteid-portid-tunnel.log
-cert = /etc/stunnel/stunnel-deltaquest.pem
-key = /etc/stunnel/stunnel-deltaquest.pem
-pid = /var/run/stunnel/stunnel-siteid-portid-deltaquest.pid
-retry = yes
-client  = yes
-TIMEOUTidle = 31557600
-[DELTAQUEST - siteid site_url portid]
-accept  = 127.0.0.1:portid
-connect = site_url:portid
+output = /u/logs/stunnel/httpinterface-siteid-eliteunithttpport-tunnel.log
+cert = /etc/stunnel/key_http_secure_stunnel.pem
+key = /etc/stunnel/key_http_secure_stunnel.pem
+pid = /var/run/stunnel-siteid-eliteunithttpport-httpinterface.pid
+client = no
+fips = no
+debug = 7
+[HTTP_INTERFACE_eliteunithttpport]
+accept = eliteunithttpport
+connect = httpserviceport
