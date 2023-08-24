@@ -98,7 +98,7 @@ sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-
 # Rename the default OS service file
 mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[portid].service /etc/systemd/system/stunnel-deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid).service
 
-# Load the service into the kernel
+# Load the new service into the kernel, enable on boot and start it 
 systemctl daemon-reload
 systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/portid).service
 systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/portid).service
