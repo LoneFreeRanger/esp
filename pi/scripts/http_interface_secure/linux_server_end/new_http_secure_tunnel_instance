@@ -137,5 +137,14 @@ systemctl daemon-reload
 systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
+##############################
+##############################
+
+clear
+echo ""
+echo "Please now manually add the $(cat /tmp/eliteunithttpport) in the server inbound firewall"
+echo ""
+echo "The customer will also need to open and forward this port on their interfacing firewall/ router onto the ESP server."
+echo ""
 
 
