@@ -1,5 +1,6 @@
 # Ray Reilly
 # Set-up http secure Stunnel encryption for ESP Elite application server
+# This script should only be run once whenever a server has never had http secure before
 # example http URL: HTTP://[server url]:60080/images/membpictures/TEST
 
 
