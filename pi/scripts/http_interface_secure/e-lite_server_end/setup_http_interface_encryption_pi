@@ -11,23 +11,23 @@ exit
 fi
 
 # Install stunnel if not already installed
-#yum install -y stunnel
+apt-get -y install stunnel4
 
 # Make sure the stunnel package is installed
-###STUNNELCHECK=$(rpm -qa | grep stunnel | wc -l)
-#if [ $STUNNELCHECK -ge 1 ]
-#then 
-#echo ""
-#else
-#echo ""
-#echo "Stunnel does not appear to be installed."
-#echo ""
-#echo "It is an absolute requirement that stunnel is installed."
-#echo ""
-#echo "Please get stunnel installed and try again."
-#echo ""
-#exit
-#fi
+STUNNELCHECK=$(dpkg-query -l | grep stunnel4 | wc -l)
+if [ $STUNNELCHECK -ge 1 ]
+then 
+echo ""
+else
+echo ""
+echo "Stunnel does not appear to be installed."
+echo ""
+echo "It is an absolute requirement that stunnel is installed."
+echo ""
+echo "Please get stunnel installed and try again."
+echo ""
+exit
+fi
 
 # Check for the certifcate being pesent
 clear
