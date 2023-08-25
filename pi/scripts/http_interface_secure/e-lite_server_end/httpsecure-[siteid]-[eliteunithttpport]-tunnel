@@ -1,13 +1,10 @@
-# Add default  stunnel config for http tunnel
-touch /etc/stunnel/stunnel.conf
-echo "" >> /etc/stunnel/stunnel.conf
-echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
-echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "pid = /var/run/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
-echo "client = yes" >> /etc/stunnel/stunnel.conf
-echo "fips = no" >> /etc/stunnel/stunnel.conf
-echo "debug = 7" >> /etc/stunnel/stunnel.conf
-echo "[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" >> /etc/stunnel/stunnel.conf
-echo "accept = $(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-echo "connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
+output = /u/logs/stunnel/stunnel-httpinterface.log
+cert = /etc/stunnel/key_http_secure_stunnel.pem
+key = /etc/stunnel/key_http_secure_stunnel.pem
+pid = /var/run/stunnel-httpinterface.pid
+client = yes
+fips = no
+debug = 7
+[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" 
+accept = $(cat /tmp/eliteunithttpport)"
+connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)"
