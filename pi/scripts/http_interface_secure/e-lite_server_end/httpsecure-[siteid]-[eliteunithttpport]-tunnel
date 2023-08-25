@@ -1,4 +1,4 @@
-output = /u/logs/stunnel/stunnel-httpinterface.log
+output = /u/logs/stunnel/stunnel-httpinterface-siteid-eliteunithttpport.log
 cert = /etc/stunnel/key_http_secure_stunnel.pem
 key = /etc/stunnel/key_http_secure_stunnel.pem
 pid = /var/run/stunnel-httpinterface.pid
