@@ -83,7 +83,9 @@ chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 mkdir -p /u/logs/stunnel/
 
 clear
-echo "http secure basline has been done. If you wish to set up a new http tunnel please now run"
+mkdir -P /u/esphbin
+echo ""
+echo "http secure basline is complete. If you wish to set up a new http tunnel please now run the /u/espbin/new_http_secure_tunnel_instance script"
 
 
 
