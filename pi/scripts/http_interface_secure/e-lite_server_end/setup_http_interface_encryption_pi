@@ -95,6 +95,8 @@ echo $serverurl > /tmp/serverurl
 echo ""
 echo "=============="
 
-# Get default http secure script
+# Get the default http stunnel config file
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+
