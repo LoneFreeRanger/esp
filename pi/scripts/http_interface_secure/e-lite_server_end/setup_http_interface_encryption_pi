@@ -73,8 +73,6 @@ mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
 chmod -R 777 /u/tunnels
 
-
-
 ###############
 clear
 # Gather the detail to configure stunnel with
@@ -97,20 +95,6 @@ echo $serverurl > /tmp/serverurl
 echo ""
 echo "=============="
 
-# Add default  stunnel config for http tunnel
-touch /etc/stunnel/stunnel.conf
-echo "" >> /etc/stunnel/stunnel.conf
-echo "output = /u/logs/stunnel/stunnel-httpinterface.log" >> /etc/stunnel/stunnel.conf
-echo "cert = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "key = /etc/stunnel/key_http_secure_stunnel.pem" >> /etc/stunnel/stunnel.conf
-echo "pid = /var/run/stunnel-httpinterface.pid" >> /etc/stunnel/stunnel.conf
-echo "client = yes" >> /etc/stunnel/stunnel.conf
-echo "fips = no" >> /etc/stunnel/stunnel.conf
-echo "debug = 7" >> /etc/stunnel/stunnel.conf
-echo "[HTTP_INTERFACE_$(cat /tmp/eliteunithttpport)]" >> /etc/stunnel/stunnel.conf
-echo "accept = $(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-echo "connect = $(cat /tmp/eliteuniturl):$(cat /tmp/eliteunithttpport)" >> /etc/stunnel/stunnel.conf
-
-# Get 'new_deltaquest_tunnel_instance' script
-#/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/new_deltaquest_tunnel_instance' -O /u/espbin/new_deltaquest_tunnel_instance
-#chmod 777 /u/espbin/new_deltaquest_tunnel_instance
+# Get default http secure script
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
