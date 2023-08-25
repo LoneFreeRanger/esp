@@ -132,7 +132,7 @@ if [ $CRONCHECK -le 0 ]
 then
 echo "Adding starthttptunnels to root cron on server boot..."
 sleep 3
-echo "@reboot /u/tunnels/starthttptunnels &"
+echo "@reboot /u/tunnels/starthttptunnels &" >> /var/spool/cron/root
 else
 echo "Not adding starthttptunnels to root cron as already present..."
 sleep 3
