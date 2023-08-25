@@ -33,6 +33,8 @@ echo "Key is present. Continuing...."
 sleep 2
 else
 echo "No key is present. Now exiting. No changes have been made."
+echo""
+echo "This server has not had http secure baseline script run on. Please make sure this is done first."
 echo ""
 exit
 fi
