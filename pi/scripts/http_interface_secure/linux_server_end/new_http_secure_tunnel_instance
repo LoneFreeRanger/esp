@@ -116,8 +116,9 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 ##############################
 
 clear
-# Create the start http tunnels script if not present
+# Create the start http tunnels script if not present and set perms
 touch /u/tunnels/starthttptunnels
+chmod 777 /u/tunnels/starthttptunnels
 
 # Add the new http tunnel to the start-up script
 echo "/u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel" >> /u/tunnels/starthttptunnels
@@ -126,6 +127,16 @@ echo "/u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tun
 stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
 
 # Check of the start http script is set in root cron, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep starthttptunnels | wc -l)
+if [ $CRONCHECK -le 0 ]
+then
+echo "Adding starthttptunnels to root cron on server boot..."
+sleep 3
+echo "@reboot /u/tunnels/starthttptunnels &"
+else
+echo "Not adding starthttptunnels to root cron as already present..."
+sleep 3
+fi
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
