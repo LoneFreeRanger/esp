@@ -77,13 +77,13 @@ chmod -R 777 /u/tunnels
 clear
 # Gather the detail to configure stunnel with
 echo ""
-echo "What port numnber is the HTTP service running on the Elite application server? [i.e: 60080])"
+echo "What port numnber is the HTTP service running on the Elite application server? [i.e: 6008x])"
 read httpserviceport
 echo $httpserviceport > /tmp/httpserviceport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is this e-Elite server going to listen on for HTTP interface connections? [i.e: 50080]"
+echo "What port numnber is this e-Elite server going to listen on for HTTP interface connections? [i.e: 5008x]"
 read eliteunithttpport
 echo $eliteunithttpport > /tmp/eliteunithttpport
 echo ""
