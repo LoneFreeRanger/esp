@@ -89,7 +89,7 @@ clear
 chmod 777 /u/espbin/new_http_secure_tunnel_instance
 
 clear
-mkdir -P /u/esphbin
+mkdir -p /u/esphbin
 echo ""
 echo "http secure basline is complete. If you wish to set up a new http tunnel please now run the /u/espbin/new_http_secure_tunnel_instance script"
 
