@@ -93,7 +93,7 @@ mkdir -p /u/esphbin
 echo ""
 echo "http secure basline is complete." 
 echo ""
-echo "If you wish to set up a new http tunnel please now run the /u/espbin/new_http_secure_tunnel_instance script"
+echo "If you wish to set up a new http listening tunnel please now run the /u/espbin/new_http_secure_tunnel_instance script"
 echo ""
 
 
