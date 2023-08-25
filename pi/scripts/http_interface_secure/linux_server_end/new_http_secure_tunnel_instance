@@ -119,9 +119,17 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 ##############################
 
+# Create the start http tunnels script if not present
+touch /u/tunnels/starthttptunnels
+
+# Add the new http tunnel to the start-up script
+echo "/u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel" >> /u/tunnels/starthttptunnels
+
+# Start the new tunnel
+stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
 
 ###### 
-### Due to a bug in stunnel, whenever you try to start stunnel server (not client) via an OS service, an error or
+### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
 ### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
 ### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
 ### Lots of articles about this online. As such the below to create service file is defunct but kept for reference.
