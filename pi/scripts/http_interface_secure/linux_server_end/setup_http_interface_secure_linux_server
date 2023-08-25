@@ -83,6 +83,12 @@ chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 mkdir -p /u/logs/stunnel/
 
 clear
+# Download the new_http_secure_tunnel_instance script in order to have new tunnels created
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/new_http_secure_tunnel_instance
+ -O /u/espbin/new_http_secure_tunnel_instance
+chmod 777 /u/espbin/new_http_secure_tunnel_instance
+
+clear
 mkdir -P /u/esphbin
 echo ""
 echo "http secure basline is complete. If you wish to set up a new http tunnel please now run the /u/espbin/new_http_secure_tunnel_instance script"
