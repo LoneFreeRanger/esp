@@ -1,7 +1,7 @@
 output = /u/logs/stunnel/stunnel-httpinterface-siteid-eliteunithttpport.log
 cert = /etc/stunnel/key_http_secure_stunnel.pem
 key = /etc/stunnel/key_http_secure_stunnel.pem
-pid = /var/run/stunnel-httpinterface.pid
+pid = /var/run/stunnel-httpinterface-siteid-eliteunithttpport.pid
 client = yes
 fips = no
 debug = 7
