@@ -6,5 +6,5 @@ client = yes
 fips = no
 debug = 7
 [HTTP_INTERFACE_siteid_eliteunithttpport]
-accept = eliteuniturl
-connect = serverurl:eliteuniturl
+accept = eliteunithttpport
+connect = serverurl:eliteunithttpport
