@@ -51,7 +51,6 @@ exit
 fi
 
 ##############################
-##############################
 
 clear
 # Gather the detail to configure stunnel with
@@ -73,9 +72,6 @@ echo "What is site's address code?"
 read siteid
 echo $siteid > /tmp/siteid 
 echo ""
-
-##############################
-##############################
 
 clear
 echo "Checking if port numbers you supplied are already in use on this server...."
@@ -119,6 +115,7 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 ##############################
 
+clear
 # Create the start http tunnels script if not present
 touch /u/tunnels/starthttptunnels
 
@@ -127,6 +124,8 @@ echo "/u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tun
 
 # Start the new tunnel
 stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
+
+# Check of the start http script is set in root cron, if not present add it
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
