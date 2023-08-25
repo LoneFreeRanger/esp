@@ -119,23 +119,30 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 ##############################
 
+
+###### 
+### Due to a bug in stunnel, whenever you try to start stunnel server (not client) via an OS service, an error or
+### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
+### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
+### Lots of articles about this online. As such the below to create service file is defunct but kept for reference.
+
 # Get OS service file and set perms
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
-chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+#/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+#chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the OS service file port with detail supplied
-sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+#sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the OS service file siteid with detail supplied
-sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+#sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Rename the default OS service file with detail supplied
-mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /etc/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+#mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /etc/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
 # Load the new service into the kernel, enable on boot and start it 
-systemctl daemon-reload
-systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
-systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+#systemctl daemon-reload
+#systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+#systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
 ##############################
 ##############################
