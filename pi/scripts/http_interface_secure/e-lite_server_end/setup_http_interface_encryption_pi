@@ -62,6 +62,24 @@ echo "Please place the correct deltaquest stunnel encryption key (key_http_secur
 exit
 fi
 
+
+##################################
+
+IPV4FORWARD=$(cat /etc/rc.local | grep "/proc/sys/net/ipv4/ip_forward" | wc -l)
+if [ $IPV4FORWARD -le 0 ]
+then
+sed -i '20 a echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
+else
+echo ""
+fi
+
+
+# Install stunnel package if not already installed
+sudo apt-get install -y stunnel4
+
+cd /etc/stunnel/
+
+
 # Copy into place the rsa key
 cp /tmp/key_http_secure_stunnel.pem /etc/stunnel
 chmod 600 /etc/stunnel/key_http_secure_stunnel.pem
