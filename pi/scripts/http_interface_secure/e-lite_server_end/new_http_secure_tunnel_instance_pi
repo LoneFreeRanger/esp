@@ -73,7 +73,7 @@ echo $eliteunithttpport > /tmp/eliteunithttpport
 echo ""
 echo "=============="
 echo ""
-echo "What is URL of the remote ESP application server? [i.e: [SITE_ADDRESS_CODE]-s1.esp-elite.com]"
+echo "What is the URL of the remote ESP application server? [i.e: [SITE_ADDRESS_CODE]-s1.esp-elite.com]"
 read serverurl
 echo $serverurl > /tmp/serverurl
 echo ""
