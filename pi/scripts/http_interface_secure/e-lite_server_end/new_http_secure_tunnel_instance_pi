@@ -114,7 +114,8 @@ sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /lib/systemd/system/s
 # Rename the default OS service file with detail supplied
 mv /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /lib/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
-
-
-
+# Load the new service into the Pi OS, enable on boot and start the service
+systemctl daemon-reload
+systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
