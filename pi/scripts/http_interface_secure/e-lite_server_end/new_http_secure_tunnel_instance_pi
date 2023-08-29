@@ -9,6 +9,22 @@ exit
 fi
 
 # check if this is an e-lite server
+clear
+echo "Checking if this is an e-lite server....."
+sleep 3
+ELITECHECK1=$(ls -l /u/espbin/pi_site_setup | wc -l)
+ELITECHECK2=$(cat /etc/os-release | grep ID=raspbian | wc -l)
+if [ $ELITECHECK1 -ge 1 ] && [ $ELITECHECK2 -ge 1 ]
+then
+echo "This appears to be an e-lite server. Continuing..."
+sleep 2
+else
+echo "This does not seem to be an e-lite eserver."
+echo ""
+echo "Please make sure to use an e-lite server to use this script."
+exit
+fi 
+
 
 clear
 echo "Checking for key key_http_secure_stunnel.pem ....."
