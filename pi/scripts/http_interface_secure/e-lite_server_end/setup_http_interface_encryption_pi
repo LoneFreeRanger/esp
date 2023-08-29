@@ -73,12 +73,7 @@ else
 echo ""
 fi
 
-
-# Install stunnel package if not already installed
-sudo apt-get install -y stunnel4
-
 cd /etc/stunnel/
-
 
 # Copy into place the rsa key
 cp /tmp/key_http_secure_stunnel.pem /etc/stunnel
