@@ -128,3 +128,9 @@ systemctl daemon-reload
 systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
+clear
+echo ""
+echo "Please now add the $(cat /tmp/eliteunithttpport) port to the e-lite unit firewall rule file /etc/iptables.firewall.rules followed by"
+echo "re-loading the file via the command "/sbin/iptables-restore < /etc/iptables.firewall.rules".
+echo ""
+
