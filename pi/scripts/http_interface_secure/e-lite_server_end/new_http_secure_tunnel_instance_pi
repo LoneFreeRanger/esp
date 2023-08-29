@@ -78,6 +78,12 @@ read serverurl
 echo $serverurl > /tmp/serverurl
 echo ""
 echo "=============="
+echo ""
+echo "What is site's address code?"
+read siteid
+echo $siteid > /tmp/siteid 
+echo ""
+clear
 
 # Get the default http stunnel config file
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
