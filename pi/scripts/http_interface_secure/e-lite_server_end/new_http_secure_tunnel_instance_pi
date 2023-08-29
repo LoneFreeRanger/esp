@@ -99,10 +99,6 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 #############
 
 # Download default http stunnel OS service file
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
-chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+chmod 777 /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
-
-
-
-# pi service here
