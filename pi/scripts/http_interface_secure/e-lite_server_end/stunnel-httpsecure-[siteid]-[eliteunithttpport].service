@@ -1,8 +1,13 @@
 [Unit]
-Description=Ensure file exists on boot
+Description="http Interface Stunnel Tunnel - siteid eliteunithttpport"
 After=multi-user.target
+
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/ensure-file-exists.py
-User=pi
+ExecStart=/usr/bin/stunnel /u/tunnels/httpsecure-siteid-eliteunithttpport-tunnel
+#User=pi
+RestartSec=15
+Restart=always
+KillMode=mixed
+
 [Install]
 WantedBy=multi-user.target
