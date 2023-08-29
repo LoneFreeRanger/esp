@@ -92,8 +92,9 @@ sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/httpsecure-[siteid]-[eliteun
 # Configure the stunnel config file httpserviceport with detail supplied
 sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 
-#############
-# pi service here
-
 # Rename the default OS service file with detail supplied
 mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
+
+
+#############
+# pi service here
