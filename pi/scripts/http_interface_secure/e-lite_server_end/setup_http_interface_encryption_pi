@@ -74,15 +74,19 @@ echo ""
 fi
 
 cd /etc/stunnel/
-
 # Copy into place the rsa key
 cp /tmp/key_http_secure_stunnel.pem /etc/stunnel
 chmod 600 /etc/stunnel/key_http_secure_stunnel.pem
 
 # Setup directories if not already present
-#mkdir -p /var/log/stunnel/
-#mkdir -p /var/run/stunnel/
 mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
 chmod -R 777 /u/tunnels
+
+##################################
+
+# Create blank start tunnels script, set perms and enable on e-lite unit boot ready for new tunnels
+echo "@reboot /u/tunnels/startstunnels &" >> /var/spool/cron/crontabs/root
+touch /u/tunnels/startstunnels
+chmod 777 /u/tunnels/startstunnels
 
