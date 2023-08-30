@@ -65,6 +65,9 @@ fi
 
 ##################################
 
+# Enable IPv4 forware in pi OS if not already set
+# This allows packets to be routed between different networks, enabling communication between subnets or acting as a gateway
+
 IPV4FORWARD=$(cat /etc/rc.local | grep "/proc/sys/net/ipv4/ip_forward" | wc -l)
 if [ $IPV4FORWARD -le 0 ]
 then
@@ -73,8 +76,8 @@ else
 echo ""
 fi
 
-cd /etc/stunnel/
 # Copy into place the rsa key
+cd /etc/stunnel/
 cp /tmp/key_http_secure_stunnel.pem /etc/stunnel
 chmod 600 /etc/stunnel/key_http_secure_stunnel.pem
 
@@ -85,8 +88,16 @@ chmod -R 777 /u/tunnels
 
 ##################################
 
-# Create blank start tunnels script, set perms and enable on e-lite unit boot ready for new tunnels
+# Create blank start tunnels script, set perms and enable on e-lite unit boot ready for new tunnels if not present
+ROOTCRONCHECK=$(cat /var/spool/cron/crontabs/root | grep "startstunnels" | wc -l)
+if [ $ROOTCRONCHECK -le 0 ]
+then
 echo "@reboot /u/tunnels/startstunnels &" >> /var/spool/cron/crontabs/root
 touch /u/tunnels/startstunnels
 chmod 777 /u/tunnels/startstunnels
+else 
+echo ""
+fi
+
+clear
 
