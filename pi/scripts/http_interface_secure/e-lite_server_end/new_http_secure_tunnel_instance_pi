@@ -179,9 +179,11 @@ echo "/usr/bin/stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/elite
 
 clear
 echo ""
+echo ""
 echo "Please now add the $(cat /tmp/eliteunithttpport) port to the e-lite unit firewall rule file /etc/iptables.firewall.rules followed by"
 echo "re-loading the file via the command '/sbin/iptables-restore < /etc/iptables.firewall.rules'. This will permit users to connect to the unit."
 echo ""
 echo "Following this the tunnel will then be ready to use given that the ESP applucation server end work for the tunnel has been done."
+echo ""
 echo ""
 
