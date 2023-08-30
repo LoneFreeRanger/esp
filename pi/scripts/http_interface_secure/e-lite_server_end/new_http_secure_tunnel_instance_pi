@@ -51,7 +51,7 @@ echo "Certificate appears valid. Continuing...."
 sleep 2
 else
 echo ""
-echo "This server has not had http secure baseline script run on. Please make sure this is done first."
+echo "This e-lite unit has not had http secure baseline script run on. Please make sure this is done first."
 exit
 fi
 
@@ -107,30 +107,46 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 #############
 
+###
+### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
+### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
+### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
+### Lots of articles about this online. As such the below to create service file is defunct but kept for reference.
+
 # Download default http stunnel OS service file
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
-chmod 777 /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+# /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+# chmod 777 /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the stunnel OS service file with port detail supplied
-sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+# sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the stunnel OS service file with siteid  detail supplied
-sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+# sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Configure the stunnel OS service file with httpserviceport detail supplied
-sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+# sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
 
 # Rename the default OS service file with detail supplied
-mv /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /lib/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+# mv /lib/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /lib/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
 
 # Load the new service into the Pi OS, enable on boot and start the service
-systemctl daemon-reload
-systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
-systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+# systemctl daemon-reload
+# systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+# systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+
+#############
+
+# Set the tunnel to start on e-lite unit boot via the startstunnels script
+echo "/usr/bin/stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel" >> /u/tunnels/startstunnels
+
+# Start the tunnel up
+/usr/bin/stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
 
 clear
 echo ""
 echo "Please now add the $(cat /tmp/eliteunithttpport) port to the e-lite unit firewall rule file /etc/iptables.firewall.rules followed by"
 echo "re-loading the file via the command "/sbin/iptables-restore < /etc/iptables.firewall.rules".
+echo ""
+echo "Following this the tunnel will then be ready to use given that the ESP applucation server end work for the tunnel has been done."
 echo ""
 
