@@ -62,7 +62,6 @@ echo "Please place the correct deltaquest stunnel encryption key (key_http_secur
 exit
 fi
 
-
 ##################################
 
 # Enable IPv4 forware in pi OS if not already set
@@ -88,6 +87,11 @@ chmod -R 777 /u/tunnels
 
 ##################################
 
+# Get the create new tunnels script and set perms on it
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/new_http_secure_tunnel_instance_pi -O /u/espbin/new_http_secure_tunnel_instance_pi
+chmod 777 /u/espbin/new_http_secure_tunnel_instance_pi
+
+clear
 # Create blank start tunnels script, set perms and enable on e-lite unit boot ready for new tunnels if not present
 ROOTCRONCHECK=$(cat /var/spool/cron/crontabs/root | grep "startstunnels" | wc -l)
 if [ $ROOTCRONCHECK -le 0 ]
@@ -100,4 +104,9 @@ echo ""
 fi
 
 clear
+echo ""
+echo "This e-lite unit is now ready/ baselined to have a new http secure tunnels setup"
+echo ""
+echo "If you wish to set up a new tunnel please now run the script '/u/espbin/new_http_secure_tunnel_instance_pi'"
+echo ""
 
