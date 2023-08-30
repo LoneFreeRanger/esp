@@ -25,7 +25,6 @@ echo "Please make sure to use an e-lite server to use this script."
 exit
 fi 
 
-
 clear
 echo "Checking for key key_http_secure_stunnel.pem ....."
 sleep 3
@@ -54,7 +53,6 @@ echo ""
 echo "This e-lite unit has not had http secure baseline script run on. Please make sure this is done first."
 exit
 fi
-
 
 ###############
 
@@ -103,7 +101,6 @@ sed -i 's/serverurl/'$(cat /tmp/serverurl)'/g' /u/tunnels/httpsecure-[siteid]-[e
 
 # Rename the stunnel config file with detail supplied
 mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
-
 
 #############
 
