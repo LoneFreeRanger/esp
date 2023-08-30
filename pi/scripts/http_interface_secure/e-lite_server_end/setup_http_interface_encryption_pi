@@ -1,5 +1,7 @@
-clear
+# "setup_http_interface_encryption_pi" script
+# Ray Reilly 30 August 2023
 
+clear
 # Check if script is being run as the root user
 WHO=$(whoami)
 if [ $WHO == root ]
@@ -87,7 +89,7 @@ chmod -R 777 /u/tunnels
 
 ##################################
 
-# Get the create new tunnels script and set perms on it
+# Get the create new http tunnels script and set perms on it
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/new_http_secure_tunnel_instance_pi -O /u/espbin/new_http_secure_tunnel_instance_pi
 chmod 777 /u/espbin/new_http_secure_tunnel_instance_pi
 
