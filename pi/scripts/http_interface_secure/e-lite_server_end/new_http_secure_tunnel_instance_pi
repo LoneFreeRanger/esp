@@ -1,7 +1,7 @@
 # "new_http_secure_tunnel_instance_pi" script
 # Ray Reilly 30 August 2023
 
-
+clear
 # Check if script is being run as the root user
 WHO=$(whoami)
 if [ $WHO == root ]
