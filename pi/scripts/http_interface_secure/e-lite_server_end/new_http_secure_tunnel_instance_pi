@@ -87,6 +87,41 @@ echo $siteid > /tmp/siteid
 echo ""
 clear
 
+#############
+
+clear
+# Confirm the details supplied
+echo ""
+echo "ESP Application http port: $(cat /tmp/httpserviceport)"
+echo ""
+echo "Port on e-lite unit to be used by users: $(cat /tmp/eliteunithttpport)"
+echo ""
+echo "Site's address code: $(cat /tmp/siteid)"
+echo ""
+echo "Remote URL of the ESP Application: $(cat /tmp/serverurl) "
+echo ""
+echo ""
+echo "Are all the above details correct? (n/y)"
+read confirmdetails
+
+if [ $confirmdetails == n ] || [ $confirmdetails == N ]
+then
+clear
+echo ""
+echo "Please run this script again and supply the correct details."
+echo ""
+echo "No changes have been made."
+echo ""
+echo "Good Bye."
+exit
+else
+ping -c1 127.0.0.1 > /dev/null
+fi
+echo ""
+
+
+#############
+
 # Get the default http stunnel config file
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/e-lite_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
@@ -108,7 +143,6 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 #############
 
-###
 ### Due to a bug in stunnel, whenever you try to start stunnel via an OS service, an error of
 ### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
 ### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
