@@ -109,6 +109,6 @@ clear
 echo ""
 echo "This e-lite unit is now ready/ baselined to have a new http secure tunnels setup"
 echo ""
-echo "If you wish to set up a new tunnel please now run the script '/u/espbin/new_http_secure_tunnel_instance_pi'"
+echo "If you wish to set up a new http interface tunnel please now run the script '/u/espbin/new_http_secure_tunnel_instance_pi'"
 echo ""
 
