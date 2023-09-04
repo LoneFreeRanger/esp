@@ -15,6 +15,37 @@ echo "Please re-run this script as the root user. Bye!"
 exit
 fi
 
+NOIPCHECK=$(find /u/noip -name noip2 | wc -l)
+if [ $NOIPCHECK -le 0 ]
+then
+clear
+echo "NoIP Dynamic DNS update client is not installed on this server"
+echo ""
+echo "Please get the NoIp Dynamic DNS update client installed and configured on this server before continuing as it is a requirement."
+echo ""
+exit
+else
+echo ""
+clear
+fi
+
+clear
+echo ""
+echo "NoIP Dynamic update client is configured and runnning on the server with the following detail."
+echo ""
+echo "Please make a note of the 'host' field as you will need this informationwhen configuring the e-lite unit end."
+echo ""
+echo "If you are reported back an error please get the NoIP Dynamic update client configured correctly."
+echo ""
+echo "================="
+echo ""
+/u/noip/noip2 -S
+echo ""
+echo "================="
+echo ""
+read -p "Please press enter to continue....."
+
+
 clear
 echo "Checking if this is an ESP application server....."
 sleep 3
