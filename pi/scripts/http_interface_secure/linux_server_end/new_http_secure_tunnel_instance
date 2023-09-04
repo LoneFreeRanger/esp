@@ -169,7 +169,9 @@ fi
 
 clear
 echo ""
-echo "Please now manually add the $(cat /tmp/eliteunithttpport) in the server inbound firewall"
+echo "Please now manually add the $(cat /tmp/eliteunithttpport) in the server inbound firewall."
+echo ""
+echo "It is VERY IMPORTANT that you lock down this port to the remote e-lite unit URL only!"
 echo ""
 echo "The customer will also need to open and forward this port on their interfacing firewall/ router onto the ESP server."
 echo ""
