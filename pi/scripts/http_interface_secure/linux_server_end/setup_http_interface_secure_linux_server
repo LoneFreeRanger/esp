@@ -104,9 +104,9 @@ cd /etc/stunnel/
 # openssl genrsa -out key.pem 2048
 # Generate a Self-Signed Certificate
 # openssl req -new -x509 -key key.pem -out cert.pem -days 14600
+# cat key.pem cert.pem >> /etc/stunnel/key_http_secure_stunnel.pem
 
 # Copy the keys into stunnel configuration
-# cat key.pem cert.pem >> /etc/stunnel/stunnel-deltaquest.pem
 cp -rf /tmp/key_http_secure_stunnel.pem /etc/stunnel/
 chmod 400 /etc/stunnel/key_http_secure_stunnel.pem
 
