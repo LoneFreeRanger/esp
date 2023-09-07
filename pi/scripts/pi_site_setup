@@ -1,4 +1,4 @@
-
+# For Pi OS v11 amend /etc/xdg/openbox/menu.xml to disable right click desktop icons
 
 #########################################
 ## Set-up script - Run per customer Pi ##
