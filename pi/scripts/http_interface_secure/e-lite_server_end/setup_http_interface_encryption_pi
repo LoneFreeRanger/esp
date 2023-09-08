@@ -86,6 +86,7 @@ chmod 600 /etc/stunnel/key_http_secure_stunnel.pem
 mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
 chmod -R 777 /u/tunnels
+mkdir -p /u/logs/stunnel
 
 ##################################
 
