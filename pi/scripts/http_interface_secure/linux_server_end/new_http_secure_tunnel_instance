@@ -194,11 +194,10 @@ mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteunit
 
 clear
 echo ""
-echo "Please now manually add the $(cat /tmp/eliteunithttpport) in the server inbound firewall."
+echo "All done."
 echo ""
-echo "It is VERY IMPORTANT that you lock down this port to the remote e-lite unit URL only!"
-echo ""
-echo "The customer will also need to open and forward this port on their interfacing firewall/ router onto the ESP server."
+echo "Wherever this server is located, port $(cat /tmp/eliteunithttpport) will need to be opened"
+echo "and forwarded onto this server on any firewall/ router it sits behind."
 echo ""
 
 
