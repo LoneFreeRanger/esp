@@ -146,22 +146,22 @@ sleep 3
 fi
 
 
-# Make rich firewalld rule directory
-mkdir -p /u/espbin/firewalldrichrules
+# Make rich firewalld rule directory if not present
+mkdir -p /u/espbin/firewalldrichrules/files
 
 # Get template rich firewalld rule file
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/firewalld_rule_eliteunithttpport_eliteuniturl
-chmod 777 /u/espbin/firewalldrichrules/firewalld_rule_eliteunithttpport_eliteuniturl
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
-# Configure the rich firewalld file
+# Configure the rich firewalld template file
+sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/files/firewalld_rule_eliteunithttpport_eliteuniturl
+sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
+# Rename the template rich firewalld file
+mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
 
-
-
-# Rename the firewalld
-mv /u/espbin/firewalldrichrules/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
-
-
+# Run in the new rich firewall rule
+/u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
 
 
 
