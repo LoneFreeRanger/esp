@@ -149,21 +149,35 @@ fi
 # Make rich firewalld rule directory if not present
 mkdir -p /u/espbin/firewalldrichrules/files
 
-# Get template rich firewalld rule file
+# Get template rich firewalld rule file and set perms
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
-# Configure the rich firewalld template file
+# Configure the rich firewalld template file from detail obtained above
 sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
 # Rename the template rich firewalld file
 mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
 
-# Run in the new rich firewall rule
-/u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
+# Get master run rich rules file and set perms
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/runrichrules' -O /u/espbin/firewalldrichrules/runrichrules
+chmod 777 /u/espbin/firewalldrichrules/runrichrules
 
+# Check if the firewalldrichrules script is set in root cron to run every 5 mins, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep firewalldrichrules | wc -l)
+if [ $CRONCHECK -le 0 ]
+then
+echo "Adding firewalldrichrules to root cron..."
+sleep 3
+echo "*/5 * * * * /u/espbin/firewalldrichrules/runrichrules &" >> /var/spool/cron/root
+else
+echo "Not adding runrichrules to root cron as already present..."
+sleep 3
+fi
 
+# Run the rich rules firewall rules
+/u/espbin/firewalldrichrules/runrichrules
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
