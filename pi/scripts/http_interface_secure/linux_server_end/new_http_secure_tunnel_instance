@@ -140,6 +140,14 @@ echo "Not adding starthttptunnels to root cron as already present..."
 sleep 3
 fi
 
+# Make rich firewalld rule directory
+mkdir -p /u/espbin/firewalldrichrules
+
+# Get template rich firewalld rule file, set perms
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_siteid_url' -O /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
+chmod 777 /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
+
+
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
 ### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
