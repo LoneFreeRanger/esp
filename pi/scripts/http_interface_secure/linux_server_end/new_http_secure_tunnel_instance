@@ -74,6 +74,11 @@ echo "What is site's address code?"
 read siteid
 echo $siteid > /tmp/siteid 
 echo ""
+echo "=============="
+echo ""
+echo "What is the remote url of the e-lite unit?"
+read eliteuniturl
+echo $eliteuniturl > /tmp/eliteuniturl 
 
 clear
 echo "Checking if port numbers you supplied are already in use on this server...."
@@ -148,9 +153,7 @@ mkdir -p /u/espbin/firewalldrichrules
 chmod 777 /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
 
 # Configure the template rich firewalld rule file
-mv /u/espbin/firewalldrichrules/firewalld_rule_siteid_url /u/espbin/firewalldrichrules/firewalld_rule_siteid_$(cat /tmp/eliteunithttpport)
-
-
+mv /u/espbin/firewalldrichrules/firewalld_rule_siteid_url /u/espbin/firewalldrichrules/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
