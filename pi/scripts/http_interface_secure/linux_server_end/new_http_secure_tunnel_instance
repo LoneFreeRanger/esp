@@ -148,6 +148,9 @@ mkdir -p /u/espbin/firewalldrichrules
 chmod 777 /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
 
 # Configure the template rich firewalld rule file
+mv /u/espbin/firewalldrichrules/firewalld_rule_siteid_url /u/espbin/firewalldrichrules/firewalld_rule_siteid_$(cat /tmp/eliteunithttpport)
+
+
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
