@@ -154,8 +154,8 @@ mkdir -p /u/espbin/firewalldrichrules/files
 chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
 # Configure the rich firewalld template file
-sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/files/firewalld_rule_eliteunithttpport_eliteuniturl
-sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/files/firewalld_rule_eliteunithttpport_eliteuniturl
+sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
 # Rename the template rich firewalld file
 mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
