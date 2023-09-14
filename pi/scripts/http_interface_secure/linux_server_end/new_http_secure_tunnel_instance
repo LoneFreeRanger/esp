@@ -147,6 +147,7 @@ mkdir -p /u/espbin/firewalldrichrules
 /usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_siteid_url' -O /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
 chmod 777 /u/espbin/firewalldrichrules/firewalld_rule_siteid_url
 
+# Configure the template rich firewalld rule file
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
