@@ -13,26 +13,6 @@ exit
 fi
 
 
-expectedredhatver=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 8." | wc -l)
-expectedredhatver2=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
-
-if [ $expectedredhatver -ge 1 ] || [ $expectedredhatver2 -ge 1 ]
-then 
-echo
-echo ""
-echo "Supported OS..."
-sleep 3
-else 
-echo ""
-echo "It is a requirement for the server to be running Redhat 8.x or AlmaLinux 8.x."
-echo ""
-echo "Unable to continue."
-echo ""
-echo "Goodbye."
-exit 
-fi
-
-
 # Install stunnel if not already installed
 apt-get -y install stunnel4
 
