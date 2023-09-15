@@ -4,7 +4,7 @@
 # This script should only be run once whenever a server has never had http secure before
 # example http URL: HTTP://[server url]:60080/images/membpictures/TEST
 
-
+clear
 # Check if script is being run as the root user
 WHO=$(whoami)
 if [ $WHO == root ]
@@ -33,6 +33,7 @@ echo "Goodbye."
 exit 
 fi
 
+clear
 NOIPCHECK=$(find /u/noip -name noip2 | wc -l)
 if [ $NOIPCHECK -le 0 ]
 then
