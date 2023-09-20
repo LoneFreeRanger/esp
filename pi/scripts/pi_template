@@ -1,3 +1,16 @@
+
+#
+# No vnc remove side bar menu
+# '/usr/local/share/noVNC/app/styles/base.cs' section of '#noVNC_control_bar' 
+# added the following:
+# display: none;
+
+# Safe copy /usr/local/share/noVNC/app/styles/base.csSAFE made for reference
+
+# v11 pi pos, disable ipv4 and ipv6 via the desktop gui
+# in order to prevent duplicate 
+
+
 ################################################
 ## Cloud Printing & Raspbian OS config script ##
 ################################################
