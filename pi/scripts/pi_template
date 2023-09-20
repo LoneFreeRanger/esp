@@ -8,7 +8,7 @@
 # Safe copy /usr/local/share/noVNC/app/styles/base.csSAFE made for reference
 
 # v11 pi pos, disable ipv4 and ipv6 via the desktop gui
-# in order to prevent duplicate 
+# in order to prevent duplicate dhcp + static IP issue happening
 
 
 ################################################
