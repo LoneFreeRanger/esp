@@ -113,17 +113,18 @@ fi
 
 
 clear
-echo "Please now add the outbound port $(cat /tmp/portid) to the below server outbound firewall rule file"
-echo "followed by reloading the firewall ()"
+echo ""
+echo "If server is running AlmaLinux 8/ Redhat 8, please now add the outbound port $(cat /tmp/portid) to the"
+echo "below server outbound firewall rule file followed by reloading the firewall (firewall-cmd --reload):"
 echo ""
 echo "/etc/firewalld/direct.xml"
-echo
+echo""
 
 
 
 # Get OS service file
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest-[siteid]-[portid].service' -O /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
-chmod 777 /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
+#chmod 777 /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
 
 # Configure the OS service file port
 #sed -i 's/portid/'$(cat /tmp/portid)'/g' /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
