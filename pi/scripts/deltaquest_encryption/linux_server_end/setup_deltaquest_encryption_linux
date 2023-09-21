@@ -60,6 +60,8 @@ mkdir -p /var/log/stunnel/
 mkdir -p /var/run/stunnel/
 mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
+mkdir -p /u/logs/stunnel
+chmod 777 /u/logs/stunnel
 chmod -R 777 /u/tunnels
 
 # Get 'new_deltaquest_tunnel_instance' script
