@@ -58,6 +58,7 @@ chmod 600 /etc/stunnel/stunnel-deltaquest.pem
 # Setup directories if not already present
 mkdir -p /var/log/stunnel/
 mkdir -p /var/run/stunnel/
+mkdir -p /var/run/stunnel
 mkdir -p /var/run/stunnel4/
 mkdir -p /u/tunnels/
 mkdir -p /u/logs/stunnel
