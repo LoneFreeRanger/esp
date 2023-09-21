@@ -1,7 +1,7 @@
 output = /u/logs/stunnel/deltaquest-siteid-portid-tunnel.log
 cert = /etc/stunnel/stunnel-deltaquest.pem
 key = /etc/stunnel/stunnel-deltaquest.pem
-pid = /var/run/stunnel/stunnel-siteid-portid-deltaquest.pid
+pid = /var/run/stunnel-siteid-portid-deltaquest.pid
 retry = yes
 client  = yes
 TIMEOUTidle = 31557600
