@@ -1,4 +1,4 @@
-output = /var/log/stunnel/deltaquest-siteid-portid-tunnel.log
+output = /u/logs/stunnel/deltaquest-siteid-portid-tunnel.log
 cert = /etc/stunnel/stunnel-deltaquest.pem
 key = /etc/stunnel/stunnel-deltaquest.pem
 pid = /var/run/stunnel/stunnel-siteid-portid-deltaquest.pid
