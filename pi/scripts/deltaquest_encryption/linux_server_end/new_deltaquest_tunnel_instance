@@ -113,7 +113,11 @@ fi
 
 
 clear
-
+echo "Please now add the outbound port $(cat /tmp/portid) to the below server outbound firewall rule file"
+echo "followed by reloading the firewall ()"
+echo ""
+echo "/etc/firewalld/direct.xml"
+echo
 
 
 
