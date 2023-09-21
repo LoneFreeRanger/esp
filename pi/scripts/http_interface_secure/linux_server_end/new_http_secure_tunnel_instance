@@ -181,7 +181,7 @@ fi
 /u/espbin/firewalldrichrules/runrichrules
 
 ###### 
-### Due to a bug in stunnel, whenever you try to start stunnel server mode (not client!?) via an OS service, an error of
+### Due to a bug in stunnel, whenever you try to start stunnel via an OS service, an error of
 ### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
 ### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
 ### Lots of articles about this online. As such the below to create service file is defunct but kept for reference.
