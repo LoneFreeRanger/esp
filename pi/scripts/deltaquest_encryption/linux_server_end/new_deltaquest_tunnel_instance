@@ -87,6 +87,36 @@ mv /u/tunnels/deltaquest-[siteid]-[port]-tunnel /u/tunnels/deltaquest-$(cat /tmp
 
 ############################
 
+clear
+# Create the start http tunnels script if not present and set perms
+touch /u/tunnels/startdeltaquesttunnels
+chmod 777 /u/tunnels/startdeltaquesttunnels
+
+# Add the new deltaquest tunnel to the start-up script
+echo "stunnel /u/tunnels/deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid)-tunnel &" >> /u/tunnels/startdeltaquesttunnels
+chmod 777 /u/tunnels/startdeltaquesttunnels
+
+# Start the new tunnel
+stunnel /u/tunnels/deltaquest-$(cat /tmp/siteid)-$(cat /tmp/portid)-tunnel &
+
+# Check if the start deltaquest tunnel script is set in root cron, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep startdeltaquesttunnels | wc -l)
+if [ $CRONCHECK -le 0 ]
+then
+echo "Adding startdeltaquesttunnels to root cron on server boot..."
+sleep 3
+echo "@reboot /u/tunnels/startdeltaquesttunnels &" >> /var/spool/cron/root
+else
+echo "Not adding startdeltaquesttunnels to root cron as already present..."
+sleep 3
+fi
+
+
+clear
+
+
+
+
 # Get OS service file
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/deltaquest_encryption/linux_server_end/stunnel-deltaquest-[siteid]-[portid].service' -O /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
 chmod 777 /etc/systemd/system/stunnel-deltaquest-[siteid]-[portid].service
