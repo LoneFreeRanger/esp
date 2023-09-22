@@ -128,7 +128,7 @@ touch /u/tunnels/starthttptunnels
 chmod 777 /u/tunnels/starthttptunnels
 
 # Add the new http tunnel to the start-up script
-echo "/u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &" >> /u/tunnels/starthttptunnels
+echo "stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &" >> /u/tunnels/starthttptunnels
 chmod 777 /u/tunnels/starthttptunnels
 
 # Start the new tunnel
