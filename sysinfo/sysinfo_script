@@ -631,7 +631,7 @@ elif [ $ARERUNNINGL64 -ge 5 ]
 then
 echo "bsms.l64" > /tmp/espinfo/runtime
 else
-echo "No Running bsms processes" > /tmp/espinfo/runtime
+echo "No_Running_bsms_processes" > /tmp/espinfo/runtime
 fi
 
 ESPCLIENTSIZ_PRESENT=$(ls -l /u/ups/espclient.upg | wc -l)
