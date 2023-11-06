@@ -706,8 +706,6 @@ fi
 rm -rf /tmp/espinfo/eventflagfind
 
 
-
-
 find /u -name systems.tab -exec grep -H 'CUSTOMER_ASSETS' {} \; > /tmp/espinfo/cutomerassetsfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/cutomerassetsfind
@@ -721,6 +719,19 @@ fi
 rm -rf /tmp/espinfo/cutomerassetsfind
 
 
+
+
+find /u -name systems.tab -exec grep -H 'POS_TABLES' {} \; > /tmp/espinfo/postablesfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/postablesfind
+POSTABLESFLAGCOUNT=$(cat /tmp/espinfo/postablesfind | wc -l)
+if [ $POSTABLESFLAGCOUNT -ge 1 ]
+then 
+echo "Yes" > /tmp/espinfo/haspostables
+else
+echo "No" > /tmp/espinfo/haspostables
+fi
+rm -rf /tmp/espinfo/postablesfind
 
 
 
