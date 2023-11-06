@@ -734,8 +734,8 @@ rm -rf /tmp/espinfo/postablesfind
 
 
 find /u -name espapps.tab -exec grep -H 'IDSCOREINPUT' {} \; > /tmp/espinfo/kioskfind
-
-
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/kioskfind
 
 
 
