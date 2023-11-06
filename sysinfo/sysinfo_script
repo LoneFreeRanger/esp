@@ -697,14 +697,8 @@ echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/es
 
 
 
-
 find /u -name systems.tab -exec grep -H 'EVENT_FLAG' {} \; > /tmp/espinfo/eventflagfind
-
-
-# Delete lines containing a hash - does not work!!!!?
-awk '!/#/' /tmp/espinfo/eventflagfind > temp && mv -rf temp /tmp/espinfo/eventflagfind
-
-
+sed '/#/d' /tmp/espinfo/eventflagfind
 EVENTFLAGCOUNT=$(cat /tmp/espinfo/eventflagfind | wc -l)
 if [ $EVENTFLAGCOUNT -ge 1 ]
 then 
@@ -713,6 +707,13 @@ else
 echo "No" > /tmp/espinfo/hasevents
 fi
 rm -rf /tmp/espinfo/eventflagfind
+
+
+
+
+
+
+
 
 
 
