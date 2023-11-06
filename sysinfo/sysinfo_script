@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v28.07.23-10
+# Sysinfo script for ESP Linux servers - v06.11.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v28.07.23-10" > /tmp/espinfo/scriptver
+echo "v06.11.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -687,6 +687,35 @@ cat /u/gui/esp.log | grep "Connection from" > /tmp/lastused.txt
 sed -i '/195.171.180.242/d' /tmp/lastused.txt
 echo "$(tail -n1 /tmp/lastused.txt | awk '{print $6" "$7" "$8" "$9}')" > /tmp/espinfo/syslastused
 #echo "$(sed 's/^/system last used: /g' /tmp/espinfo/syslastused)" > /tmp/espinfo/syslastused
+
+################################
+################################
+
+
+
+
+
+
+
+
+find /u -name systems.tab -exec grep -H 'EVENT_FLAG' {} \; > /tmp/espinfo/eventflagfind
+
+
+
+awk '!/#/' /tmp/espinfo/eventflagfind > temp && mv -rf temp /tmp/espinfo/eventflagfind
+
+
+EVENTFLAGCOUNT=$(cat /tmp/espinfo/eventflagfind | wc -l)
+if [ $EVENTFLAGCOUNT -ge 1 ]
+then 
+echo "Yes" > /tmp/espinfo/hasevents
+else
+echo "No" > /tmp/espinfo/hasevents
+fi
+rm -rf /tmp/espinfo/eventflagfind
+
+
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
