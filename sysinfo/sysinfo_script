@@ -744,7 +744,7 @@ rm -rf /tmp/espinfo/kioskfind
 
 find /u -name systems.tab -exec grep -H 'BOOK_PRODUCTS Enabled=1&ActivityType=FB Online' {} \; > /tmp/espinfo/fbonlinefind
 # Remove disabled hashed out items from find
-/tmp/espinfo/fbonlinefind
+sed -i '/#/d' /tmp/espinfo/fbonlinefind
 FBONLINECOUNT=$(cat /tmp/espinfo/fbonlinefind | wc -l)
 if [ $FBONLINECOUNT -ge 1 ]
 then 
@@ -756,7 +756,7 @@ rm -rf /tmp/espinfo/fbonlinefind
 
 find /u -name systems.tab -exec grep -H 'REMOTE_PRICE_CHECK' {} \; > /tmp/espinfo/remotepricecheckfind
 # Remove disabled hashed out items from find
-/tmp/espinfo/remotepricecheckfind
+sed -i '/#/d' /tmp/espinfo/remotepricecheckfind
 REMOTEPRICECHECKCOUNT=$(cat /tmp/espinfo/remotepricecheckfind | wc -l)
 if [ $REMOTEPRICECHECKCOUNT -ge 1 ]
 then 
@@ -813,12 +813,18 @@ else
 echo "no" > /tmp/espinfo/accesscontrolactivity
 fi
 
+cat /u/esp/*/espapps.tab | grep pms > /tmp/espinfo/pmsfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/pmsfind
+PMSSYTEMCOUNT=$(cat /tmp/espinfo/pmsfind | wc -l)
+if [ $PMSSYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/haspmssystem
+else
+echo "no" > /tmp/espinfo/haspmssystem
+fi
+rm -rf /tmp/espinfo/pmsfind
 
-
-if [ cat /tmp/espinfo/multisite 
-
-if [ 'ls -l /u/gui/children.tab | wc -l' -ge 0 ]
-then
 
 
 ################################
