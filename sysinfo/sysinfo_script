@@ -794,17 +794,16 @@ else
 echo "No" > /tmp/espinfo/hasdirectdebit
 fi
 
-
-
 find /u -type f -name "aserverr.log" -mtime -60 > /tmp/espinfo/recentaserverr
+ACCMONITORSUSEAGE=$(cat `cat /tmp/espinfo/recentaserverr` | grep "Trying ./monitors/" | wc -l)
+if [ $ACCMONITORSUSEAGE -ge 1 ]
+then
+echo "Yes" > /tmp/espinfo/accesscontrolmonitors
+else
+echo "No" > /tmp/espinfo/accesscontrolmonitors
+fi
+rm -rf /tmp/espinfo/recentaserverr
 
-"Trying ./monitors/"
-
-
-
-
-
-cat `cat /tmp/espinfo/recentaserverr` | grep "Trying ./monitors/"
 
 
 ################################
