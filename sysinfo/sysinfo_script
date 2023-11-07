@@ -784,6 +784,14 @@ else
 echo "No" > /tmp/espinfo/haslocationbookings
 fi
 
+TOBACSFIND=$(find /u -type f -name "tobacs.txt" -mtime -60 | wc -l)
+AUDDISFIND=$(find /u -type f -name "auddis.txt" -mtime -60 | wc -l)
+if [ $TOBACSFIND -ge 1 ] || [ $AUDDISFIND -ge 1 ]
+then
+echo "Yes" > /tmp/espinfo/hasdirectdebit
+else
+echo "No" > /tmp/espinfo/hasdirectdebit
+fi
 
 
 
