@@ -825,7 +825,6 @@ echo "no" > /tmp/espinfo/haspmssystem
 fi
 rm -rf /tmp/espinfo/pmsfind
 
-
 cat /u/esp/*/espapps.tab | grep retail > /tmp/espinfo/retailfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/retailfind
@@ -837,6 +836,18 @@ else
 echo "no" > /tmp/espinfo/hasretailsystem
 fi
 rm -rf /tmp/espinfo/retailfind
+
+cat /u/esp/*/espapps.tab | grep spa > /tmp/espinfo/spafind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/spafind
+SPASYTEMCOUNT=$(cat /tmp/espinfo/spafind | wc -l)
+if [ $SPASYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasspasystem
+else
+echo "no" > /tmp/espinfo/hasspasystem
+fi
+rm -rf /tmp/espinfo/spafind
 
 
 
