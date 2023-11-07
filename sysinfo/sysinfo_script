@@ -700,9 +700,9 @@ sed -i '/#/d' /tmp/espinfo/eventflagfind
 EVENTFLAGCOUNT=$(cat /tmp/espinfo/eventflagfind | wc -l)
 if [ $EVENTFLAGCOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/hasevents
+echo "yes" > /tmp/espinfo/hasevents
 else
-echo "No" > /tmp/espinfo/hasevents
+echo "no" > /tmp/espinfo/hasevents
 fi
 rm -rf /tmp/espinfo/eventflagfind
 
@@ -712,9 +712,9 @@ sed -i '/#/d' /tmp/espinfo/cutomerassetsfind
 CUSTOMERASSETSFLAGCOUNT=$(cat /tmp/espinfo/cutomerassetsfind | wc -l)
 if [ $CUSTOMERASSETSFLAGCOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/hascustomerassets
+echo "yes" > /tmp/espinfo/hascustomerassets
 else
-echo "No" > /tmp/espinfo/hascustomerassets
+echo "no" > /tmp/espinfo/hascustomerassets
 fi
 rm -rf /tmp/espinfo/cutomerassetsfind
 
@@ -724,9 +724,9 @@ sed -i '/#/d' /tmp/espinfo/postablesfind
 POSTABLESFLAGCOUNT=$(cat /tmp/espinfo/postablesfind | wc -l)
 if [ $POSTABLESFLAGCOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/haspostables
+echo "yes" > /tmp/espinfo/haspostables
 else
-echo "No" > /tmp/espinfo/haspostables
+echo "no" > /tmp/espinfo/haspostables
 fi
 rm -rf /tmp/espinfo/postablesfind
 
@@ -736,9 +736,9 @@ sed -i '/#/d' /tmp/espinfo/kioskfind
 KIOSKFINDCOUNT=$(cat /tmp/espinfo/kioskfind | wc -l)
 if [ $KIOSKFINDCOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/haskiosk
+echo "yes" > /tmp/espinfo/haskiosk
 else
-echo "No" > /tmp/espinfo/haskiosk
+echo "no" > /tmp/espinfo/haskiosk
 fi
 rm -rf /tmp/espinfo/kioskfind
 
@@ -748,9 +748,9 @@ find /u -name systems.tab -exec grep -H 'BOOK_PRODUCTS Enabled=1&ActivityType=FB
 FBONLINECOUNT=$(cat /tmp/espinfo/fbonlinefind | wc -l)
 if [ $FBONLINECOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/hasfbonline
+echo "yes" > /tmp/espinfo/hasfbonline
 else
-echo "No" > /tmp/espinfo/hasfbonline
+echo "no" > /tmp/espinfo/hasfbonline
 fi
 rm -rf /tmp/espinfo/fbonlinefind
 
@@ -760,9 +760,9 @@ find /u -name systems.tab -exec grep -H 'REMOTE_PRICE_CHECK' {} \; > /tmp/espinf
 REMOTEPRICECHECKCOUNT=$(cat /tmp/espinfo/remotepricecheckfind | wc -l)
 if [ $REMOTEPRICECHECKCOUNT -ge 1 ]
 then 
-echo "Yes" > /tmp/espinfo/hasremotepricecheck
+echo "yes" > /tmp/espinfo/hasremotepricecheck
 else
-echo "No" > /tmp/espinfo/hasremotepricecheck
+echo "no" > /tmp/espinfo/hasremotepricecheck
 fi
 rm -rf /tmp/espinfo/remotepricecheckfind
 
@@ -770,9 +770,9 @@ dmidecode | grep Product > /tmp/espinfo/isavirtualserverfind
 VIRTUALSERVERFIND=$(cat /tmp/espinfo/isavirtualserverfind | grep Virtual | wc -l)
 if [ $VIRTUALSERVERFIND -ge 1 ]
 then
-echo "Yes" > /tmp/espinfo/isavirtualserver
+echo "yes" > /tmp/espinfo/isavirtualserver
 else
-echo "No" > /tmp/espinfo/isavirtualserver
+echo "no" > /tmp/espinfo/isavirtualserver
 fi
 rm -rf /tmp/espinfo/isavirtualserverfind
 
@@ -780,27 +780,27 @@ LOCATTRBFIND=$(find /u -name locattrb.tab | wc -l)
 LOCTYPEFIND=$(find /u -name loctype.tab | wc -l)
 if [ $LOCATTRBFIND -ge 1 ] && [ $LOCATTRBFIND -ge 1 ]
 then
-echo "Yes" > /tmp/espinfo/haslocationbookings
+echo "yes" > /tmp/espinfo/haslocationbookings
 else
-echo "No" > /tmp/espinfo/haslocationbookings
+echo "no" > /tmp/espinfo/haslocationbookings
 fi
 
 TOBACSFIND=$(find /u -type f -name "tobacs.txt" -mtime -60 | wc -l)
 AUDDISFIND=$(find /u -type f -name "auddis.txt" -mtime -60 | wc -l)
 if [ $TOBACSFIND -ge 1 ] || [ $AUDDISFIND -ge 1 ]
 then
-echo "Yes" > /tmp/espinfo/hasdirectdebit
+echo "yes" > /tmp/espinfo/hasdirectdebit
 else
-echo "No" > /tmp/espinfo/hasdirectdebit
+echo "no" > /tmp/espinfo/hasdirectdebit
 fi
 
 find /u -type f -name "aserverr.log" -mtime -60 > /tmp/espinfo/recentaserverr
 ACCMONITORSUSEAGE=$(cat `cat /tmp/espinfo/recentaserverr` | grep "Trying ./monitors/" | wc -l)
 if [ $ACCMONITORSUSEAGE -ge 1 ]
 then
-echo "Yes" > /tmp/espinfo/accesscontrolmonitors
+echo "yes" > /tmp/espinfo/accesscontrolmonitors
 else
-echo "No" > /tmp/espinfo/accesscontrolmonitors
+echo "no" > /tmp/espinfo/accesscontrolmonitors
 fi
 rm -rf /tmp/espinfo/recentaserverr
 
@@ -808,11 +808,17 @@ find /u -type f -name "wserverr.log" -mtime -60 > /tmp/espinfo/recentwserverrarr
 ACCARRIVEDUSEAGE=$(cat `cat /tmp/espinfo/recentwserverrarrived` | grep "Arrived" | wc -l)
 if [ $ACCARRIVEDUSEAGE -ge 1 ]
 then
-echo "Yes" > /tmp/espinfo/accesscontrolactivity
+echo "yes" > /tmp/espinfo/accesscontrolactivity
 else
-echo "No" > /tmp/espinfo/accesscontrolactivity
+echo "no" > /tmp/espinfo/accesscontrolactivity
 fi
 
+
+
+if [ cat /tmp/espinfo/multisite 
+
+if [ 'ls -l /u/gui/children.tab | wc -l' -ge 0 ]
+then
 
 
 ################################
