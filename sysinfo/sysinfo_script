@@ -729,17 +729,29 @@ echo "No" > /tmp/espinfo/haspostables
 fi
 rm -rf /tmp/espinfo/postablesfind
 
-
-
-
-
 find /u -name espapps.tab -exec grep -H 'IDSCOREINPUT' {} \; > /tmp/espinfo/kioskfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/kioskfind
+KIOSKFINDCOUNT=$(cat /tmp/espinfo/kioskfind | wc -l)
+if [ $KIOSKFINDCOUNT -ge 1 ]
+then 
+echo "Yes" > /tmp/espinfo/haskiosk
+else
+echo "No" > /tmp/espinfo/haskiosk
+fi
+rm -rf /tmp/espinfo/kioskfind
 
-
-
-
+find /u -name systems.tab -exec grep -H 'BOOK_PRODUCTS Enabled=1&ActivityType=FB Online' {} \; > /tmp/espinfo/fbonlinefind
+# Remove disabled hashed out items from find
+/tmp/espinfo/fbonlinefind
+FBONLINECOUNT=$(cat /tmp/espinfo/fbonlinefind | wc -l)
+if [ $FBONLINECOUNT -ge 1 ]
+then 
+echo "Yes" > /tmp/espinfo/hasfbonline
+else
+echo "No" > /tmp/espinfo/hasfbonline
+fi
+rm -rf /tmp/espinfo/fbonlinefind
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
