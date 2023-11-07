@@ -753,6 +753,24 @@ echo "No" > /tmp/espinfo/hasfbonline
 fi
 rm -rf /tmp/espinfo/fbonlinefind
 
+find /u -name systems.tab -exec grep -H 'REMOTE_PRICE_CHECK' {} \; > /tmp/espinfo/remotepricecheckfind
+# Remove disabled hashed out items from find
+/tmp/espinfo/remotepricecheckfind
+REMOTEPRICECHECKCOUNT=$(cat /tmp/espinfo/remotepricecheckfind | wc -l)
+if [ $REMOTEPRICECHECKCOUNT -ge 1 ]
+then 
+echo "Yes" > /tmp/espinfo/hasremotepricecheck
+else
+echo "No" > /tmp/espinfo/hasremotepricecheck
+fi
+rm -rf /tmp/espinfo/remotepricecheckfind
+
+
+
+
+
+
+
 ################################
 ## COMPILE ALL COLLECTED INFO ##
 ################################
