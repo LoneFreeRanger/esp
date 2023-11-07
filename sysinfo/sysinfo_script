@@ -796,6 +796,16 @@ fi
 
 
 
+find /u -type f -name "aserverr.log" -mtime -60 > /tmp/espinfo/recentaserverr
+
+"Trying ./monitors/"
+
+
+
+
+
+cat `cat /tmp/espinfo/recentaserverr` | grep "Trying ./monitors/"
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
