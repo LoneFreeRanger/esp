@@ -804,6 +804,15 @@ echo "No" > /tmp/espinfo/accesscontrolmonitors
 fi
 rm -rf /tmp/espinfo/recentaserverr
 
+find /u -type f -name "wserverr.log" -mtime -60 > /tmp/espinfo/recentwserverrarrived
+ACCARRIVEDUSEAGE=$(cat `cat /tmp/espinfo/recentwserverrarrived` | grep "Arrived" | wc -l)
+if [ $ACCARRIVEDUSEAGE -ge 1 ]
+then
+echo "Yes" > /tmp/espinfo/accesscontrolactivity
+else
+echo "No" > /tmp/espinfo/accesscontrolactivity
+fi
+
 
 
 ################################
