@@ -765,9 +765,14 @@ echo "No" > /tmp/espinfo/hasremotepricecheck
 fi
 rm -rf /tmp/espinfo/remotepricecheckfind
 
-
-
-
+dmidecode | grep Product > /tmp/espinfo/isavirtualserverfind
+VIRTUALSERVERFIND=$(cat /tmp/espinfo/isavirtualserverfind | grep Virtual | wc -l)
+if [ $VIRTUALSERVERFIND -ge 1 ]
+then
+echo "Yes" > /tmp/espinfo/isavirtualserver
+else
+echo "No" > /tmp/espinfo/isavirtualserver
+rm -rf /tmp/espinfo/isavirtualserverfind
 
 
 
