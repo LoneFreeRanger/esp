@@ -861,9 +861,17 @@ echo "no" > /tmp/espinfo/hasleissystem
 fi
 rm -rf /tmp/espinfo/leisfind
 
-
-
-
+cat /u/esp/*/espapps.tab | grep bar > /tmp/espinfo/barfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/barfind
+BARSYTEMCOUNT=$(cat /tmp/espinfo/barfind | wc -l)
+if [ $BARSYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasbarsystem
+else
+echo "no" > /tmp/espinfo/hasbarsystem
+fi
+rm -rf /tmp/espinfo/barfind
 
 
 
