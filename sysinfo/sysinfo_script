@@ -849,6 +849,22 @@ echo "no" > /tmp/espinfo/hasspasystem
 fi
 rm -rf /tmp/espinfo/spafind
 
+cat /u/esp/*/espapps.tab | grep leis > /tmp/espinfo/leisfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/leisfind
+LEISSYTEMCOUNT=$(cat /tmp/espinfo/leisfind | wc -l)
+if [ $LEISSYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasleissystem
+else
+echo "no" > /tmp/espinfo/hasleissystem
+fi
+rm -rf /tmp/espinfo/leisfind
+
+
+
+
+
 
 
 ################################
