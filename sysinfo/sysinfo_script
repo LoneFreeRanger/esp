@@ -874,6 +874,22 @@ fi
 rm -rf /tmp/espinfo/barfind
 
 
+cat /u/esp/*/espapps.tab | grep admin > /tmp/espinfo/adminfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/adminfind
+ADMINSYTEMCOUNT=$(cat /tmp/espinfo/adminfind | wc -l)
+if [ $ADMINSYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasadminsystem
+else
+echo "no" > /tmp/espinfo/hasadminsystem
+fi
+rm -rf /tmp/espinfo/adminfind
+
+
+
+
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
