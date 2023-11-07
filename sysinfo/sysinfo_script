@@ -772,7 +772,19 @@ then
 echo "Yes" > /tmp/espinfo/isavirtualserver
 else
 echo "No" > /tmp/espinfo/isavirtualserver
+fi
 rm -rf /tmp/espinfo/isavirtualserverfind
+
+LOCATTRBFIND=$(find /u -name locattrb.tab | wc -l)
+LOCTYPEFIND=$(find /u -name loctype.tab | wc -l)
+if [ $LOCATTRBFIND -ge 1 ] && [ $LOCATTRBFIND -ge 1 ]
+then
+echo "Yes" > /tmp/espinfo/haslocationbookings
+else
+echo "No" > /tmp/espinfo/haslocationbookings
+fi
+
+
 
 
 
