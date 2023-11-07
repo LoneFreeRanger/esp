@@ -826,6 +826,19 @@ fi
 rm -rf /tmp/espinfo/pmsfind
 
 
+cat /u/esp/*/espapps.tab | grep retail > /tmp/espinfo/retailfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/retailfind
+RETAILSYTEMCOUNT=$(cat /tmp/espinfo/retailfind | wc -l)
+if [ $RETAILSYTEMCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasretailsystem
+else
+echo "no" > /tmp/espinfo/hasretailsystem
+fi
+rm -rf /tmp/espinfo/retailfind
+
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
