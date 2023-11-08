@@ -930,8 +930,6 @@ echo "no" > /tmp/espinfo/hasretention
 fi
 rm -rf /tmp/espinfo/retentionfind
 
-
-
 find /u -name systems.tab -exec grep -H 'CASHSCAN' {} \; > /tmp/espinfo/cctvfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/cctvfind
@@ -955,6 +953,35 @@ else
 echo "no" > /tmp/espinfo/hasespinterfacetoexternalpms
 fi
 rm -rf /tmp/espinfo/espinterfacetoexternalpmsfind
+
+
+find /u -name systems.tab -exec grep -H 'TTIGERPMS' {} \; > /tmp/espinfo/guestconnecttigerfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/guestconnecttigerfind
+GUESTCONNECTTIGERCOUNT=$(cat /tmp/espinfo/guestconnecttigerfind | wc -l)
+if [ $GUESTCONNECTTIGERCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasguestconnecttiger
+else
+echo "no" > /tmp/espinfo/hasguestconnecttiger
+fi
+rm -rf /tmp/espinfo/guestconnecttigerfind
+
+
+
+find /u -name systems.tab -exec grep -H 'POSTCODE A' {} \; > /tmp/espinfo/postcodefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/postcodefind
+POSTCODEFINDCOUNT=$(cat /tmp/espinfo/postcodefind | wc -l)
+if [ $POSTCODEFINDCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasafdpostcode
+else
+echo "no" > /tmp/espinfo/hasafdpostcode
+fi
+rm -rf /tmp/espinfo/postcodefind
+
+
 
 
 ################################
