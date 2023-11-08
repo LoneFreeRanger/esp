@@ -814,7 +814,6 @@ echo "no" > /tmp/espinfo/accesscontrolactivity
 fi
 rm -rf /tmp/espinfo/recentwserverrarrived
 
-
 cat /u/esp/*/espapps.tab | grep pms > /tmp/espinfo/pmsfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/pmsfind
@@ -888,10 +887,8 @@ echo "no" > /tmp/espinfo/hasadminsystem
 fi
 rm -rf /tmp/espinfo/adminfind
 
-
-
-find /u -type f -name "aserverr*.log" -mtime -30 > /tmp/espinfo/recentaserverrfuzzy
-ASERVERRFUZZY=$(cat `cat /tmp/espinfo/recentaserverrfuzzy` | grep "Fuzzy" | wc -l)
+find /u -name wserverr.log -exec grep -H 'Fuzzy' {} \; > /tmp/espinfo/recentaserverrfuzzy
+ASERVERRFUZZY=$(cat /tmp/espinfo/recentaserverrfuzzy | grep "Fuzzy" | wc -l)
 if [ $ASERVERRFUZZY -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/accesscontrolanpr
