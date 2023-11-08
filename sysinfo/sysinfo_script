@@ -981,11 +981,9 @@ echo "no" > /tmp/espinfo/hasafdbankfinder
 fi
 rm -rf /tmp/espinfo/bankfinderfind
 
-
-
 # correct the below
-find /u -type f -name "efterr*.log" -mtime -30 > /tmp/espinfo/hasverifonefind
-VERIFONECOUNT=$(cat `cat /tmp/espinfo/hasverifonefind` | grep "Log Off From Ocius Sentinel" | wc -l)
+find /u -name efterr*.log -exec grep "Log Off From Ocius Sentinel" {} \; > /tmp/espinfo/hasverifonefind
+VERIFONECOUNT=$(cat /tmp/espinfo/hasverifonefind | grep "Log Off From Ocius Sentinel" | wc -l)
 if [ $VERIFONECOUNT -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/hasverifone
