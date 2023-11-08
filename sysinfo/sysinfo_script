@@ -888,7 +888,7 @@ rm -rf /tmp/espinfo/adminfind
 
 
 
-find /u -type f -name "aserverr.log" -mtime -30 > /tmp/espinfo/recentaserverrfuzzy
+find /u -type f -name "aserverr*.log" -mtime -30 > /tmp/espinfo/recentaserverrfuzzy
 ASERVERRFUZZY=$(cat `cat /tmp/espinfo/recentaserverrfuzzy` | grep "Fuzzy" | wc -l)
 if [ $ASERVERRFUZZY -ge 1 ]
 then
@@ -896,7 +896,7 @@ echo "yes" > /tmp/espinfo/accesscontrolanpr
 else
 echo "no" > /tmp/espinfo/accesscontrolanpr
 fi
-
+rm -rf /tmp/espinfo/recentaserverrfuzzy
 
 find /u -name systems.tab -exec grep -H 'Interface=Salto' {} \; > /tmp/espinfo/saltofind
 # Remove disabled hashed out items from find
@@ -911,6 +911,18 @@ fi
 rm -rf /tmp/espinfo/saltofind
 
 
+
+
+
+find /u -type f -name "efterr*.log" -mtime -30 > /tmp/espinfo/hasverifonefind
+VERIFONECOUNT=$(cat `cat /tmp/espinfo/hasverifonefind` | grep "Log Off From Ocius Sentinel" | wc -l)
+if [ $VERIFONECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasverifone
+else
+echo "no" > /tmp/espinfo/hasverifone
+fi
+rm -rf hasverifonefind
 
 
 ################################
