@@ -888,6 +888,15 @@ rm -rf /tmp/espinfo/adminfind
 
 
 
+find /u -type f -name "aserverr.log" -mtime -30 > /tmp/espinfo/recentaserverrfuzzy
+ASERVERRFUZZY=$(cat `cat /tmp/espinfo/recentaserverrfuzzy` | grep "Fuzzy" | wc -l)
+if [ $ASERVERRFUZZY -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/accesscontrolanpr
+else
+echo "no" > /tmp/espinfo/accesscontrolanpr
+fi
+
 
 
 
