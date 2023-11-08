@@ -981,6 +981,19 @@ echo "no" > /tmp/espinfo/hasafdpostcode
 fi
 rm -rf /tmp/espinfo/postcodefind
 
+find /u -name systems.tab -exec grep -H 'BankFinder=A' {} \; > /tmp/espinfo/bankfinderfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/bankfinderfind
+BANKFINDERINDCOUNT=$(cat /tmp/espinfo/bankfinderfind | wc -l)
+if [ $BANKFINDERINDCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasafdbankfinder
+else
+echo "no" > /tmp/espinfo/hasafdbankfinder
+fi
+rm -rf /tmp/espinfo/bankfinderfind
+
+
 
 
 
