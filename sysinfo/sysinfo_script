@@ -145,19 +145,7 @@ else
 echo "no" > /tmp/espinfo/comms
 fi
 
-EFT_PATH=$(find /u/esp -name systems.tab -exec grep "EFT_PATH" '{}' \; -print | wc -l)
-if [ $EFT_PATH -ge 1 ]
-then
-what -s /u/esp/*/eft/eft >> /tmp/espinfo/eftver
-echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
-echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
-#echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
-else
-what -s /u/eft/eft >> /tmp/espinfo/eftver
-echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
-echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
-#echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
-fi
+
 
 ESPCLIENT_PRESENT=$(ls -l /u/ups/espclient.upg | wc -l)
 ESPCLIENT=(/u/ups/espclient.upg)
@@ -997,6 +985,23 @@ else
 echo "$(cat /tmp/espinfo/hddsize|awk '{print $3 $4}')" > /tmp/espinfo/hddsize
 #echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
 echo "$(cat /tmp/espinfo/hddsize)" | sed -i 's/,//g' /tmp/espinfo/hddsize
+fi
+
+
+# eftver reports blank on aws lightsail server
+
+EFT_PATH=$(find /u/esp -name systems.tab -exec grep "EFT_PATH" '{}' \; -print | wc -l)
+if [ $EFT_PATH -ge 1 ]
+then
+what -s /u/esp/*/eft/eft >> /tmp/espinfo/eftver
+echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
+#echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+else
+what -s /u/eft/eft >> /tmp/espinfo/eftver
+echo "$(tail -n 1 /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
+echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
+#echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
 fi
 
 
