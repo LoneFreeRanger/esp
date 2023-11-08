@@ -994,7 +994,33 @@ fi
 rm -rf /tmp/espinfo/bankfinderfind
 
 
-
+# to add to complile file below
+bankfinderfind
+postcodefind
+guestconnecttigerfind
+espinterfacetoexternalpmsfind
+cctvfind
+retentionfind
+hasverifone
+hassalto
+accesscontrolanpr
+hasadminsystem
+hasbarsystem
+hasleissystem
+hasspasystem
+hasretailsystem
+haspmssystem
+accesscontrolactivity
+accesscontrolmonitors
+hasdirectdebit
+haslocationbookings
+isavirtualserver
+hasremotepricecheck
+hasfbonline
+kioskfind
+haspostables
+cutomerassetsfind
+hasevents
 
 
 ################################
