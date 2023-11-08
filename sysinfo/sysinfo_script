@@ -944,7 +944,17 @@ echo "no" > /tmp/espinfo/hasrcctv
 fi
 rm -rf /tmp/espinfo/cctvfind
 
-
+find /u -name systems.tab -exec grep -H 'TAGILYSYSPMS' {} \; > /tmp/espinfo/espinterfacetoexternalpmsfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/espinterfacetoexternalpmsfind
+EXTERNALPMSFIND=$(cat /tmp/espinfo/espinterfacetoexternalpmsfind | wc -l)
+if [ $EXTERNALPMSFIND -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasespinterfacetoexternalpms
+else
+echo "no" > /tmp/espinfo/hasespinterfacetoexternalpms
+fi
+rm -rf /tmp/espinfo/espinterfacetoexternalpmsfind
 
 
 ################################
