@@ -930,6 +930,23 @@ echo "no" > /tmp/espinfo/hasretention
 fi
 rm -rf /tmp/espinfo/retentionfind
 
+
+
+find /u -name systems.tab -exec grep -H 'CASHSCAN' {} \; > /tmp/espinfo/cctvfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/cctvfind
+CCTVCOUNT=$(cat /tmp/espinfo/cctvfind | wc -l)
+if [ $CCTVCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasrcctv
+else
+echo "no" > /tmp/espinfo/hasrcctv
+fi
+rm -rf /tmp/espinfo/cctvfind
+
+
+
+
 ################################
 ## COMPILE ALL COLLECTED INFO ##
 ################################
