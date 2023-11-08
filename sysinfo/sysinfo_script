@@ -372,19 +372,7 @@ else
 echo "no" > /tmp/espinfo/softwareraid
 fi
 
-SOFTWARERAID=$(df -h | grep md0 | wc -l)
-if [ $SOFTWARERAID -ge 1 ]
-then
-df -h / > /tmp/espinfo/hddsize
-echo "$(tail -n 1 /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
-echo "$(cat /tmp/espinfo/hddsize|awk '{print $3" "$4}')" > /tmp/espinfo/hddsize
-#echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
-else
-/usr/sbin/fdisk -l | grep Disk | grep sda > /tmp/espinfo/hddsize
-echo "$(cat /tmp/espinfo/hddsize|awk '{print $3 $4}')" > /tmp/espinfo/hddsize
-#echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
-echo "$(cat /tmp/espinfo/hddsize)" | sed -i 's/,//g' /tmp/espinfo/hddsize
-fi
+
 
 free -g > /tmp/espinfo/ramsize
 echo "$(head -2 /tmp/espinfo/ramsize)" > /tmp/espinfo/ramsize
@@ -993,6 +981,24 @@ fi
 rm -rf /tmp/espinfo/hasverifonefind
 
 # to add to complile file below
+
+# Correct, if server hdd is named something different otherthat sda (ie: lightsail) then in reports blank
+# the following command might work: df -h --total|grep ^total
+
+SOFTWARERAID=$(df -h | grep md0 | wc -l)
+if [ $SOFTWARERAID -ge 1 ]
+then
+df -h / > /tmp/espinfo/hddsize
+echo "$(tail -n 1 /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize|awk '{print $3" "$4}')" > /tmp/espinfo/hddsize
+#echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+else
+/usr/sbin/fdisk -l | grep Disk | grep sda > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize|awk '{print $3 $4}')" > /tmp/espinfo/hddsize
+#echo "$(sed 's/^/server hdd size: /g' /tmp/espinfo/hddsize)" > /tmp/espinfo/hddsize
+echo "$(cat /tmp/espinfo/hddsize)" | sed -i 's/,//g' /tmp/espinfo/hddsize
+fi
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
