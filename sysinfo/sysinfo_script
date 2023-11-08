@@ -766,15 +766,16 @@ echo "no" > /tmp/espinfo/hasremotepricecheck
 fi
 rm -rf /tmp/espinfo/remotepricecheckfind
 
-dmidecode | grep Product > /tmp/espinfo/isavirtualserverfind
-VIRTUALSERVERFIND=$(cat /tmp/espinfo/isavirtualserverfind | grep Virtual | wc -l)
-if [ $VIRTUALSERVERFIND -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/isavirtualserver
-else
-echo "no" > /tmp/espinfo/isavirtualserver
-fi
-rm -rf /tmp/espinfo/isavirtualserverfind
+# Does not work for lightsail virtuals ?
+#dmidecode | grep Product > /tmp/espinfo/isavirtualserverfind
+#VIRTUALSERVERFIND=$(cat /tmp/espinfo/isavirtualserverfind | grep Virtual | wc -l)
+#if [ $VIRTUALSERVERFIND -ge 1 ]
+#then
+#echo "yes" > /tmp/espinfo/isavirtualserver
+#else
+#echo "no" > /tmp/espinfo/isavirtualserver
+#fi
+#rm -rf /tmp/espinfo/isavirtualserverfind
 
 LOCATTRBFIND=$(find /u -name locattrb.tab | wc -l)
 LOCTYPEFIND=$(find /u -name loctype.tab | wc -l)
@@ -794,8 +795,8 @@ else
 echo "no" > /tmp/espinfo/hasdirectdebit
 fi
 
-find /u -type f -name "aserverr.log" -mtime -60 > /tmp/espinfo/recentaserverr
-ACCMONITORSUSEAGE=$(cat `cat /tmp/espinfo/recentaserverr` | grep "Trying ./monitors/" | wc -l)
+find /u -name aserverr.log -exec grep -H "Trying ./monitors/" {} \; > /tmp/espinfo/recentaserverr
+ACCMONITORSUSEAGE=$(cat /tmp/espinfo/recentaserverr | grep "Trying ./monitors/" | wc -l)
 if [ $ACCMONITORSUSEAGE -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/accesscontrolmonitors
@@ -909,16 +910,6 @@ echo "no" > /tmp/espinfo/hassalto
 fi
 rm -rf /tmp/espinfo/saltofind
 
-find /u -type f -name "efterr*.log" -mtime -30 > /tmp/espinfo/hasverifonefind
-VERIFONECOUNT=$(cat `cat /tmp/espinfo/hasverifonefind` | grep "Log Off From Ocius Sentinel" | wc -l)
-if [ $VERIFONECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/hasverifone
-else
-echo "no" > /tmp/espinfo/hasverifone
-fi
-rm -rf hasverifonefind
-
 find /u/gui -name esp.log -mtime -30 -exec grep -H 'Inet Connection on 60010' {} \; > /tmp/espinfo/retentionfind
 RETENTIONFIND=$(cat /tmp/espinfo/retentionfind | wc -l)
 if [ $RETENTIONFIND -ge 1 ]
@@ -966,8 +957,6 @@ echo "no" > /tmp/espinfo/hasguestconnecttiger
 fi
 rm -rf /tmp/espinfo/guestconnecttigerfind
 
-
-
 find /u -name systems.tab -exec grep -H 'POSTCODE A' {} \; > /tmp/espinfo/postcodefind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/postcodefind
@@ -993,34 +982,19 @@ fi
 rm -rf /tmp/espinfo/bankfinderfind
 
 
-# to add to complile file below
-bankfinderfind
-postcodefind
-guestconnecttigerfind
-espinterfacetoexternalpmsfind
-cctvfind
-retentionfind
-hasverifone
-hassalto
-accesscontrolanpr
-hasadminsystem
-hasbarsystem
-hasleissystem
-hasspasystem
-hasretailsystem
-haspmssystem
-accesscontrolactivity
-accesscontrolmonitors
-hasdirectdebit
-haslocationbookings
-isavirtualserver
-hasremotepricecheck
-hasfbonline
-kioskfind
-haspostables
-cutomerassetsfind
-hasevents
 
+# correct the below
+find /u -type f -name "efterr*.log" -mtime -30 > /tmp/espinfo/hasverifonefind
+VERIFONECOUNT=$(cat `cat /tmp/espinfo/hasverifonefind` | grep "Log Off From Ocius Sentinel" | wc -l)
+if [ $VERIFONECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasverifone
+else
+echo "no" > /tmp/espinfo/hasverifone
+fi
+rm -rf /tmp/espinfo/hasverifonefind
+
+# to add to complile file below
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
