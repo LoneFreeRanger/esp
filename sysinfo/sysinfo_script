@@ -812,6 +812,7 @@ echo "yes" > /tmp/espinfo/accesscontrolactivity
 else
 echo "no" > /tmp/espinfo/accesscontrolactivity
 fi
+rm -rf /tmp/espinfo/recentwserverrarrived
 
 cat /u/esp/*/espapps.tab | grep pms > /tmp/espinfo/pmsfind
 # Remove disabled hashed out items from find
