@@ -1004,7 +1004,10 @@ echo "$(cat /tmp/espinfo/eftver|awk '{print $3}')" > /tmp/espinfo/eftver
 #echo "$(sed 's/^/eft version: /g' /tmp/espinfo/eftver)" > /tmp/espinfo/eftver
 fi
 
+# internet speed test sometimes reports blank for some sites
+# try installing speedtest tool and outout to file?
 
+https://www.omglinux.com/test-internet-speed-from-the-command-line/
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
