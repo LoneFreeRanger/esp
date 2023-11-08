@@ -1009,6 +1009,8 @@ fi
 
 https://www.omglinux.com/test-internet-speed-from-the-command-line/
 
+# add ping ms reponse and how far test server is 
+
 ################################
 ## COMPILE ALL COLLECTED INFO ##
 ################################
