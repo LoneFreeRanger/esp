@@ -898,6 +898,19 @@ echo "no" > /tmp/espinfo/accesscontrolanpr
 fi
 
 
+find /u -name systems.tab -exec grep -H 'Interface=Salto' {} \; > /tmp/espinfo/saltofind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/saltofind
+SALTOCOUNT=$(cat /tmp/espinfo/saltofind | wc -l)
+if [ $SALTOCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hassalto
+else
+echo "no" > /tmp/espinfo/hassalto
+fi
+rm -rf /tmp/espinfo/saltofind
+
+
 
 
 ################################
