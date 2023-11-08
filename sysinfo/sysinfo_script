@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - v08.11.23-1
+# Sysinfo script for ESP Linux servers - Ray_Reilly-v08.11.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "v08.11.23-1" > /tmp/espinfo/scriptver
+echo "Ray_Reilly-v08.11.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
