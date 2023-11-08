@@ -910,10 +910,6 @@ echo "no" > /tmp/espinfo/hassalto
 fi
 rm -rf /tmp/espinfo/saltofind
 
-
-
-
-
 find /u -type f -name "efterr*.log" -mtime -30 > /tmp/espinfo/hasverifonefind
 VERIFONECOUNT=$(cat `cat /tmp/espinfo/hasverifonefind` | grep "Log Off From Ocius Sentinel" | wc -l)
 if [ $VERIFONECOUNT -ge 1 ]
@@ -924,6 +920,15 @@ echo "no" > /tmp/espinfo/hasverifone
 fi
 rm -rf hasverifonefind
 
+find /u/gui -name esp.log -mtime -30 -exec grep -H 'Inet Connection on 60010' {} \; > /tmp/espinfo/retentionfind
+RETENTIONFIND=$(cat /tmp/espinfo/retentionfind | wc -l)
+if [ $RETENTIONFIND -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasretention
+else
+echo "no" > /tmp/espinfo/hasretention
+fi
+rm -rf /tmp/espinfo/retentionfind
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
