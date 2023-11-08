@@ -804,8 +804,8 @@ echo "no" > /tmp/espinfo/accesscontrolmonitors
 fi
 rm -rf /tmp/espinfo/recentaserverr
 
-find /u -type f -name "wserverr.log" -mtime -60 > /tmp/espinfo/recentwserverrarrived
-ACCARRIVEDUSEAGE=$(cat `cat /tmp/espinfo/recentwserverrarrived` | grep "Arrived" | wc -l)
+find /u -name wserverr.log -exec grep -H 'Arrived' {} \; > /tmp/espinfo/recentwserverrarrived
+ACCARRIVEDUSEAGE=$(cat /tmp/espinfo/recentwserverrarrived | grep "Arrived" | wc -l)
 if [ $ACCARRIVEDUSEAGE -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/accesscontrolactivity
@@ -813,6 +813,7 @@ else
 echo "no" > /tmp/espinfo/accesscontrolactivity
 fi
 rm -rf /tmp/espinfo/recentwserverrarrived
+
 
 cat /u/esp/*/espapps.tab | grep pms > /tmp/espinfo/pmsfind
 # Remove disabled hashed out items from find
