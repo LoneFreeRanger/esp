@@ -514,8 +514,6 @@ then
 echo "n/a"  > /tmp/espinfo/bsmsrh8
 fi
 
-
-
 BSMSL64=$(ls -l /u/ups/pos7file | wc -l)
 POS7FILEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 if [ $POS7FILEMULTI -ge 1 ]
@@ -537,7 +535,6 @@ elif [ $BSMSL64 -le 0 ]
 then
 echo "n/a"  > /tmp/espinfo/bsmsl64
 fi
-
 
 find /u/esp -type f -name bsms.rh5 -exec ls -ltu {} \; | sort -k 5 - > /tmp/espinfo/bsmsrh5size
 BSMS5SIZEMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
@@ -984,12 +981,6 @@ rm -rf /tmp/espinfo/hasverifonefind
 
 
 # to add to complile file below
-
-
-
-
-
-# eftver reports blank on aws lightsail server
 
 
 
