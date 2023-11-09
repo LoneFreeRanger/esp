@@ -963,11 +963,6 @@ echo "no" > /tmp/espinfo/hasafdbankfinder
 fi
 rm -rf /tmp/espinfo/bankfinderfind
 
-
-
-
-
-# correct the below
 find /u -name efterr*.log -exec grep "Log Off From Ocius Sentinel" {} \; > /tmp/espinfo/hasverifonefind
 VERIFONECOUNT=$(cat /tmp/espinfo/hasverifonefind | grep "Log Off From Ocius Sentinel" | wc -l)
 if [ $VERIFONECOUNT -ge 1 ]
@@ -988,7 +983,7 @@ rm -rf /tmp/espinfo/hasverifonefind
 # internet speed test sometimes reports blank for some sites
 # try installing speedtest tool and outout to file?
 
-https://www.omglinux.com/test-internet-speed-from-the-command-line/
+# https://www.omglinux.com/test-internet-speed-from-the-command-line/
 
 # add ping ms reponse and how far test server is 
 
