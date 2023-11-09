@@ -1014,7 +1014,19 @@ else
 echo "no" > /tmp/espinfo/hassessionmangement
 fi
 
-
+# find these files greater than 2 bytes (i.e: have content)
+find /u -name discmap.tab -type f -size +2c > /tmp/espinfo/discmapfind
+find /u -name disctype.tab -type f -size +2c > /tmp/espinfo/disctypefind
+DISCMAPCOUNT=$(cat /tmp/espinfo/discmapfind | wc -l)
+DISCTYPECOUNT=$(cat /tmp/espinfo/disctypefind | wc -l)
+if [ $DISCMAPCOUNT -ge 1 ] && [ $DISCTYPECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haslevysystem
+else
+echo "no" > /tmp/espinfo/haslevysystem
+fi
+rm -rf /tmp/espinfo/discmapfind
+rm -rf /tmp/espinfo/disctypefind
 
 
 
