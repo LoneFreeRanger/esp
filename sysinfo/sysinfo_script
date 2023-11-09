@@ -978,10 +978,6 @@ echo "no" > /tmp/espinfo/hasverifone
 fi
 rm -rf /tmp/espinfo/hasverifonefind
 
-
-echo "tbc" > /tmp/espinfo/hashandicapping
-
-
 find /u -name systems.tab -exec grep "BOOK_POINTS" '{}' \; > /tmp/espinfo/bookpointsfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/bookpointsfind
@@ -1006,7 +1002,8 @@ echo "no" > /tmp/espinfo/haspictures
 fi
 rm -rf /tmp/espinfo/picturesfind
 
-SESSMANGFIND=$(find /u -name mggroup.tab | wc -l)
+find /u -name mggroup.tab -type f -size +2c > /tmp/espinfo/mggroupfind
+SESSMANGFIND=$(cat /tmp/espinfo/mggroupfind | wc -l)
 if [ $SESSMANGFIND -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/hassessionmangement
@@ -1056,15 +1053,13 @@ rm -rf /tmp/espinfo/pointmnufind
 
 
 
-
-
-
+# items in which no one has as of yet or are yet to be developed
+echo "n/a" > /tmp/espinfo/hashandicapping
+echo "n/a" > /tmp/espinfo/hastrackman
 
 
 
 # to add to complile file below
-
-
 # add check for kitchen and dispense printing
 # add check if site have termnal servers
 # add check for e-lite server
