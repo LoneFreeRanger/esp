@@ -857,7 +857,6 @@ echo "no" > /tmp/espinfo/hasbarsystem
 fi
 rm -rf /tmp/espinfo/barfind
 
-
 cat /u/esp/*/espapps.tab | grep admin > /tmp/espinfo/adminfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/adminfind
@@ -926,7 +925,6 @@ echo "no" > /tmp/espinfo/hasespinterfacetoexternalpms
 fi
 rm -rf /tmp/espinfo/espinterfacetoexternalpmsfind
 
-
 find /u -name systems.tab -exec grep -H 'TTIGERPMS' {} \; > /tmp/espinfo/guestconnecttigerfind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/guestconnecttigerfind
@@ -972,6 +970,9 @@ else
 echo "no" > /tmp/espinfo/hasverifone
 fi
 rm -rf /tmp/espinfo/hasverifonefind
+
+
+
 
 
 
