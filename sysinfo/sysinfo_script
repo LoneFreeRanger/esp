@@ -21,20 +21,23 @@ rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
 echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajorver1
 cut -c 6 /tmp/espinfo/osmajorver1 > /tmp/espinfo/osmajorver
 
-# Internet speed test
-REDHAT6LINETEST=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
-if [ $REDHAT6LINETEST -ge 1 ]
+SPEEDTESTCHECK=$(rpm -qa | grep speedtest | wc -l)
+if [ $SPEEDTESTCHECK -le 0 ]
 then
-echo "Curl Error - Redhat 6" > /tmp/espinfo/internetspeed
-echo "Curl Error - Redhat 6" > /tmp/espinfo/internetdownload
-echo "Curl Error - Redhat 6" > /tmp/espinfo/internetupload
+curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.rpm.sh | sudo bash
+sudo yum -y install speedtest
+else 
+echo ""
+fi
+speedtest --accept-license --accept-gdpr > /tmp/espinfo/internetspeed
+SPEEDTESTVALID=$(cat /tmp/espinfo/internetspeed | wc -l)
+if [ $SPEEDTESTVALID -le 1 ]
+then 
+echo "Error" > /tmp/espinfo/internetupload
+echo "Error" > /tmp/espinfo/internetdownload
 else
-curl -s -k https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python > /tmp/espinfo/internetspeed
-sleep 80
-cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $2" "$3}' > /tmp/espinfo/internetupload
-cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $2" "$3}' > /tmp/espinfo/internetdownload
-echo "$(cat /tmp/espinfo/internetupload | awk '{print $1}')" > /tmp/espinfo/internetupload
-echo "$(cat /tmp/espinfo/internetdownload | awk '{print $1}')" > /tmp/espinfo/internetdownload
+cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $3}' > /tmp/espinfo/internetupload
+cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $3}' > /tmp/espinfo/internetdownload
 fi
 
 # Multi-site check
@@ -975,6 +978,10 @@ rm -rf /tmp/espinfo/hasverifonefind
 
 
 
+echo "n/a" > /tmp/espinfo/hashandicapping
+
+
+
 
 
 
@@ -984,6 +991,7 @@ rm -rf /tmp/espinfo/hasverifonefind
 # try installing speedtest tool and outout to file?
 # https://www.omglinux.com/test-internet-speed-from-the-command-line/
 # add ping ms reponse and how far test server is 
+
 # add check for kitchen and dispense printing
 # add check if site have termnal servers
 # add check for e-lite server
