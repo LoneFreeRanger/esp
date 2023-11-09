@@ -941,7 +941,8 @@ find /u -name systems.tab -exec grep -H 'POSTCODE A' {} \; > /tmp/espinfo/postco
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/postcodefind
 POSTCODEFINDCOUNT=$(cat /tmp/espinfo/postcodefind | wc -l)
-if [ $POSTCODEFINDCOUNT -ge 1 ]
+POSTCODEFINDCOUNT2=$(find /opt -name "pcplus.lic" -mtime -365 | wc -l)
+if [ $POSTCODEFINDCOUNT -ge 1 ] && [ $POSTCODEFINDCOUNT2 -ge 1 ]
 then 
 echo "yes" > /tmp/espinfo/hasafdpostcode
 else
