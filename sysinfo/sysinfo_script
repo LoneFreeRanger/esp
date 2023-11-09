@@ -1029,6 +1029,31 @@ rm -rf /tmp/espinfo/discmapfind
 rm -rf /tmp/espinfo/disctypefind
 
 
+# find these files greater than 2 bytes (i.e: have content)
+find /u -name packtype.tab -type f -size +2c > /tmp/espinfo/packtypefind
+find /u -name packgrp.tab -type f -size +2c > /tmp/espinfo/packgrpfind
+PACKTYPECOUNT=$(cat /tmp/espinfo/packtypefind | wc -l)
+PACKGROUPCOUNT=$(cat /tmp/espinfo/packgrpfind | wc -l)
+if [ $PACKTYPECOUNT -ge 1 ] && [ $PACKGROUPCOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hascoursepackages
+else
+echo "no" > /tmp/espinfo/hascoursepackages
+fi
+rm -rf /tmp/espinfo/packtypefind
+rm -rf /tmp/espinfo/packgrpfind
+
+
+
+
+
+
+
+
+
+
+
+
 
 # to add to complile file below
 
