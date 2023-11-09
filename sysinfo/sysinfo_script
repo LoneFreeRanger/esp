@@ -980,23 +980,16 @@ rm -rf /tmp/espinfo/hasverifonefind
 
 # to add to complile file below
 
-
-
-
 # internet speed test sometimes reports blank for some sites
 # try installing speedtest tool and outout to file?
-
 # https://www.omglinux.com/test-internet-speed-from-the-command-line/
-
 # add ping ms reponse and how far test server is 
-
 # add check for kitchen and dispense printing
-
 # add check if site have termnal servers
-
 # add check for e-lite server
-
 # add check for server actual geo location to go along side isp geo location
+
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
