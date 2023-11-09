@@ -38,6 +38,8 @@ echo "Error" > /tmp/espinfo/internetdownload
 else
 cat /tmp/espinfo/internetspeed | grep "Upload:" | awk '{print $3}' > /tmp/espinfo/internetupload
 cat /tmp/espinfo/internetspeed | grep "Download:" | awk '{print $3}' > /tmp/espinfo/internetdownload
+cat /tmp/espinfo/internetspeed | grep "Packet Loss:" | awk '{print $3}' > /tmp/espinfo/internetpacketloss
+cat /tmp/espinfo/internetspeed | grep "Idle Latency:" | awk '{print $3}' > /tmp/espinfo/internetidlelatency
 fi
 
 # Multi-site check
@@ -987,10 +989,6 @@ echo "n/a" > /tmp/espinfo/hashandicapping
 
 # to add to complile file below
 
-# internet speed test sometimes reports blank for some sites
-# try installing speedtest tool and outout to file?
-# https://www.omglinux.com/test-internet-speed-from-the-command-line/
-# add ping ms reponse and how far test server is 
 
 # add check for kitchen and dispense printing
 # add check if site have termnal servers
