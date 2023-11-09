@@ -1006,6 +1006,13 @@ echo "no" > /tmp/espinfo/haspictures
 fi
 rm -rf /tmp/espinfo/picturesfind
 
+SESSMANGFIND=$(find /u -name mggroup.tab | wc -l)
+if [ $SESSMANGFIND -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hassessionmangement
+else
+echo "no" > /tmp/espinfo/hassessionmangement
+fi
 
 
 
