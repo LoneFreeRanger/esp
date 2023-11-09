@@ -979,8 +979,7 @@ fi
 rm -rf /tmp/espinfo/hasverifonefind
 
 
-
-echo "n/a" > /tmp/espinfo/hashandicapping
+echo "tbc" > /tmp/espinfo/hashandicapping
 
 
 find /u -name systems.tab -exec grep "BOOK_POINTS" '{}' \; > /tmp/espinfo/bookpointsfind
@@ -995,7 +994,17 @@ echo "no" > /tmp/espinfo/hasbookpoints
 fi
 rm -rf /tmp/espinfo/bookpointsfind
 
-
+find /u -name systems.tab -exec grep "PICTURES" '{}' \; > /tmp/espinfo/picturesfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/picturesfind
+PICTURESFINDCOUNT=$(cat /tmp/espinfo/picturesfind | wc -l)
+if [ $PICTURESFINDCOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haspictures
+else
+echo "no" > /tmp/espinfo/haspictures
+fi
+rm -rf /tmp/espinfo/picturesfind
 
 
 
