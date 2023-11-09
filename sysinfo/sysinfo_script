@@ -954,7 +954,8 @@ find /u -name systems.tab -exec grep -H 'BankFinder=A' {} \; > /tmp/espinfo/bank
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/bankfinderfind
 BANKFINDERINDCOUNT=$(cat /tmp/espinfo/bankfinderfind | wc -l)
-if [ $BANKFINDERINDCOUNT -ge 1 ]
+BANKFINDERINDCOUNT2=$(find /opt -name "afdbank.lic" -mtime -365 | wc -l)
+if [ $BANKFINDERINDCOUNT -ge 1 ] && [ $BANKFINDERINDCOUNT2 -ge 1 ]
 then 
 echo "yes" > /tmp/espinfo/hasafdbankfinder
 else
