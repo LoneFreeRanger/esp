@@ -1028,7 +1028,6 @@ fi
 rm -rf /tmp/espinfo/discmapfind
 rm -rf /tmp/espinfo/disctypefind
 
-
 # find these files greater than 2 bytes (i.e: have content)
 find /u -name packtype.tab -type f -size +2c > /tmp/espinfo/packtypefind
 find /u -name packgrp.tab -type f -size +2c > /tmp/espinfo/packgrpfind
@@ -1043,8 +1042,16 @@ fi
 rm -rf /tmp/espinfo/packtypefind
 rm -rf /tmp/espinfo/packgrpfind
 
-
-
+# find these files greater than 2 bytes (i.e: have content)
+find /u -name pointmnu.tab -type f -size +2c > /tmp/espinfo/pointmnufind
+POINTMNUCOUNT=$(cat /tmp/espinfo/pointmnufind | wc -l)
+if [ $POINTMNUCOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasloyaltyschemes
+else
+echo "no" > /tmp/espinfo/hasloyaltyschemes
+fi
+rm -rf /tmp/espinfo/pointmnufind
 
 
 
