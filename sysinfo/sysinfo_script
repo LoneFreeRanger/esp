@@ -983,6 +983,21 @@ rm -rf /tmp/espinfo/hasverifonefind
 echo "n/a" > /tmp/espinfo/hashandicapping
 
 
+find /u -name systems.tab -exec grep "BOOK_POINTS" '{}' \; > /tmp/espinfo/bookpointsfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/bookpointsfind
+BOOKPOINTSFINDCOUNT=$(cat /tmp/espinfo/bookpointsfind | wc -l)
+if [ $BOOKPOINTSFINDCOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasbookpoints
+else
+echo "no" > /tmp/espinfo/hasbookpoints
+fi
+rm -rf /tmp/espinfo/bookpointsfind
+
+
+
+
 
 
 
