@@ -982,6 +982,13 @@ rm -rf /tmp/espinfo/hasverifonefind
 
 # eftver reports blank on aws lightsail server
 
+
+
+find /u -type f -name eft -exec ls -lart {} \; > /tmp/espinfo/eftverfind
+echo "$(tail -n 1 /tmp/espinfo/eftverfind)" > /tmp/espinfo/eftverfind
+cat /tmp/espinfo/eftverfind | awk '{print $9}' > /tmp/espinfo/eftverfind1 && mv -f /tmp/espinfo/eftverfind1 /tmp/espinfo/eftverfind
+
+
 EFT_PATH=$(find /u/esp -name systems.tab -exec grep "EFT_PATH" '{}' \; -print | wc -l)
 if [ $EFT_PATH -ge 1 ]
 then
