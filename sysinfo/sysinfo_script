@@ -1136,9 +1136,8 @@ echo "no" > /tmp/espinfo/haspostinterface
 fi
 rm -rf /tmp/espinfo/roompostinterfacefind
 
-
-
-
+ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
+echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
 
 
 # items in which no one has as of yet or are yet to be developed
