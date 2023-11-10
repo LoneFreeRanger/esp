@@ -1098,8 +1098,6 @@ echo "no" > /tmp/espinfo/haspostinterface
 fi
 rm -rf /tmp/espinfo/roompostinterfacefind
 
-
-
 find /u -name systems.tab -exec grep "INTEGRATION" '{}' \; > /tmp/espinfo/integrationfind
 find /u -name systems.tab -exec grep "BatchType" '{}' \; > /tmp/espinfo/batchtypefind
 sed -i '/#/d' /tmp/espinfo/integrationfind
