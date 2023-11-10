@@ -1106,9 +1106,6 @@ rm -rf /tmp/espinfo/playmoregolffind
 
 
 
-
-
-
 # double check these
 
 
@@ -1140,10 +1137,12 @@ ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
 echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
 
 
-# items in which no one has as of yet or are yet to be developed
+# items in which no one has, has yet to be deceloped or not currenrlty possible to aduit
 echo "n/a" > /tmp/espinfo/hashandicapping
 echo "n/a" > /tmp/espinfo/hastrackman
 echo "n/a" > /tmp/espinfo/hascoursesachievements
+echo "n/a" > /tmp/espinfo/noofposlicences
+echo "n/a" > /tmp/espinfo/noofposlicences
 
 
 
