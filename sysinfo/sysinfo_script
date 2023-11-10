@@ -1086,8 +1086,34 @@ echo "no" > /tmp/espinfo/haspostinterface
 fi
 rm -rf /tmp/espinfo/roompostinterfacefind
 
+find /u -name exgroup.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
+ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
+if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haspostinterface
+else
+echo "no" > /tmp/espinfo/haspostinterface
+fi
+rm -rf /tmp/espinfo/roompostinterfacefind
 
 
+
+find /u -name systems.tab -exec grep "INTEGRATION" '{}' \; > /tmp/espinfo/integrationfind
+find /u -name systems.tab -exec grep "BatchType" '{}' \; > /tmp/espinfo/batchtypefind
+sed -i '/#/d' /tmp/espinfo/integrationfind
+sed -i '/#/d' /tmp/espinfo/batchtypefind
+INTEGRATIONCOUNT=$(cat /tmp/espinfo/integrationfind | wc -l)
+BATCHTYPECOUNT=$(cat /tmp/espinfo/batchtypefind | wc -l)
+if [ $INTEGRATIONCOUNT -ge 1 ] && [ $BATCHTYPECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasaccountsintegration
+else 
+echo "no" > /tmp/espinfo/hasaccountsintegration
+fi 
+rm -rf /tmp/espinfo/integrationfind
+rm -rf /tmp/espinfo/batchtypefind
 
 
 
