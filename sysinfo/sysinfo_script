@@ -267,9 +267,9 @@ echo "n/a" > /tmp/espinfo/pos7date
 fi
 
 
-VNCPACKAGES=$(rpm -qa | grep vnc | wc -l)
+VNCPROCESSES=$(ps -ef | grep vnc | wc -l)
 CLIENTDIRS=$(find /home -name client* | wc -l)
-if [ $VNCPACKAGES -ge 1 ] && [ $CLIENTDIRS -ge 1 ]
+if [ $VNCPROCESSES -ge 1 ] && [ $CLIENTDIRS -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/elitego
 else
