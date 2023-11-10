@@ -1144,6 +1144,7 @@ rm -rf /tmp/espinfo/roompostinterfacefind
 # items in which no one has as of yet or are yet to be developed
 echo "n/a" > /tmp/espinfo/hashandicapping
 echo "n/a" > /tmp/espinfo/hastrackman
+echo "n/a" > /tmp/espinfo/hascoursesachievements
 
 
 
