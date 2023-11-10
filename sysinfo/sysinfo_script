@@ -1062,7 +1062,6 @@ echo "no" > /tmp/espinfo/hascardinterface
 fi
 rm -rf /tmp/espinfo/cardinterfacesystemfind
 
-
 find /u -name systems.tab -exec grep "TOPERAPMS" '{}' \; > /tmp/espinfo/revenuepostinginterfacefind
 # Remove disabled hashed out items from find
 sed -i '/#/d' /tmp/espinfo/revenuepostinginterfacefind
@@ -1075,10 +1074,17 @@ echo "no" > /tmp/espinfo/hasrevenuepostinginterface
 fi
 rm -rf /tmp/espinfo/revenuepostinginterfacefind
 
-
-
-
-
+find /u -name systems.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
+ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
+if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haspostinterface
+else
+echo "no" > /tmp/espinfo/haspostinterface
+fi
+rm -rf /tmp/espinfo/roompostinterfacefind
 
 
 
