@@ -1050,6 +1050,45 @@ echo "no" > /tmp/espinfo/hasloyaltyschemes
 fi
 rm -rf /tmp/espinfo/pointmnufind
 
+find /u -name systems.tab -exec grep "Interface=Vingcard" '{}' \; > /tmp/espinfo/cardinterfacesystemfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/cardinterfacesystemfind
+CARDINTERFACECOUNT=$(cat /tmp/espinfo/cardinterfacesystemfind | wc -l)
+if [ $CARDINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hascardinterface
+else
+echo "no" > /tmp/espinfo/hascardinterface
+fi
+rm -rf /tmp/espinfo/cardinterfacesystemfind
+
+
+find /u -name systems.tab -exec grep "TOPERAPMS" '{}' \; > /tmp/espinfo/revenuepostinginterfacefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/revenuepostinginterfacefind
+REVENUEPOSTINGINTERFACECOUNT=$(cat /tmp/espinfo/revenuepostinginterfacefind | wc -l)
+if [ $REVENUEPOSTINGINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasrevenuepostinginterface
+else
+echo "no" > /tmp/espinfo/hasrevenuepostinginterface
+fi
+rm -rf /tmp/espinfo/revenuepostinginterfacefind
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
