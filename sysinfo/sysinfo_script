@@ -1074,30 +1074,6 @@ echo "no" > /tmp/espinfo/hasrevenuepostinginterface
 fi
 rm -rf /tmp/espinfo/revenuepostinginterfacefind
 
-find /u -name systems.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
-ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
-if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/haspostinterface
-else
-echo "no" > /tmp/espinfo/haspostinterface
-fi
-rm -rf /tmp/espinfo/roompostinterfacefind
-
-find /u -name exgroup.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
-ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
-if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/haspostinterface
-else
-echo "no" > /tmp/espinfo/haspostinterface
-fi
-rm -rf /tmp/espinfo/roompostinterfacefind
-
 find /u -name systems.tab -exec grep "INTEGRATION" '{}' \; > /tmp/espinfo/integrationfind
 find /u -name systems.tab -exec grep "BatchType" '{}' \; > /tmp/espinfo/batchtypefind
 sed -i '/#/d' /tmp/espinfo/integrationfind
@@ -1113,9 +1089,52 @@ fi
 rm -rf /tmp/espinfo/integrationfind
 rm -rf /tmp/espinfo/batchtypefind
 
+find /u -name exgroup.tab -exec grep "PlayGolf" '{}' \; > /tmp/espinfo/playmoregolffind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/playmoregolffind
+PLAYMOREGOLDFIND=$(cat /tmp/espinfo/playmoregolffind | wc -l)
+if [ $PLAYMOREGOLDFIND -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasplaymoregolf
+else
+echo "no" > /tmp/espinfo/hasplaymoregolf
+fi
+rm -rf /tmp/espinfo/playmoregolffind
 
 
 
+
+
+
+
+
+
+# double check these
+
+
+find /u -name exgroup.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
+ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
+if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haspostinterface
+else
+echo "no" > /tmp/espinfo/haspostinterface
+fi
+rm -rf /tmp/espinfo/roompostinterfacefind
+
+find /u -name systems.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
+ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
+if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/haspostinterface
+else
+echo "no" > /tmp/espinfo/haspostinterface
+fi
+rm -rf /tmp/espinfo/roompostinterfacefind
 
 
 
