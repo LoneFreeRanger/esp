@@ -918,29 +918,9 @@ echo "no" > /tmp/espinfo/hasrcctv
 fi
 rm -rf /tmp/espinfo/cctvfind
 
-find /u -name systems.tab -exec grep -H 'TAGILYSYSPMS' {} \; > /tmp/espinfo/espinterfacetoexternalpmsfind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/espinterfacetoexternalpmsfind
-EXTERNALPMSFIND=$(cat /tmp/espinfo/espinterfacetoexternalpmsfind | wc -l)
-if [ $EXTERNALPMSFIND -ge 1 ]
-then 
-echo "yes" > /tmp/espinfo/hasespinterfacetoexternalpms
-else
-echo "no" > /tmp/espinfo/hasespinterfacetoexternalpms
-fi
-rm -rf /tmp/espinfo/espinterfacetoexternalpmsfind
 
-find /u -name systems.tab -exec grep -H 'TTIGERPMS' {} \; > /tmp/espinfo/guestconnecttigerfind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/guestconnecttigerfind
-GUESTCONNECTTIGERCOUNT=$(cat /tmp/espinfo/guestconnecttigerfind | wc -l)
-if [ $GUESTCONNECTTIGERCOUNT -ge 1 ]
-then 
-echo "yes" > /tmp/espinfo/hasguestconnecttiger
-else
-echo "no" > /tmp/espinfo/hasguestconnecttiger
-fi
-rm -rf /tmp/espinfo/guestconnecttigerfind
+
+
 
 find /u -name systems.tab -exec grep -H 'POSTCODE A' {} \; > /tmp/espinfo/postcodefind
 # Remove disabled hashed out items from find
@@ -1062,17 +1042,7 @@ echo "no" > /tmp/espinfo/hascardinterface
 fi
 rm -rf /tmp/espinfo/cardinterfacesystemfind
 
-find /u -name systems.tab -exec grep "TOPERAPMS" '{}' \; > /tmp/espinfo/revenuepostinginterfacefind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/revenuepostinginterfacefind
-REVENUEPOSTINGINTERFACECOUNT=$(cat /tmp/espinfo/revenuepostinginterfacefind | wc -l)
-if [ $REVENUEPOSTINGINTERFACECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/hasrevenuepostinginterface
-else
-echo "no" > /tmp/espinfo/hasrevenuepostinginterface
-fi
-rm -rf /tmp/espinfo/revenuepostinginterfacefind
+
 
 find /u -name systems.tab -exec grep "INTEGRATION" '{}' \; > /tmp/espinfo/integrationfind
 find /u -name systems.tab -exec grep "BatchType" '{}' \; > /tmp/espinfo/batchtypefind
@@ -1102,6 +1072,45 @@ fi
 rm -rf /tmp/espinfo/playmoregolffind
 
 
+find /u -name systems.tab -exec grep "TOPERAPMS" '{}' \; > /tmp/espinfo/operapmsfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/operapmsfind
+REVENUEPOSTINGINTERFACECOUNT=$(cat /tmp/espinfo/operapmsfind | wc -l)
+if [ $REVENUEPOSTINGINTERFACECOUNT -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/hasoperapms
+else
+echo "no" > /tmp/espinfo/hasoperapms
+fi
+rm -rf /tmp/espinfo/hasoperapms
+
+
+find /u -name systems.tab -exec grep -H 'TTIGERPMS' {} \; > /tmp/espinfo/guestconnecttigerfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/guestconnecttigerfind
+GUESTCONNECTTIGERCOUNT=$(cat /tmp/espinfo/guestconnecttigerfind | wc -l)
+if [ $GUESTCONNECTTIGERCOUNT -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasguestconnecttiger
+else
+echo "no" > /tmp/espinfo/hasguestconnecttiger
+fi
+rm -rf /tmp/espinfo/guestconnecttigerfind
+
+
+find /u -name systems.tab -exec grep -H 'TAGILYSYSPMS' {} \; > /tmp/espinfo/agilysysfind
+# Remove disabled hashed out items from find
+sed -i '/#/d' /tmp/espinfo/agilysysfind
+EXTERNALPMSFIND=$(cat /tmp/espinfo/agilysysfind | wc -l)
+if [ $EXTERNALPMSFIND -ge 1 ]
+then 
+echo "yes" > /tmp/espinfo/hasagilysis
+else
+echo "no" > /tmp/espinfo/hasagilysis
+fi
+rm -rf /tmp/espinfo/hasagilysis
+
+
 
 
 
@@ -1109,32 +1118,11 @@ rm -rf /tmp/espinfo/playmoregolffind
 # double check these
 
 
-find /u -name exgroup.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
-ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
-if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/haspostinterface
-else
-echo "no" > /tmp/espinfo/haspostinterface
-fi
-rm -rf /tmp/espinfo/roompostinterfacefind
-
-find /u -name systems.tab -exec grep "TAGILYSYSPMS" '{}' \; > /tmp/espinfo/roompostinterfacefind
-# Remove disabled hashed out items from find
-sed -i '/#/d' /tmp/espinfo/roompostinterfacefind
-ROOMPOSTINTERFACECOUNT=$(cat /tmp/espinfo/roompostinterfacefind | wc -l)
-if [ $ROOMPOSTINTERFACECOUNT -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/haspostinterface
-else
-echo "no" > /tmp/espinfo/haspostinterface
-fi
-rm -rf /tmp/espinfo/roompostinterfacefind
-
 ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
 echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
+
+
+
 
 
 # items in which no one has, has yet to be deceloped or not currenrlty possible to aduit
