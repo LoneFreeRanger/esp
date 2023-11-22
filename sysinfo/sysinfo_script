@@ -420,8 +420,9 @@ else
 echo "no" > /tmp/espinfo/custmind
 fi
 
-HTTPSERVICE=$(netstat -a | grep 50080 | wc -l)
-if [ $HTTPSERVICE -ge 1 ]
+HTTPSERVICE1=$(netstat -a | grep 50080 | wc -l)
+HTTPSERVICE2=$(netstat -a | grep 50081 | wc -l)
+if [ $HTTPSERVICE1 -ge 1 ] || [ $HTTPSERVICE2 -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/httpservice
 else
