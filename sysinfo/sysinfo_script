@@ -1110,36 +1110,19 @@ echo "no" > /tmp/espinfo/hasagilysis
 fi
 rm -rf /tmp/espinfo/hasagilysis
 
-
-
-
-
-
-# double check these
-
-
 ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
 echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
-
-
-
-
 
 # items in which no one has, has yet to be deceloped or not currenrlty possible to aduit
 echo "n/a" > /tmp/espinfo/hashandicapping
 echo "n/a" > /tmp/espinfo/hastrackman
 echo "n/a" > /tmp/espinfo/hascoursesachievements
 echo "n/a" > /tmp/espinfo/noofposlicences
-echo "n/a" > /tmp/espinfo/noofposlicences
+echo "n/a" > /tmp/espinfo/thirdpartyserver
+echo "n/a" > /tmp/espinfo/servergeolocation
 
-
-
-# to add to complile file below
-# add check for kitchen and dispense printing
-# add check if site have termnal servers
-# add check for e-lite server
-# add check for server actual geo location to go along side isp geo location
-
+echo "n/a" > /tmp/espinfo/noofp400devices
+echo "n/a" > /tmp/espinfo/noofvm240devices
 
 
 ################################
