@@ -1083,7 +1083,7 @@ echo "yes" > /tmp/espinfo/hasoperapms
 else
 echo "no" > /tmp/espinfo/hasoperapms
 fi
-rm -rf /tmp/espinfo/hasoperapms
+rm -rf /tmp/espinfo/operapmsfind
 
 
 find /u -name systems.tab -exec grep -H 'TTIGERPMS' {} \; > /tmp/espinfo/guestconnecttigerfind
@@ -1109,7 +1109,7 @@ echo "yes" > /tmp/espinfo/hasagilysis
 else
 echo "no" > /tmp/espinfo/hasagilysis
 fi
-rm -rf /tmp/espinfo/hasagilysis
+rm -rf /tmp/espinfo/agilysysfind
 
 ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
 echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
