@@ -991,6 +991,7 @@ echo "yes" > /tmp/espinfo/hassessionmangement
 else
 echo "no" > /tmp/espinfo/hassessionmangement
 fi
+rm -rf /tmp/espinfo/mggroupfind
 
 # find these files greater than 2 bytes (i.e: have content)
 find /u -name discmap.tab -type f -size +2c > /tmp/espinfo/discmapfind
