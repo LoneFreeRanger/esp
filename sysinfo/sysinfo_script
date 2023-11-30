@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - Ray_Reilly-v23.11.23-1
+# Sysinfo script for ESP Linux servers - Ray_Reilly-v30.11.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "Ray_Reilly-v23.11.23-1" > /tmp/espinfo/scriptver
+echo "Ray_Reilly-v30.11.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -1115,6 +1115,50 @@ rm -rf /tmp/espinfo/agilysysfind
 ZEBRALICENCECOUNT=$(whoui listterms | grep ZEBRA | wc -l)
 echo $ZEBRALICENCECOUNT > /tmp/espinfo/noofzebralicences
 
+
+
+
+
+###############################
+###############################
+
+OSBRIDGE=$(cat /etc/hosts | grep LINUXVIRTU | wc -l)
+if [ $OSBRIDGE -ge 1 ]
+then
+echo "yes" >/tmp/espinfo/hasosbridge
+else
+echo "no"  >/tmp/espinfo/hasosbridge
+fi
+
+OSBRIDGESITEOWNED=$(cat /etc/hosts | grep VIRTBR1 | wc -l)
+if [ $OSBRIDGESITEOWNED -ge 1 ]
+then
+echo "yes" >/tmp/espinfo/hasosbridgesiteowned
+else
+echo "no"  >/tmp/espinfo/hasosbridgesiteowned
+fi
+
+VIRBRIDGE=$(cat /etc/hosts | grep VIRTUALBR | wc -l)
+if [ $VIRBRIDGE -ge 1 ]
+then
+echo "yes" >/tmp/espinfo/hasosvirbridge
+else
+echo "no"  >/tmp/espinfo/hasosvirbridge
+fi
+
+VIRBRIDGEMULTI=$(cat /etc/hosts | grep VIRTUALMS | wc -l)
+if [ $VIRBRIDGEMULTI -ge 1 ]
+then
+echo "yes" >/tmp/espinfo/hasosvirbridgemulti
+else
+echo "no"  >/tmp/espinfo/hasosvirbridgemulti
+fi
+
+echo "n/a" > /tmp/espinfo/hasremotestockcontrol
+
+###############################
+###############################
+
 # items in which no one has, has yet to be deceloped or not currenrlty possible to aduit
 echo "n/a" > /tmp/espinfo/hashandicapping
 echo "n/a" > /tmp/espinfo/hastrackman
@@ -1125,6 +1169,7 @@ echo "n/a" > /tmp/espinfo/servergeolocation
 
 echo "n/a" > /tmp/espinfo/noofp400devices
 echo "n/a" > /tmp/espinfo/noofvm240devices
+
 
 
 ################################
