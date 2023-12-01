@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - Ray_Reilly-v30.11.23-1
+# Sysinfo script for ESP Linux servers - Ray_Reilly-v01.12.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "Ray_Reilly-v30.11.23-1" > /tmp/espinfo/scriptver
+echo "Ray_Reilly-v01.12.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -72,7 +72,7 @@ then
 echo "Curl Error - Redhat 6" > /tmp/espinfo/publicipregion
 else
 cat /tmp/espinfo/publicipinfo | grep region > /tmp/espinfo/publicipregion
-echo "$(cat /tmp/espinfo/publicipregion|awk '{print $2}')" > c
+echo "$(cat /tmp/espinfo/publicipregion|awk '{print $2}')" > /tmp/espinfo/publicipregion
 echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/"//g' /tmp/espinfo/publicipregion
 echo "$(cat /tmp/espinfo/publicipregion)" | sed -i 's/,//g' /tmp/espinfo/publicipregion
 #echo "$(sed 's/^/public ip region: /g' /tmp/espinfo/publicipregion)" > /tmp/espinfo/publicipregion
