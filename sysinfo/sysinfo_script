@@ -1168,10 +1168,13 @@ echo "n/a" > /tmp/espinfo/hascoursesachievements
 echo "n/a" > /tmp/espinfo/noofposlicences
 echo "n/a" > /tmp/espinfo/thirdpartyserver
 echo "n/a" > /tmp/espinfo/servergeolocation
-
 echo "n/a" > /tmp/espinfo/noofp400devices
 echo "n/a" > /tmp/espinfo/noofvm240devices
 
+
+
+# Correct major version check
+# less /etc/system-release-cpe
 
 
 ################################
