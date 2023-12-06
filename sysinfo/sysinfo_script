@@ -1176,6 +1176,8 @@ echo "n/a" > /tmp/espinfo/noofvm240devices
 # Correct major version check
 # less /etc/system-release-cpe
 
+# Add Architecture check (i.e: x86-64)
+# hostnamectl
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
