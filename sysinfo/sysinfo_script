@@ -1,4 +1,4 @@
-# Sysinfo script for ESP Linux servers - Ray_Reilly-v01.12.23-1
+# Sysinfo script for ESP Linux servers - Ray_Reilly-v08.12.23-1
 # Ray Reilly 
 
 #####################
@@ -12,7 +12,7 @@ rm -rf /tmp/espinfo/*
 ## COLLECT THE INFO ##
 ######################
 
-echo "Ray_Reilly-v01.12.23-1" > /tmp/espinfo/scriptver
+echo "Ray_Reilly-v08.12.23-1" > /tmp/espinfo/scriptver
 
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
@@ -1187,8 +1187,7 @@ echo "n/a" > /tmp/espinfo/noofvm240devices
 # Correct major version check
 # less /etc/system-release-cpe
 
-# Add Architecture check (i.e: x86-64)
-# hostnamectl
+
 
 ################################
 ## COMPILE ALL COLLECTED INFO ##
