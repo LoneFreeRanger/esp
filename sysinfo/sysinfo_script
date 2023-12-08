@@ -22,6 +22,42 @@ uname -r > /tmp/espinfo/kernelversion
 #cat /tmp/espinfo/osmajorver1 | tail -c -1 > /tmp/espinfo/osmajorver2
 #mv -f /tmp/espinfo/osmajorver2 /tmp/espinfo/osmajorver1
 
+OSCHECKREDHAT6=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6." | wc -l)
+OSCHECKREDHAT7=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 7." | wc -l)
+OSCHECKREDHAT8=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux release 8." | wc -l)
+OSCHECKCENTOS7=$(cat /etc/redhat-release | grep "CentOS Linux release 7." | wc -l)
+OSCHECKCENTOS8=$(cat /etc/redhat-release | grep "CentOS Linux release 8." | wc -l)
+OSCHECKALMA8=$(cat /etc/redhat-release | grep "AlmaLinux release 8." | wc -l)
+if [ $OSCHECKREDHAT6 -ge 1 ]
+then
+echo "6" > /tmp/espinfo/osmajorver1
+echo "Redhat" > /tmp/espinfo/osman
+elif [ $OSCHECKREDHAT7 -ge 1 ]
+then
+echo "7" > /tmp/espinfo/osmajorver1
+echo "Redhat" > /tmp/espinfo/osman
+elif [ $OSCHECKREDHAT8 -ge 1 ]
+then
+echo "8" > /tmp/espinfo/osmajorver1
+echo "Redhat" > /tmp/espinfo/osman
+elif [ $OSCHECKCENTOS7 -ge 1 ]
+then
+echo "7" > /tmp/espinfo/osmajorver1
+echo "CentOS" > /tmp/espinfo/osman
+elif [ $OSCHECKCENTOS8 -ge 1 ]
+then
+echo "8" > /tmp/espinfo/osmajorver1
+echo "CentOS" > /tmp/espinfo/osman
+elif [ $OSCHECKALMA8 -ge 1 ]
+then
+echo "8" > /tmp/espinfo/osmajorver1
+echo "AlmaLinux" > /tmp/espinfo/osman
+else
+echo "error" > /tmp/espinfo/osmajorver1
+echo "error" > /tmp/espinfo/osman
+fi
+
+
 
 SPEEDTESTCHECK=$(rpm -qa | grep speedtest | wc -l)
 if [ $SPEEDTESTCHECK -le 0 ]
@@ -1195,6 +1231,7 @@ echo "n/a" > /tmp/espinfo/noofvm240devices
 
 cd /tmp/espinfo
 #/usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date pos7date espclientver espclientsize espclientdate espsite espsitesize eftver useseft nooflicences elitego linux64ver linux32ver afdlookup monit serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver1 osarch architecture kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc export comms accessctl httpservice custmind phones range odbc > espsysteminfo.txt
+
 /usr/bin/paste hostname dateofinfo scriptver multisite syslastused runtime bsmsl64 bsmsl64size bsmsl64date bsmsrh8 bsmsrh8size bsmsrh8date bsmsrh5 bsmsrh5size bsmsrh5date pos5date pos6date pos7date espclientver espclientsize espclientdate espsite espsitesize eftver useseft nooflicences elitego linux64ver linux32ver afdlookup monit thirdpartyserver servergeolocation serverman serverpro serverserial serversku hddsize ramsize srvuptime backuptype cpumodel cpucores osversion osmajorver osarch kernelversion serverpackages softwareraid serverfilesystem sysage hostip hostgateway internetupload internetdownload publicipis publicipregion publicipcity publicipcountry publiciporganisation publicipgeoloc export comms custmind odbc hasadminsystem hasretailsystem hasbarsystem haspmssystem hasleissystem hasspasystem hashandicapping range hascustomerassets hasevents haspostables hasfbonline hasdirectdebit hasbookpoints haspictures hassessionmangement haslevysystem hascoursepackages hascoursesachievements haslocationbookings accesscontrolactivity accesscontrolmonitors haskiosk hasosbridge hasosbridgesiteowned hasosvirbridge hasosvirbridgemulti hasloyaltyschemes noofzebralicences noofposlicences hasverifone noofp400devices noofvm240devices hascardinterface hasafdpostcode hasafdbankfinder hasretention accessctl accesscontrolanpr hassalto hastrackman hasaccountsintegration hasplaymoregolf hasremotepricecheck httpservice hasrcctv hasoperapms hasguestconnecttiger hasagilysis phones > espsysteminfo.txt
 
 
