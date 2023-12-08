@@ -17,10 +17,10 @@ echo "Ray_Reilly-v08.12.23-1" > /tmp/espinfo/scriptver
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
 
-rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
+#rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
 #echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajorver1
-cat /tmp/espinfo/osmajorver1 | tail -c -1 > /tmp/espinfo/osmajorver2
-mv -f /tmp/espinfo/osmajorver2 /tmp/espinfo/osmajorver1
+#cat /tmp/espinfo/osmajorver1 | tail -c -1 > /tmp/espinfo/osmajorver2
+#mv -f /tmp/espinfo/osmajorver2 /tmp/espinfo/osmajorver1
 
 
 SPEEDTESTCHECK=$(rpm -qa | grep speedtest | wc -l)
