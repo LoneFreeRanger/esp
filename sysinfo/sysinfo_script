@@ -667,7 +667,7 @@ ESPCLIENTSIZ=(/u/ups/espclient.upg)
 ESPCLIENTMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 if [ $ESPCLIENTMULTI -ge 1 ]
 then
-echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsrh5size
+echo "[MULTISITE GUI]" > /tmp/espinfo/espclientsize
 elif [ $ESPCLIENTSIZ_PRESENT -le 0 ]
 then
 echo "error" > /tmp/espinfo/espclientsize
