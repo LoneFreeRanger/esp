@@ -393,6 +393,7 @@ LISTERMSMULTI=$(cat /tmp/espinfo/multisite | grep yes | wc -l)
 if [ $LISTERMSMULTI -ge 1 ]
 then
 echo "[MULTISITE GUI]" > /tmp/espinfo/licencelist
+echo "[MULTISITE GUI]" > /tmp/espinfo/nooflicences
 else
 /u/gui/whoui listterms > /tmp/espinfo/licencelist
 echo "$(sed '/*/d' /tmp/espinfo/licencelist)"  > /tmp/espinfo/licencelist
