@@ -210,6 +210,17 @@ echo "$(sed 's/^...............//' /tmp/espinfo/serverman)" > /tmp/espinfo/serve
 getconf LONG_BIT > /tmp/espinfo/osarch
 #echo "$(sed 's/^/os bit-rate: /g' /tmp/espinfo/osarch)" > /tmp/espinfo/osarch
 
+ARCHREDHAT=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
+if [ $ARCHREDHAT -ge  1 ]
+then
+echo "Error - Redhat 6" > /tmp/espinfo/publicipinfo
+else
+hostnamectl | grep "Architecture" >/tmp/espinfo/architecture
+cat /tmp/espinfo/architecture|awk '{print $2}' >/tmp/espinfo/architecture1
+mv -f /tmp/espinfo/architecture1 /tmp/espinfo/architecture
+fi
+
+
 ESPPROCS_USB=$(cat /u/espbin/espprocs | grep backupU2usb | wc -l)
 USB_LOG=$(head -n7 /u/logs/backup/ESPBackUpRpt.log | grep 'Backup Success. Please ensure next USB Stick is in Server' | wc -l) 
 BACKUP_LOG=$(find /u/logs/backup -type f -mtime -7 -exec ls -l {} \; | wc -l) 
