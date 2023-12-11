@@ -249,7 +249,7 @@ getconf LONG_BIT > /tmp/espinfo/osarch
 ARCHREDHAT=$(cat /etc/redhat-release | grep "Red Hat Enterprise Linux Server release 6.*" | wc -l)
 if [ $ARCHREDHAT -ge  1 ]
 then
-echo "Error - Redhat 6" > /tmp/espinfo/publicipinfo
+echo "Error - Redhat 6" > /tmp/espinfo/architecture
 else
 hostnamectl | grep "Architecture" >/tmp/espinfo/architecture
 cat /tmp/espinfo/architecture|awk '{print $2}' >/tmp/espinfo/architecture1
