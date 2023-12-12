@@ -616,6 +616,7 @@ echo "[MULTISITE GUI]" > /tmp/espinfo/bsmsrh8size
 elif [ $BSMS8SIZEPRESENT -le 0 ]
 then 
 echo "n/a" > /tmp/espinfo/bsmsrh8size
+echo "n/a"  > /tmp/espinfo/bsmsrh8
 else
 echo "$(tail -n 1 /tmp/espinfo/bsmsrh8size)" > /tmp/espinfo/bsmsrh8size
 echo "$(cat /tmp/espinfo/bsmsrh8size|awk '{print $5}')" > /tmp/espinfo/bsmsrh8size
