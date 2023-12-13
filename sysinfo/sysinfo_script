@@ -937,14 +937,24 @@ fi
 rm -rf /tmp/espinfo/adminfind
 
 find /u -name wserverr.log -exec grep -H 'Fuzzy' {} \; > /tmp/espinfo/recentaserverrfuzzy
+find /u -name wserverr.log -exec grep -H 'AccessID' {} \; > /tmp/espinfo/recentanpraccessid
+find /u -name wserverr.log -exec grep -H 'DeviceID' {} \; > /tmp/espinfo/recentdeviceid
+find /u -name wserverr.log -exec grep -H 'Command=AccessControl' {} \; > /tmp/espinfo/recentcommandaccesscontrol
 ASERVERRFUZZY=$(cat /tmp/espinfo/recentaserverrfuzzy | grep "Fuzzy" | wc -l)
-if [ $ASERVERRFUZZY -ge 1 ]
+ASERVERRACCESSID=$(cat /tmp/espinfo/recentanpraccessid | grep "AccessID" | wc -l)
+ASERVERRDEVICEID=$(cat /tmp/espinfo/recentdeviceid | grep "DeviceID" | wc -l)
+ASERVERRCOMMANDACC=$(cat /tmp/espinfo/recentcommandaccesscontrol | grep "AccessControl" | wc -l)
+if [ $ASERVERRACCESSID -ge 1 ] && [ $ASERVERRDEVICEID -ge 1 ] && [ $ASERVERRCOMMANDACC -ge 1 ]
 then
 echo "yes" > /tmp/espinfo/accesscontrolanpr
 else
 echo "no" > /tmp/espinfo/accesscontrolanpr
 fi
 rm -rf /tmp/espinfo/recentaserverrfuzzy
+rm -rf /tmp/espinfo/recentanpraccessid
+rm -rf /tmp/espinfo/recentdeviceid
+rm -rf /tmp/espinfo/recentcommandaccesscontrol
+
 
 find /u -name systems.tab -exec grep -H 'Interface=Salto' {} \; > /tmp/espinfo/saltofind
 # Remove disabled hashed out items from find
