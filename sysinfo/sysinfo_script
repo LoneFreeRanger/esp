@@ -681,6 +681,8 @@ echo "$(cat /tmp/espinfo/espclientsize|awk '{print $5}')" > /tmp/espinfo/espclie
 else
 echo "n/a" > /tmp/espinfo/espclientsize
 fi
+sed -i '/^$/d' /tmp/espinfo/espclientsize
+
 
 /usr/sbin/dmidecode | grep -A4 '^System Information' | grep 'Serial' > /tmp/espinfo/serverserial
 echo "$(cat /tmp/espinfo/serverserial|awk '{print $3}')" > /tmp/espinfo/serverserial
