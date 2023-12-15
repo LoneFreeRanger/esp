@@ -17,6 +17,15 @@ echo "Ray_Reilly-v14.12.23-1" > /tmp/espinfo/scriptver
 # Kernel version
 uname -r > /tmp/espinfo/kernelversion
 
+# Multi-site check
+MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
+if [ $MULTISITECHECK -ge 1 ]
+then
+echo "yes" > /tmp/espinfo/multisite
+else
+echo "no" > /tmp/espinfo/multisite
+fi
+
 #rpm -q --queryformat '%{RELEASE}' rpm > /tmp/espinfo/osmajorver1
 #echo "$(cat /tmp/espinfo/osmajorver1 | awk '{print $1}')" > /tmp/espinfo/osmajorver1
 #cat /tmp/espinfo/osmajorver1 | tail -c -1 > /tmp/espinfo/osmajorver2
@@ -80,14 +89,7 @@ cat /tmp/espinfo/internetspeed | grep "Packet Loss:" | awk '{print $3}' > /tmp/e
 cat /tmp/espinfo/internetspeed | grep "Idle Latency:" | awk '{print $3}' > /tmp/espinfo/internetidlelatency
 fi
 
-# Multi-site check
-MULTISITECHECK=$(cat /u/gui/systems.tab | grep LICENCE_PROXY | wc -l)
-if [ $MULTISITECHECK -ge 1 ]
-then
-echo "yes" > /tmp/espinfo/multisite
-else
-echo "no" > /tmp/espinfo/multisite
-fi
+
 
 # Get Public IP
 curl -k https://icanhazip.com > /tmp/espinfo/publicipis
