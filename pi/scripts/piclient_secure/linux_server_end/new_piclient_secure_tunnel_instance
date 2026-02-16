@@ -64,7 +64,7 @@ echo $piclientport > /tmp/piclientport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60061])"
+echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60000])"
 read eliteserviceport
 echo $eliteserviceport > /tmp/eliteserviceport
 echo ""
@@ -105,44 +105,44 @@ fi
 ##############################
 
 # Get stunnel config file and set perms
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file port with detail supplied
-sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+sed -i 's/eliteunithttpport/'$(cat /tmp/piclientport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file siteid with detail supplied
 sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file httpserviceport with detail supplied
-sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+sed -i 's/httpserviceport/'$(cat /tmp/piclientport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
 
 # Rename the default OS service file with detail supplied
-mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
+mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/piclientport)-tunnel
 
 ##############################
 
 clear
 # Create the start http tunnels script if not present and set perms
-touch /u/tunnels/starthttptunnels
-chmod 777 /u/tunnels/starthttptunnels
+touch /u/tunnels/startpisecuretunnels
+chmod 777 /u/tunnels/startpisecuretunnels
 
 # Add the new http tunnel to the start-up script
-echo "stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &" >> /u/tunnels/starthttptunnels
-chmod 777 /u/tunnels/starthttptunnels
+echo "stunnel /u/tunnels/piclientsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &" >> /u/tunnels/startpisecuretunnels
+chmod 777 /u/tunnels/startpisecuretunnels
 
 # Start the new tunnel
-stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
+stunnel /u/tunnels/piclientsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
 
-# Check of the start http script is set in root cron, if not present add it
-CRONCHECK=$(cat /var/spool/cron/root | grep starthttptunnels | wc -l)
+# Check if the start http script is set in root cron, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep startpisecuretunnels | wc -l)
 if [ $CRONCHECK -le 0 ]
 then
-echo "Adding starthttptunnels to root cron on server boot..."
+echo "Adding startpisecuretunnels to root cron on server boot..."
 sleep 3
-echo "@reboot /u/tunnels/starthttptunnels &" >> /var/spool/cron/root
+echo "@reboot /u/tunnels/startpisecuretunnels &" >> /var/spool/cron/root
 else
-echo "Not adding starthttptunnels to root cron as already present..."
+echo "Not adding startpisecuretunnels to root cron as already present..."
 sleep 3
 fi
 
@@ -163,7 +163,7 @@ fi
 
 # Get master run rich rules file and set perms
 #/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/runrichrules' -O /u/espbin/firewalldrichrules/runrichrules
-chmod 777 /u/espbin/firewalldrichrules/runrichrules
+#chmod 777 /u/espbin/firewalldrichrules/runrichrules
 
 # Check if the firewalldrichrules script is set in root cron to run every 5 mins, if not present add it
 #CRONCHECK=$(cat /var/spool/cron/root | grep firewalldrichrules | wc -l)
