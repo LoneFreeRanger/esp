@@ -82,8 +82,8 @@ mkdir -p /u/logs/stunnel/
 
 clear
 # Download the new_http_secure_tunnel_instance script in order to have new tunnels created
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/new_http_secure_tunnel_instance -O /u/espbin/new_http_secure_tunnel_instance
-chmod 777 /u/espbin/new_http_secure_tunnel_instance
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/refs/heads/main/pi/scripts/piclient_secure/linux_server_end/new_piclient_secure_tunnel_instance -O /u/espbin/new_piclient_secure_tunnel_instance
+chmod 777 /u/espbin/new_piclient_secure_tunnel_instance
 
 clear
 mkdir -p /u/esphbin
