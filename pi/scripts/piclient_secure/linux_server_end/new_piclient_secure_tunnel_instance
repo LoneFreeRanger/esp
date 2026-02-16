@@ -64,7 +64,7 @@ echo $piclientport > /tmp/piclientport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60000])"
+echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60001])"
 read eliteserviceport
 echo $eliteserviceport > /tmp/eliteserviceport
 echo ""
@@ -84,7 +84,7 @@ clear
 echo "Checking if port numbers you supplied are already in use on this server...."
 sleep 3
 
-PORTCHECK1=$(netstat -a | grep $(cat /tmp/eliteunithttpport) | wc -l)
+PORTCHECK1=$(netstat -a | grep $(cat /tmp/piclientport) | wc -l)
 if [ $PORTCHECK1 -ge 1 ]
 then 
 clear
