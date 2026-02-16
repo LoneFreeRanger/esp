@@ -24,9 +24,9 @@ exit
 fi 
 
 clear
-echo "Checking for key key_http_secure_stunnel.pem ....."
+echo "Checking for key key_piclient_secure_stunnel.pem ....."
 sleep 3
-CERT_PRESENT=$(find /etc/stunnel -name key_http_secure_stunnel.pem | wc -l)
+CERT_PRESENT=$(find /etc/stunnel -name key_piclient_secure_stunnel.pem | wc -l)
 if [ $CERT_PRESENT -ge 1 ]
 then
 echo "Key is present. Continuing...."
@@ -41,7 +41,7 @@ fi
 
 clear
 echo "Checking to see if certificate seems valid...."
-VALID_CERT=$(cat /etc/stunnel/key_http_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
+VALID_CERT=$(cat /etc/stunnel/key_piclient_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
 if [ $VALID_CERT -ge 1 ]
 then
 echo "Certificate appears valid. Continuing...."
@@ -57,16 +57,16 @@ fi
 clear
 # Gather the detail to configure stunnel with
 echo ""
-echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [i.e: 5008x]"
+echo "What port numnber is the e-Elite unit listening on for Elite secure secure connections? [i.e: 60060]"
 echo "This will be the port this server will accept encrypted connections form the e-lite unit on for the http interface."
-read eliteunithttpport
-echo $eliteunithttpport > /tmp/eliteunithttpport
+read piclientport
+echo $piclientport > /tmp/piclientport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 6008x])"
-read httpserviceport
-echo $httpserviceport > /tmp/httpserviceport
+echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60000])"
+read eliteserviceport
+echo $eliteserviceport > /tmp/eliteserviceport
 echo ""
 echo "=============="
 echo ""
