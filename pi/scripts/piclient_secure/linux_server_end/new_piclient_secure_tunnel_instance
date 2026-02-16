@@ -105,20 +105,20 @@ fi
 ##############################
 
 # Get stunnel config file and set perms
-/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
-chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/refs/heads/main/pi/scripts/piclient_secure/linux_server_end/piclientsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
+chmod 777 /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file port with detail supplied
-sed -i 's/eliteunithttpport/'$(cat /tmp/piclientport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+sed -i 's/eliteunithttpport/'$(cat /tmp/piclientport)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file siteid with detail supplied
-sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
-# Configure the stunnel config file httpserviceport with detail supplied
-sed -i 's/httpserviceport/'$(cat /tmp/piclientport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+# Configure the stunnel config file eliteunithttpport with detail supplied
+sed -i 's/httpserviceport/'$(cat /tmp/eliteunithttpport)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
 # Rename the default OS service file with detail supplied
-mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/piclientport)-tunnel
+mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
 
 ##############################
 
