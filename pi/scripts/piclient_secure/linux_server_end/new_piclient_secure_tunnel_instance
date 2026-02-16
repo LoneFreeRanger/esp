@@ -1,0 +1,217 @@
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
+clear
+echo "Checking if this is an ESP application server....."
+sleep 3
+ELITECHECK1=$(ls -l /u/gui/espip.dat | wc -l)
+if [ $ELITECHECK1 -ge 1 ]
+then
+echo "This appears to be an ESP application server. Continuing..."
+sleep 2
+else
+echo "This does not seem to be an ESP application server."
+echo ""
+echo "Please make sure to use an ESP application to use this script."
+exit
+fi 
+
+clear
+echo "Checking for key key_http_secure_stunnel.pem ....."
+sleep 3
+CERT_PRESENT=$(find /etc/stunnel -name key_http_secure_stunnel.pem | wc -l)
+if [ $CERT_PRESENT -ge 1 ]
+then
+echo "Key is present. Continuing...."
+sleep 2
+else
+echo "No key is present. Now exiting. No changes have been made."
+echo""
+echo "This server has not had http secure baseline script run on. Please make sure this is done first."
+echo ""
+exit
+fi
+
+clear
+echo "Checking to see if certificate seems valid...."
+VALID_CERT=$(cat /etc/stunnel/key_http_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
+if [ $VALID_CERT -ge 1 ]
+then
+echo "Certificate appears valid. Continuing...."
+sleep 2
+else
+echo ""
+echo "This server has not had http secure baseline script run on. Please make sure this is done first."
+exit
+fi
+
+##############################
+
+clear
+# Gather the detail to configure stunnel with
+echo ""
+echo "What port numnber is the e-Elite unit listening on for HTTP interface connections? [i.e: 5008x]"
+echo "This will be the port this server will accept encrypted connections form the e-lite unit on for the http interface."
+read eliteunithttpport
+echo $eliteunithttpport > /tmp/eliteunithttpport
+echo ""
+echo "=============="
+echo ""
+echo "What port numnber is the HTTP service running on this Elite application server? [i.e: 6008x])"
+read httpserviceport
+echo $httpserviceport > /tmp/httpserviceport
+echo ""
+echo "=============="
+echo ""
+echo "What is site's address code?"
+read siteid
+echo $siteid > /tmp/siteid 
+echo ""
+echo "=============="
+echo ""
+echo "What is the remote url of the e-lite unit?"
+read eliteuniturl
+echo $eliteuniturl > /tmp/eliteuniturl 
+
+clear
+echo "Checking if port numbers you supplied are already in use on this server...."
+sleep 3
+
+PORTCHECK1=$(netstat -a | grep $(cat /tmp/eliteunithttpport) | wc -l)
+if [ $PORTCHECK1 -ge 1 ]
+then 
+clear
+echo "The http secure port you have specified above is already in active use on this server."
+echo ""
+echo "You are are not able to use the same port number again."
+echo ""
+echo "If there is a ESP http service running, please make sure to stop this, re-configure it for the 6008x range and restart it."
+echo ""
+echo "No changes have been made. Now exiting."
+exit
+else
+echo "All seems good. Implementing the details you have supplied..."
+sleep
+fi
+
+##############################
+##############################
+
+# Get stunnel config file and set perms
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+chmod 777 /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file port with detail supplied
+sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file siteid with detail supplied
+sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Configure the stunnel config file httpserviceport with detail supplied
+sed -i 's/httpserviceport/'$(cat /tmp/httpserviceport)'/g' /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel
+
+# Rename the default OS service file with detail supplied
+mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel
+
+##############################
+
+clear
+# Create the start http tunnels script if not present and set perms
+touch /u/tunnels/starthttptunnels
+chmod 777 /u/tunnels/starthttptunnels
+
+# Add the new http tunnel to the start-up script
+echo "stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &" >> /u/tunnels/starthttptunnels
+chmod 777 /u/tunnels/starthttptunnels
+
+# Start the new tunnel
+stunnel /u/tunnels/httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport)-tunnel &
+
+# Check of the start http script is set in root cron, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep starthttptunnels | wc -l)
+if [ $CRONCHECK -le 0 ]
+then
+echo "Adding starthttptunnels to root cron on server boot..."
+sleep 3
+echo "@reboot /u/tunnels/starthttptunnels &" >> /var/spool/cron/root
+else
+echo "Not adding starthttptunnels to root cron as already present..."
+sleep 3
+fi
+
+
+# Make rich firewalld rule directory if not present
+mkdir -p /u/espbin/firewalldrichrules/files
+
+# Get template rich firewalld rule file and set perms
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+
+# Configure the rich firewalld template file from detail obtained above
+sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+
+# Rename the template rich firewalld file
+mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
+
+# Get master run rich rules file and set perms
+/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/runrichrules' -O /u/espbin/firewalldrichrules/runrichrules
+chmod 777 /u/espbin/firewalldrichrules/runrichrules
+
+# Check if the firewalldrichrules script is set in root cron to run every 5 mins, if not present add it
+CRONCHECK=$(cat /var/spool/cron/root | grep firewalldrichrules | wc -l)
+if [ $CRONCHECK -le 0 ]
+then
+echo "Adding firewalldrichrules to root cron..."
+sleep 3
+echo "*/5 * * * * /u/espbin/firewalldrichrules/runrichrules &" >> /var/spool/cron/root
+else
+echo "Not adding runrichrules to root cron as already present..."
+sleep 3
+fi
+
+# Run the rich rules firewall rules
+/u/espbin/firewalldrichrules/runrichrules
+
+###### 
+### Due to a bug in stunnel, whenever you try to start stunnel via an OS service, an error of
+### "Address already in use (98)" will also show even though the port (address) is not in use!!!!
+### As such it is a requirement to start the stunnel server instance via script run from the root cron which works.
+### Lots of articles about this online. As such the below to create service file is defunct but kept for reference.
+
+# Get OS service file and set perms
+#/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/stunnel-httpsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D.service -O /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+#chmod 777 /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+
+# Configure the OS service file port with detail supplied
+#sed -i 's/eliteunithttpport/'$(cat /tmp/eliteunithttpport)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+
+# Configure the OS service file siteid with detail supplied
+#sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service
+
+# Rename the default OS service file with detail supplied
+#mv /etc/systemd/system/stunnel-httpsecure-[siteid]-[eliteunithttpport].service /etc/systemd/system/stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+
+# Load the new service into the kernel, enable on boot and start it 
+#systemctl daemon-reload
+#systemctl enable stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+#systemctl start stunnel-httpsecure-$(cat /tmp/siteid)-$(cat /tmp/eliteunithttpport).service
+
+##############################
+##############################
+
+clear
+echo ""
+echo "All done."
+echo ""
+echo "Wherever this server is located, port $(cat /tmp/eliteunithttpport) will need to be opened"
+echo "and forwarded onto this server on any firewall/ router it sits behind."
+echo ""
+
