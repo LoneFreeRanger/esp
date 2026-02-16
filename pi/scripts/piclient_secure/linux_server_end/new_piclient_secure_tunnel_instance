@@ -64,7 +64,7 @@ echo $piclientport > /tmp/piclientport
 echo ""
 echo "=============="
 echo ""
-echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60001])"
+echo "What port numnber is the Elite service running on this Elite application server? [i.e: 60061])"
 read eliteserviceport
 echo $eliteserviceport > /tmp/eliteserviceport
 echo ""
@@ -148,37 +148,37 @@ fi
 
 
 # Make rich firewalld rule directory if not present
-mkdir -p /u/espbin/firewalldrichrules/files
+#mkdir -p /u/espbin/firewalldrichrules/files
 
 # Get template rich firewalld rule file and set perms
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
-chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+#/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/firewalld_rule_eliteunithttpport_eliteuniturl' -O /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+#chmod 777 /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
 # Configure the rich firewalld template file from detail obtained above
-sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
-sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+#sed -i 's/portchangeme/'$(cat /tmp/eliteunithttpport)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
+#sed -i 's/eliteurlchangeme/'$(cat /tmp/eliteuniturl)'/g' /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl
 
 # Rename the template rich firewalld file
-mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
+#mv /u/espbin/firewalldrichrules/files/firewalld_rule_eliteunithttpport_eliteuniturl /u/espbin/firewalldrichrules/files/firewalld_rule_$(cat /tmp/eliteunithttpport)_$(cat /tmp/eliteuniturl)
 
 # Get master run rich rules file and set perms
-/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/runrichrules' -O /u/espbin/firewalldrichrules/runrichrules
+#/usr/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/LoneFreeRanger/scripts/main/firewalld_dynamic_IP_update/runrichrules' -O /u/espbin/firewalldrichrules/runrichrules
 chmod 777 /u/espbin/firewalldrichrules/runrichrules
 
 # Check if the firewalldrichrules script is set in root cron to run every 5 mins, if not present add it
-CRONCHECK=$(cat /var/spool/cron/root | grep firewalldrichrules | wc -l)
-if [ $CRONCHECK -le 0 ]
-then
-echo "Adding firewalldrichrules to root cron..."
-sleep 3
-echo "*/5 * * * * /u/espbin/firewalldrichrules/runrichrules &" >> /var/spool/cron/root
-else
-echo "Not adding runrichrules to root cron as already present..."
-sleep 3
-fi
+#CRONCHECK=$(cat /var/spool/cron/root | grep firewalldrichrules | wc -l)
+#if [ $CRONCHECK -le 0 ]
+#then
+#echo "Adding firewalldrichrules to root cron..."
+#sleep 3
+#echo "*/5 * * * * /u/espbin/firewalldrichrules/runrichrules &" >> /var/spool/cron/root
+#else
+#echo "Not adding runrichrules to root cron as already present..."
+#sleep 3
+#fi
 
 # Run the rich rules firewall rules
-/u/espbin/firewalldrichrules/runrichrules
+#/u/espbin/firewalldrichrules/runrichrules
 
 ###### 
 ### Due to a bug in stunnel, whenever you try to start stunnel via an OS service, an error of
@@ -211,7 +211,7 @@ clear
 echo ""
 echo "All done."
 echo ""
-echo "Wherever this server is located, port $(cat /tmp/eliteunithttpport) will need to be opened"
+echo "Wherever this server is located, port $(cat /tmp/60061) will need to be opened"
 echo "and forwarded onto this server on any firewall/ router it sits behind."
 echo ""
 
