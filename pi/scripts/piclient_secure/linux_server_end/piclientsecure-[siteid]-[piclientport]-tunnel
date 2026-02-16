@@ -8,3 +8,13 @@ debug = 7
 [PI_CLIENT_SECURE_siteid_piclientport]
 accept = piclientport
 connect = 127.0.0.1:eliteserviceport
+TIMEOUTbusy = 2147483647
+TIMEOUTidle = 2147483647
+TIMEOUTconnect = 2147483647
+TIMEOUTclose = 2147483647
+socket = l:SO_KEEPALIVE=1
+socket = r:SO_KEEPALIVE=1
+socket = a:SO_KEEPALIVE=1
+socket = a:TCP_KEEPIDLE=15
+socket = a:TCP_KEEPINTVL=10
+socket = a:TCP_KEEPCNT=3
