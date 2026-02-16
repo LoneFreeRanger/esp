@@ -1,0 +1,10 @@
+output = /u/logs/stunnel/piclientsecure-siteid-piclientport-tunnel.log
+cert = /etc/stunnel/key_piclient_secure_stunnel.pem
+key = /etc/stunnel/key_piclient_secure_stunnel.pem
+pid = /var/run/stunnel-siteid-piclientport-piclientsecure.pid
+client = no
+fips = no
+debug = 7
+[PI_CLIENT-SECURE_siteid_piclientport]
+accept = piclientport
+connect = 127.0.0.1:eliteserviceport
