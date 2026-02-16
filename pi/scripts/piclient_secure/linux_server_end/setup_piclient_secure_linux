@@ -1,1 +1,96 @@
-test
+# Ray Reilly
+# Set-up http secure Stunnel encryption for ESP Elite application server
+
+clear
+# Check if script is being run as the root user
+WHO=$(whoami)
+if [ $WHO == root ]
+then
+sleep 0.5
+else
+echo "Please re-run this script as the root user. Bye!"
+exit
+fi
+
+
+clear
+echo "Checking if this is an ESP application server....."
+sleep 3
+ELITECHECK1=$(ls -l /u/gui/espip.dat | wc -l)
+if [ $ELITECHECK1 -ge 1 ]
+then
+echo "This appears to be an ESP application server. Continuing..."
+sleep 2
+else
+echo "This does not seem to be an ESP application server."
+echo ""
+echo "Please make sure to use an ESP application to use this script."
+exit
+fi 
+
+clear
+echo "Checking for key key_piclient_secure_stunnel.pem within /tmp....."
+sleep 3
+CERT_PRESENT=$(find /tmp -name key_piclient_secure_stunnel.pem | wc -l)
+if [ $CERT_PRESENT -ge 1 ]
+then
+echo "Key is present. Continuing...."
+sleep 2
+else
+echo "No key is present. Now exiting. No changes have been made."
+echo ""
+echo "Please place the http secure stunnel encryption key key_piclient_secure_stunnel.pem within /tmp on this ESP application server."
+exit
+fi
+
+clear
+echo "Checking to see if certificate seems valid...."
+VALID_CERT=$(cat /tmp/key_piclient_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
+if [ $VALID_CERT -ge 1 ]
+then
+echo "Certificate appears valid. Continuing...."
+sleep 2
+else
+echo "Certificate key_piclient_secure_stunnel.pem within /tmp does not seem valid. Now exiting. No changes have been made."
+echo ""
+echo "Please place the correct deltaquest stunnel encryption key (key_piclient_secure_stunnel.pem) within /tmp on this e-lite server."
+exit
+fi
+
+###############
+
+clear
+# Install stunnel package if not already installed
+yum -y install stunnel
+
+# Enable stunnel service on server boot
+systemctl enable stunnel
+cd /etc/stunnel/
+
+# How the key was originally created on the e-lite server
+# openssl genrsa -out key.pem 2048
+# Generate a Self-Signed Certificate
+# openssl req -new -x509 -key key.pem -out cert.pem -days 14600
+# cat key.pem cert.pem >> /etc/stunnel/key_http_secure_stunnel.pem
+
+# Copy the keys into stunnel configuration
+cp -rf /tmp/key_piclient_secure_stunnel.pem /etc/stunnel/
+chmod 400 /etc/stunnel/key_piclient_secure_stunnel.pem
+
+# Create stunnel logs directory if not already present
+mkdir -p /u/logs/stunnel/
+
+clear
+# Download the new_http_secure_tunnel_instance script in order to have new tunnels created
+/usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/main/pi/scripts/http_interface_secure/linux_server_end/new_http_secure_tunnel_instance -O /u/espbin/new_http_secure_tunnel_instance
+chmod 777 /u/espbin/new_http_secure_tunnel_instance
+
+clear
+mkdir -p /u/esphbin
+echo ""
+echo "pi client secure basline is complete." 
+echo ""
+echo "If you wish to set up a new http listening tunnel please now run the /u/espbin/new_piclient_secure_tunnel_instance script"
+echo ""
+
+
