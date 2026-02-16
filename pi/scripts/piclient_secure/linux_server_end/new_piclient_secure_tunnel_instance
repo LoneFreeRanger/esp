@@ -39,7 +39,7 @@ echo ""
 exit
 fi
 
-clear
+#clear
 echo "Checking to see if certificate seems valid...."
 VALID_CERT=$(cat /etc/stunnel/key_piclient_secure_stunnel.pem | grep "WX3K0iunZ9I4h3hIQ3JC3C" | wc -l)
 if [ $VALID_CERT -ge 1 ]
@@ -54,7 +54,7 @@ fi
 
 ##############################
 
-clear
+#clear
 # Gather the detail to configure stunnel with
 echo ""
 echo "What port numnber is the e-Elite unit listening on for Elite secure secure connections? [i.e: 60060]"
@@ -75,19 +75,19 @@ read siteid
 echo $siteid > /tmp/siteid 
 echo ""
 echo "=============="
-echo ""
-echo "What is the remote url of the e-lite unit?"
-read eliteuniturl
-echo $eliteuniturl > /tmp/eliteuniturl 
+#echo ""
+#echo "What is the remote url of the e-lite unit?"
+#read eliteuniturl
+#echo $eliteuniturl > /tmp/eliteuniturl 
 
-clear
+#clear
 echo "Checking if port numbers you supplied are already in use on this server...."
 sleep 3
 
 PORTCHECK1=$(netstat -a | grep $(cat /tmp/piclientport) | wc -l)
 if [ $PORTCHECK1 -ge 1 ]
 then 
-clear
+#clear
 echo "The http secure port you have specified above is already in active use on this server."
 echo ""
 echo "You are are not able to use the same port number again."
@@ -108,13 +108,13 @@ fi
 /usr/bin/wget --no-check-certificate https://raw.githubusercontent.com/LoneFreeRanger/esp/refs/heads/main/pi/scripts/piclient_secure/linux_server_end/piclientsecure-%5Bsiteid%5D-%5Beliteunithttpport%5D-tunnel -O /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 chmod 777 /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
-# Configure the stunnel config file port with detail supplied
+!!!!!!!! # Configure the stunnel config file port with detail supplied 
 sed -i 's/eliteunithttpport/'$(cat /tmp/piclientport)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
 # Configure the stunnel config file siteid with detail supplied
 sed -i 's/siteid/'$(cat /tmp/siteid)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
-# Configure the stunnel config file eliteunithttpport with detail supplied
+!!!!!!!!# Configure the stunnel config file eliteunithttpport with detail supplied
 sed -i 's/httpserviceport/'$(cat /tmp/eliteunithttpport)'/g' /u/tunnels/piclientport-[siteid]-[eliteunithttpport]-tunnel
 
 # Rename the default OS service file with detail supplied
@@ -122,7 +122,7 @@ mv /u/tunnels/httpsecure-[siteid]-[eliteunithttpport]-tunnel /u/tunnels/httpsecu
 
 ##############################
 
-clear
+#clear
 # Create the start http tunnels script if not present and set perms
 touch /u/tunnels/startpisecuretunnels
 chmod 777 /u/tunnels/startpisecuretunnels
@@ -207,7 +207,7 @@ fi
 ##############################
 ##############################
 
-clear
+#clear
 echo ""
 echo "All done."
 echo ""
